@@ -1,17 +1,23 @@
-We as humans have always shared a curiosity about the future.  Being able to
-predict events in the future offers tremendous application in todays
-technologically advanced world.  While actually being able to accurately
-predict the future has unfortunately not been proven possible, there has been
-an enormous amount of time and energy spent over the past several decades
-attempting to make educated predictions about the failure of machine in order
-to avoid failures.  In this research we explore the application of a new
-framework developed to automatically re-train machine learning based failure
-predictors.  Failures in software based computer systems have still not been
-eliminated due to the fact that software is still developed by humans and is
-therefore exposed to human error.  There a number of ways to reduce the number
-of errors produced by a piece of software, but the software development
-life-cycle is shrinking and less time and effort are being devoted to reducing
-errors before deployment.  This leaves real-time error prevention or handling.  
+We as humans have always shared a curiosity about the future.  As we become
+more and more dependent upon computers as they permeate their way into our
+daily lives, the software that controls these machines is ultimately still
+subject to human error.  Some of these system are responsible for sustaining
+human life and ultimately are not protected from that same human error.
+Consequently, under the wrong circumstances a machine failure could result
+in loss of human life.  Critical infrastructure and Air Force missions depend
+on the reliability of computer systems.  As a result, being able to predict
+pending failue in computer systems can offer tremendous and potentially
+life-saving applications in todays technologically advanced world.  While
+actually being able to accurately predict failure has unfortunately not been
+proven possible, there has been an enormous amount of time and energy spent
+over the past several decades attempting to make educated predictions about the
+failure of machines through the use of sophisticated machine learning
+algorithms.  In this research we explore the application of a new framework
+developed to automatically re-train machine learning based failure predictors.
+There a number of ways to reduce the number of errors produced by a piece of
+software, but the software development life-cycle is shrinking and less time
+and effort are being devoted to reducing errors before deployment.  This leaves
+real-time error prevention or handling.  
 
 In recent years, it seems many of the cloud based computing companies have
 attempted to solve this problem by making all of their services massively
@@ -19,15 +25,15 @@ redundant.  As hardware becomes more affordable, this is an effective approach
 in many ways but ultimately is still not cost efficient.  In some cases, funds
 may not be available to acheive this sort of redundancy.  Consequently, this
 research focuses on a small piece of the general field of reliable computing:
-online failure prediction (OFP).  OFP is the act of attempting
-to predict when failures are likely so that they can be avoided.  A great deal
-of work has been done in this field which we outline in chapter~\ref{chapter2},
-but much of it has gone unimplemented due to the complex and manual task of
-training a prediction model.  If the underlying system changes at all (which in
-todays world is a common occurrence due to the aforementioned shrinking
-software development life-cycle) the efficacy of a prediction model can be
-drastically reduced if not rendered completely useless until it is retrained.
-This research explores an implementation of a new framework for automatically
+online failure prediction (OFP).  OFP is the act of attempting to predict when
+failures are likely so that they can be avoided.  A great deal of work has been
+done in this field which we outline in chapter~\ref{chapter2}, but much of it
+has gone unimplemented due to the complex and manual task of training a
+prediction model.  If the underlying system changes at all (which in todays
+world is a common occurrence due to the aforementioned shrinking software
+development life-cycle) the efficacy of a prediction model can be drastically
+reduced if not rendered completely useless until it is retrained.  This
+research explores an implementation of a new framework for automatically
 retraining a predictor after such an underlying system change.  More
 specifically, we present our results after implementing this framework using a
 Microsoft Windows Server domain controller.  We then apply successive software
@@ -65,14 +71,6 @@ classifying the current running state of a machine as either failure prone or
 not, or in such a way that it describes the confidence in how failure prone a
 system is at present~\cite{salfnerSurvey}.
 
-Fortunately, over the past several decades many machine learning-based
-approaches to identifying indications of pending failure in log messages or
-\emph{reported errors} have been presented.  These data-driven approaches are
-categorized in a 2010 survey paper by Salfner et al.~\cite{salfnerSurvey} on
-OFP.  They categorize these data-driven approaches along with several others in
-a taxonomy which we extend in this research.  They also categorize OFP under a
-much broader area of study called proactive fault management (PFM).
-
 Unfortunately, in recent years much of the work in OFP has gone unused due to
 the dramatic decrease in cost and complexity involved in building
 hardware-based redundant systems.  Furthermore, in most cases OFP implements
@@ -98,7 +96,33 @@ personnel, equipment, but isn't limited to cost savings.  It is difficult to
 quantify the risk of mission failure due to network service outage.
 
 \section{Assumptions and Limitations}
+As previously stated, it has not been proven possible to accurately predict
+future events without a priori knowledge.  As a result, this research depends
+on the fact that there are indicators of failure present and available to us
+with enough lead-time to accurately make decisions and take mitigation action
+should failure be predicted based on these indicators.  This research presents
+a method of predicting failure, but this method is completely useless at
+predicting \emph{act of God} events.  Further, this method is capable of
+predicting failure based on software failures and cannot provide any useful
+information about malicious attacks against the target software.
 
+\section{Expected Results of Research}
+Because a prediction method is not presently deployed on any Air Force network,
+any level of dependable prediction will be better than what is currently
+available.  This research will attempt to show that after an underlying system
+change, this method of predicting failure will be capable of automatically
+training a more effective prediction algorithm so that this technique can be
+implemented on an Air Force network with little to no impact on manpower.
+Consequently, we expect that this research will inform decision makers and
+allow them to implement this technique in a production environment.
 
-\section{Alternate approach (from paper)}
-
+Specifically, we believe the technique presented in this research could most
+effectively be implemented and used by the Cyber Security and Control System
+(CSCS) weapon system employed at the 561st and 83d Network Operation Squadrons
+(NOS) and their associated detachments to reduce the number of network service
+outages, increasing uptime, leading to improved mission effectiveness in both
+the support and operational domains.  Further, we believe this technique
+general enough to be employed outside of the Air Force to increase mission
+effectiveness across the Department of Defense (DOD).  External to the DOD,
+this research further generalizes an approach that could be used to help
+increase availability of nearly any computer system.
