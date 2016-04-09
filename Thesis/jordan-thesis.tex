@@ -1,0 +1,91 @@
+\documentclass[12pt,letterpaper,oneside]{book}
+\usepackage{../afitStyleFiles/afitThesis}
+\usepackage{../afitStyleFiles/sf298}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{url}
+\usetikzlibrary{positioning}
+\usepackage[percent]{overpic}
+
+\mathchardef\mhyphen="2D % Define a "math hyphen"
+\graphicspath{{../Figures/}}
+
+\input{Preamble/titlepage}
+\input{Preamble/myFigures}
+\input{Preamble/myTables}
+\input{Preamble/commonSymbols}
+\begin{document}
+
+\frontmatter
+	\flyleaf                        
+	\disclaimerpage                 
+	\titlepageAFIT                      
+	\committeepage  
+	\input{Front/abstract}
+	\input{Front/acknowledgements}
+	\tableofcontents
+	\listoffigures
+	\listoftables
+\mainmatter
+
+\chapter{Introduction}
+\input{chapter01/intro}
+
+\chapter{Overview of Online Failure Prediction} \label{chapter2}
+This chapter reviews current research regarding online failure prediction and
+its many approaches to build a foundation for this research.  Further, a
+taxonomy of approaches was developed here~\cite{salfnerSurvey}, this chapter
+updates that taxonomy and classifies approaches since its publication using it.
+
+\section{Background} \label{background}
+In 2010, Salfner et al. published a survey paper that provides a comprehensive
+summary of the state of the art on the topic of OFP~\cite{salfnerSurvey}.  In
+addition to the review of the literature up to the point of publication, they
+provide a summary of definitions (see Section~\ref{definitions}) and measures
+of performance (see Section~\ref{metrics}) commonly used in the community for
+couching the OFP discussion.
+
+\input{chapter02/definitions}
+\input{chapter02/metrics}
+
+\section{Approaches to Online Failure Prediction (OFP)} \label{approaches}
+\input{chapter02/ofptaxonomy}
+\input{chapter02/datadrivenofp}
+\input{chapter02/industry}
+\input{chapter02/afp}
+
+\section{Summary} \label{litReviewSummary}
+\input{chapter02/summary}
+
+\chapter{Methodology}
+In this chapter we outline our extension to the Adaptive Failure Prediction
+(AFP) Framework as seen in~\cite{irrera2015} and our experiment to validate
+that extension and further generalize the framework.  The chapter is split into
+two sections the first of which outlines each module of the AFP framework in
+detail.  The second describes the process that the framework executes in order
+to automatically train a failure prediction algorithm to detect pending
+failures in a target system.
+
+\section{Architecture}
+\input{chapter03/architecture}
+
+\section{Process}
+\input{chapter03/process}
+
+\chapter{Experimental Results and Analysis}
+
+\chapter{Conclusion and Future Work}
+	In conclusion...
+
+\input{chapter05/futurework}
+
+\backmatter
+	\singlespace
+	\bibliographystyle{plain}
+	\bibliography{Back/references} 
+	\input{Back/SF298}
+	\clearpage
+	
+\end{document}
+I

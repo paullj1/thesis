@@ -1,0 +1,86 @@
+
+\newcommand{\tabFaults}{
+\begin{table}[htbp]
+  \centering
+  \caption{Table of Faults Injected~\cite{gswfit}}\label{tab:faults}
+\begin{tabular}{ | c | l | c | } 
+\hline
+	\textbf{Type}  & \textbf{Description}  & \textbf{ODC Classes}  \\ \hline \hline
+	MIFS  & Missing "If (cond) \{ statement(s) \}"  & Algorithm  \\ \hline
+	MFC  & Missing function call  & Algorithm  \\ \hline
+	MLAC  & Missing "AND EXPR" in expression used as branch & Checking  \\ \hline
+	MLPC  & Missing small and localized part of the algorithm  & Algorithm  \\ \hline
+	WVAV  & Wrong value assigned to a value  & Assignment  \\ \hline
+	MVI  & Missing variable initialization  & Assignment  \\ \hline
+	MVAV  & Missing variable assignment using a value  & Assignment  \\ \hline
+	WPFV  & Wrong variable used in parameter of function call  & Interface  \\ \hline
+\end{tabular}
+\end{table}
+}
+
+\newcommand{\tabTranslationThirtyTwo}{
+\begin{table}[htbp]
+  \centering
+  \caption{Funtion Entry/Exit Patterns (IA32)~\cite{gswfit}}\label{tab:translationThirtyTwo}
+\begin{tabular}{ | l | l | l | l | }
+\hline
+	\multicolumn{2}{|c|}{\textbf{Module Entry Point}}& 
+  \multicolumn{2}{c|}{\textbf{Module Exit Point}} \\ \hline
+
+	\textbf{Instruction Sequence} & \textbf{Explanation} &
+  \textbf{Instruction Sequence} & \textbf{Explanation} \\ \hline \hline
+
+	push ebp & stack frame & move esp,ebp & stack frame \\ \hline
+	mov ebp, esp & setup & pop ebp & cleanup \\ \hline
+	sub esp, immed &  & ret &  \\ \hline
+\end{tabular}
+\end{table}
+}
+
+\newcommand{\tabTranslationSixtyFour}{
+\begin{table}[htbp]
+  \centering
+  \caption{Funtion Entry/Exit Patterns (x86-64)~\cite{gswfit}}\label{tab:translationSixtyFour}
+\begin{tabular}{ | l | l | l | l | }
+\hline
+	\multicolumn{2}{|c|}{\textbf{Module Entry Point}}& 
+  \multicolumn{2}{c|}{\textbf{Module Exit Point}} \\ \hline
+
+	\textbf{Instruction Sequence} & \textbf{Explanation} & 
+  \textbf{Instruction Sequence} & \textbf{Explanation} \\ \hline \hline
+
+	push rbp & stack frame & add rsp, immed & stack frame \\ \hline
+	sub rsp, immed &  & pop rbp & cleanup \\ \hline
+	mov rbp, rdx & setup & ret &  \\ \hline
+\end{tabular}
+\end{table}
+}
+
+\newcommand{\tabHypervisorOne}{
+\begin{table}[htbp]
+  \centering
+  \caption{Hypervisor 1 Configuration (Sandbox/Target)} \label{tab:hyp1}
+  \begin{tabular}{ | c | l | l | c | l |}
+    \hline
+    Qty. & Role   & Operating System    & CPU / Mem. \\ \hline\hline
+    1    & DC     & Win. Server 2008 R2 & 2 / 2 GB   \\ \hline
+    5    & Client & Win. 7              & 1 / 512 MB \\ 
+    \hline
+  \end{tabular}
+\end{table}
+}
+
+
+\newcommand{\tabHypervisorTwo}{
+\begin{table}[htbp]
+  \centering
+  \caption{Hypervisor 2 Configuration (Controller)} \label{tab:hyp2}
+  \begin{tabular}{ | c | l | l | c | l |}
+    \hline
+    Qty. & Role & Operating System    & CPU / Mem. \\ \hline\hline
+    1    & RDP  & Win. Server 2008 R2 & 1 / 4 GB   \\ \hline
+    1    & Log  & Ubuntu 14.04 LTS    & 1 / 1 GB   \\ 
+    \hline
+  \end{tabular}
+\end{table}
+}

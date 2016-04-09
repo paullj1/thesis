@@ -1,0 +1,49 @@
+In this work, we seek to generalize the Adaptive Failure Prediction framework
+outlined in~\cite{irrera2015} by conducting another case study with a
+Microsoft Windows Server acting as an active directory service.  We then take
+the case study a step further and show that the approach holds for other
+predictors (maybe).  Specifically, we will report findings after implementing
+this framework with the predictor used by Irrera et al. in their case study and
+the predictor used by Watanabe et al. here~\cite{watanabe2014}.
+
+In this section we outline the step-by-step procedure by which we evaluate the
+AFP framework and how effective it is when used on Windows Server deployments.
+We do this by dividing the steps taken in our experiment into the three major
+phases as defined in~\cite{irrera2015}: preparation phase, execution phase, and
+training phase.
+
+\subsection{Preparation Phase}
+In this phase the AFP is prepared to run for the first time as described
+in~\cite{irrera2015}.  For the purposes of this research, we have mostly
+described the steps that we have taken for this phase in the previous section.
+The point of this phase is to prepare the first predictor on the production
+system and implement the modules of the AFP for future predictor training.  The
+most critical preparation we have made in evaluating this framework is to hold
+back all software updates on our target system prior to the first run of the
+execution phase.
+
+\subsection{Execution Phase}
+A general outline of this process can be seen in
+Figure~\ref{fig:ExecutionPhase}.  This phase is divided into three major states
+data collection and failure prediction, event checking, and training/update as
+described in this section.
+
+\figExecutionPhase
+
+In this phase, the system has a working predictor providing input to either an
+automated decision system or a human-machine team.  The system in this phase is
+making failure predictions about the current state based on the last run of the
+training phase.
+
+In general, this process is continuously monitoring events that may alter the
+underlying system.  In our experiment, these events are software updates.  The
+output of each episode of this phase is a binary decision to either begin the
+training phase, or not.  In our experiments, we manually trigger the training
+phase upon completion of a major software update.
+
+
+\subsubsection{Data Collection and 
+
+
+\subsection{Training Phase}
+

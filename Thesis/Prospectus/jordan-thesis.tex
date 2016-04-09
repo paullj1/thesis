@@ -1,0 +1,31 @@
+\documentclass[12pt,letterpaper,oneside]{article}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage[percent]{overpic}
+
+\mathchardef\mhyphen="2D % Define a "math hyphen"
+\graphicspath{{../../Figures/}}
+
+\input{../Preamble/myFigures}
+\input{../Preamble/commonSymbols}
+\begin{document}
+
+\section{Introduction}
+The purpose of this prospectus is to outline research tasks and proposed
+solutions to accomplish the NSA funded research to find a machine learning
+based approach to predicting failure in our enterprise Microsoft Windows Server
+infrastructure.  Every day, many of the Air Force's critical missions depend on
+our computer infrastructure.  A critical piece of this infrastructure is the
+authentication mechanisms that protect our sensitive information.
+Unfortunately, the software at the core of this infrastructure is written and
+maintained by humans and thus susceptible human error.  Fortunately, a great
+deal of work has already gone into identifying good machine learning algorithms
+to predict this type of failure based on warning signs that may be obfuscated
+in log messages.
+
+\bibliographystyle{plain}
+\bibliography{../Back/references} 
+	
+\end{document}

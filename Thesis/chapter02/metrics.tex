@@ -1,0 +1,68 @@
+\subsection{Measures of Performance} \label{metrics}
+In order to accurately compare OFP approaches, standard measures of performance are used.  A widely accepted set of measures of performance used by the community is presented in~\cite{salfnerSurvey}.  Before we begin the outline of the measures of performance used to evaluate and compare failure prediction approaches, it is important to note that OFP is done based on statistical analysis of known data.  In other words, in order to calculate the following outlined measures of performance, predictors must be evaluated against labeled data sets.  Typically, the labeled data set is divided into three parts:
+\begin{enumerate}
+\item{Training Set:  A data set that allows a prediction model to establish and optimize its parameters}
+\item{Validation Set:  The parameters selected in the training phase are then validated against a separate data set}
+\item{Test Set:  The predictor is finally run against a final previously unevaluated data set to assess generalizability}
+\end{enumerate}
+During the test phase, true positives (negatives) versus false positives (negatives) are determined in order to compute the measures of performance in this section.  The following terms and associated abbreviations are used: \emph{True Positive} (TP) is when failure has been predicted and then actually occurs; \emph{False Positive} (FP) is when failure has been predicted and then does not occur; \emph{True Negative} (TN) is when a state has been accurately classified as non-failure prone; \emph{False Negative} is when a state has been classified as non-failure prone and a failure occurs.
+
+\subsubsection{Precision and Recall:}
+Precision and recall are the most popular measures of performance used when presenting and comparing OFP approaches.  The two are related and often times improving precision results in reduced recall.  For example, if a predictor is more accurate with a prediction then that predictor may be less likely to classify a state as failure-prone in an effort to minimize false-positives.
+
+Precision is the number of correctly identified failures over number of all predicted failures.  In other words, it reports, out of the predictions of a failure-prone state that were made, how many were correct.  In general, the higher the precision the better the predictor.  Precision is expressed as:
+\[ Precision 
+	= \dfrac{TP}{TP + FP} \in [0,1]
+\]
+
+Recall is the ratio of correctly predicted failures to the number of true failures.  In other words, it reports, out of the actual failures that occurred, how many the predictor classified as failure-prone.  In conjunction with a higher precision, higher recall is indicative of a better predictor.  Recall is expressed as:
+\[ Recall 
+	= \dfrac{TP}{TP + FN} \in [0,1]
+\]
+
+F-Measure, as defined by~\cite{rijsbergen1979v}, is the harmonic mean of precision and recall and represents a trade-off between the two.  A higher F-Measure reflects a higher quality predictor.  F-Measure is expressed as:
+\[ F\mhyphen Measure 
+	= \dfrac{2 \cdot Precision \cdot Recall}{Precision + Recall} \in [0,1]
+\]
+
+\subsubsection{False Positive Rate and Specificity:}
+Precision and recall do not account for true negatives (correctly predicted non-failure-prone situations) which can bias an assessment of a predictor.  The following measures of performance take true negatives into account to help evaluators more accurately assess and compare predictors.
+
+False Positive Rate (FPR) is the number of incorrectly predicted failures over the total number of predicted non-failure-prone states.  A smaller FPR reflects a higher quality predictor.  The False Positive Rate is expressed as:
+\[ \mathit{FPR}
+	= \dfrac{FP}{FP + TN} \in [0,1]
+\]
+
+Specificity the number of times a predictor correctly classified a state as non-failure-prone over all non-failure-prone predictions made.  In general, specificity alone is not very useful since failure is rare.  Specificity is expressed as:
+\[ Specificity 
+	= \dfrac{TN}{FP + TN} = 1 - False Positive Rate
+\]
+
+\subsubsection{Negative Predictive Value (NPV) and Accuracy:}
+In some cases, we wish to show that a prediction approach can correctly classify non-failure-prone situations.  The following measures of performance usually can not stand alone due to the nature of failures being rare events.  In other words, a highly ``accurate'' predictor could classify a state 100\% of the time as non-failure-prone and still fail to predict every single true failure.
+
+Negative Predictive Value (NPV) is the number of times a predictor correctly classifies a state as non-failure-prone to the total number all non-failure-prone states during which a prediction was made.  Higher quality predictors have high NPVs.  The NPV is expressed as:
+\[ \mathit{NPV}
+	= \dfrac{TN}{TN + FN}
+\]
+
+Accuracy is the ratio of all correct predictions to the number of predictions made.  Accuracy is expressed as:
+\[ Accuracy 
+	= \dfrac{TP + TN}{TP + FP + FN + TN}
+\]
+
+\subsubsection{Precision/Recall Curve:}
+Much like with other predictors, many OFP approaches implement variable thresholds to sacrifice precision for recall or vice versa.  That trade-off is typically visualized using a precision/recall curve as seen in Figure~\ref{fig:precisionRecallCurve}.
+
+\figprecisionRecallCurve
+
+Another popular visualization is the receiver operating characteristic (ROC) curve.  By plotting true positive rate over false positive rate one is able to see the predictors ability to accurately classify a failure.  A sample ROC curve is shown in Figure~\ref{fig:ROC}.
+
+\figROC
+
+The ROC curve relationship can be further illustrated by calculating the area under the curve (AUC).  Predictors are commonly compared using the AUC which is calculated as follows:
+
+$$AUC = \int_{0}^{1} \mathit{tpr}(\mathit{fpr}) \,d\,\mathit{fpr} \in [0,1],$$
+
+\noindent
+where $tpr$ = true positive rate (recall), and $fpr$ = false positive rate.  A pure random predictor will result in an AUC of $0.5$ and a perfect predictor a value of~$1$.  The AUC can be thought of as the probability that a predictor will be able to accurately distinguish between a failure-prone state and a non-failure-prone state, over the entire operating range of the predictor.
