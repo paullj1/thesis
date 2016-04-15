@@ -3,8 +3,8 @@ in~\cite{irrera2015} by conducting another case study with a Microsoft Windows
 Server acting as an active directory service.  The case study is then taken a
 step further by showing that the approach holds for other predictors (maybe).
 Specifically, findings are reported after implementing this framework with
-the predictor used by Irrera et al. in their case study and the predictor used
-by Watanabe et al. here~\cite{watanabe2014}.
+the predictor used by Irrera, et al.~\cite{irrera2015} in their case study and
+the predictor used by Watanabe, et al.~\cite{watanabe2014}.
 
 This section outlines the step-by-step procedure by which the extended AFP is
 evaluated to show how effective it is when used on Windows Server deployments.
@@ -14,14 +14,19 @@ training phase.
 
 \subsection{Preparation Phase}
 In this phase the AFP is prepared to run for the first time as described
-in~\cite{irrera2015}.  The point of this phase is to prepare the first
-predictor on the production system and implement the modules of the AFP for
-future predictor training.  The most critical preparation made in evaluating
-this framework is to hold back all software updates on the target system prior
-to the first run of the execution phase.  This phase is ultimately the
-implementation of the framework.  Each module of the implementation for this
-work is detailed in Section~\ref{sec:implementation} and is therefore not
-discussed further here.  
+in~\cite{irrera2015}.  The Cross Industry Standard Process for Data Mining
+(CRISP-DM)~\cite{crispdm} should be applied to this situation when evaluating
+how to best apply the AFP for a particular target.  For the purposes of this
+research, our focus is on the Microsoft Windows Directory Services and
+predicting failure in those services.  To demonstrate the efficacy of the AFP,
+a predictor must be evaluated before and after a significant software update.
+As a result, the most critical preparation made in evaluating this framework is
+to hold back all software updates on the target system prior to the first run
+of the execution phase.  
+
+This phase is ultimately the implementation of the framework.  Each module of
+the implementation for this work is detailed in
+Section~\ref{sec:implementation} and is therefore not discussed further here.  
 
 \subsection{Execution Phase}
 A general outline of this process can be seen in
@@ -81,11 +86,11 @@ fault injection step.
 
 The most critical part of this process is labelling the data when failure
 occurs.  For the purposes of this experiment, D-PLG reports when authentication
-fails and transmits a syslog message to the controller.  We have established
-two criteria for failure, the first is when authentication with known good
-credentials fails.  The second is classified by when authentication with known
-good credentials takes longer than thirty seconds (and it can then be assumed
-that the service has crashed).
+fails and transmits a syslog message to the controller.  For this research,
+failure has been defined by two criteria, the first is when authentication with
+known good credentials fails.  The second is classified by when authentication
+with known good credentials takes longer than thirty seconds (and it can then
+be assumed that the service has crashed).
 
 \subsubsection{Dataset Building}
 In this phase, the raw syslog messages are formatted and encoded to train the

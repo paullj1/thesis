@@ -88,7 +88,7 @@
 \definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
 \definecolor{armygreen}{rgb}{0.29, 0.33, 0.13}
 
-\newcommand{\figannotatedAFP}{\begin{figure}[H]
+\newcommand{\figannotatedAFP}{\begin{figure}[ht!]
  \begin{center}
      \begin{overpic}[width=5in,scale=.25]{annotatedAFP}
        \put(8,0){
@@ -159,17 +159,17 @@
 \end{figure}
 }
 
-\newcommand{\figExecutionPhase}{\begin{wrapfigure}{R}{0.5\textwidth}
+\newcommand{\figExecutionPhase}{\begin{figure}[!ht]
   \begin{center}
     \includegraphics[width=2.5in]{ExecutionPhase}
     \caption[AFP Execution Phase~\cite{irrera2015}]{The flow of the major steps
     involved in the AFP framework execution phase~\cite{irrera2015}.}
     \label{fig:ExecutionPhase}
   \end{center}
-\end{wrapfigure}
+\end{figure}
 }
 
-\newcommand{\figAuthDCPPS}{\begin{figure}[H]
+\newcommand{\figAuthDCPPS}{\begin{figure}[ht!]
  \begin{center}
   \includegraphics[width=4in]{authDCPPS}
   \caption[Domain Controller Packets per Second]{How many packets per second
@@ -180,7 +180,7 @@
 \end{figure}
 }
 
-\newcommand{\figAuthClientPPS}{\begin{figure}[H]
+\newcommand{\figAuthClientPPS}{\begin{figure}[ht!]
  \begin{center}
   \includegraphics[width=4in]{authClientPPS}
   \caption[Client Packets per Second]{How many packets per second were sent or
@@ -190,7 +190,7 @@
 \end{figure}
 }
 
-\newcommand{\figAuthDCMetrics}{\begin{figure}[H]
+\newcommand{\figAuthDCMetrics}{\begin{figure}[ht!]
  \begin{center}
   \includegraphics[width=4in]{authDCMetrics}
   \caption[Test 1:  Domain Controller Metrics]{Domain controller CPU and memory
