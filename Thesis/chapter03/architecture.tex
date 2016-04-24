@@ -259,7 +259,7 @@ module.
 This module is responsible for causing the target application to fail so that
 labelled failure data can be generated in a short period of time.  As described
 in Section~\ref{sec:faultInjectionMgr}, W-SWFIT has been developed to serve
-this purpos and implements the G-SWFIT technique developed by Duraes et
+this purpose and implements the G-SWFIT technique developed by Duraes et
 al.~\cite{gswfit} for fault injection.  The execution is controlled by the
 Windows Server virtual machine on the Controller hypervisor through PowerShell
 remote execution to reduce the interaction and potential to introduce bias into
@@ -268,6 +268,10 @@ into the AD Services processes and binary libraries which are mostly contained
 within the `lsass.exe' process.  Since many of the critical functions performed
 by the AD Services processes are performed in one library called `ntdsa.dll',
 it is the focus of fault injection.
+
+This function is extended by this research to include failure as a result of
+excessive load and failure as a result of a corrupt database.
+Section~\ref{sec:extensions} covers these extensions in more depth.
 
 \subsubsection{Monitoring} \label{sec:sandboxMonitoringTool} 
 The purpose of this module is to capture some evidence or indication of pending
