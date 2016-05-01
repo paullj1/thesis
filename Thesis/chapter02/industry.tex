@@ -1,2 +1,14 @@
 \subsection{Industry Approaches to Online Failure Prediction} \label{industry}
-We thought it necessary to add a brief discussion on how industry seems to have addressed the failure prediction dilemma in recent years.  Because hardware has become so easy to acquire, industry seems to have avoided the problem by implementing massive redundancy in their systems.  The work in~\cite{watanabe2014,irrera2015} have attributed this problem avoidance to the fact that until recently, implementing and maintaining a failure predictor was difficult.  As we decrease the length of the software development life cycle, software updates are being published with increasing frequency leading to rapid changes in underlying systems.  These changes can often render a predictor useless without re-training, which is often a manual and resource intensive process.
+Because hardware has become so easy to acquire, industry has sought to avoid
+the problem of software failure by implementing massive redundancy in their
+systems.  The work in~\cite{watanabe2014,irrera2015} attributes the problem
+avoidance to the fact that until recently, implementing and maintaining a
+failure predictor was difficult.  As we decrease the length of the software
+development life cycle, software updates are being published with increasing
+frequency leading to rapid changes in underlying systems.  These changes can
+often render a predictor useless without re-training, which is often a manual
+and resource intensive process.
+
+Redundancy is not without problems however.  Implementing redundant systems to
+avoid the failure problem can be expensive and can add overhead and complexity
+making a system more difficult to manage.
