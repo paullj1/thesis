@@ -7,4 +7,10 @@ injection/training phases}
 \item{Automate the event checking process... need a way to better determine
 when underlying system has changed}
 \item{Implement more predictors?}
+\item{Better define method for determining when to run AFP? Sliding time
+window?  Machine learngin?}
+\item{Continuously running AFP?  Let it run continuously in the background to
+capture new failures.  The same way our tool reports failure, have a health
+checking daemon running in the background that will report to syslog when
+failure has occured so that it gets labelled}
 \end{itemize}
