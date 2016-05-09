@@ -45,15 +45,16 @@ then applied until the model selected becomes useless, the framework is then
 allowed to re-train a new predictor.
 
 \section{Problem Statement}
-Predicting and alerting on impending network service failures currently uses
-thresholds and rules on discrete items in enterprise system logs.  For example,
-if the central processing unit (CPU) and memory usage on a device exceeds 90\%,
-then an alert may be issued.  This approach works, but only for certain types
-of failures and in order to minimize the false positives, it only makes
-recommendations minutes before a failure, or when the system is in an already
-degraded performance mode.  To maintain network resilience, the operational
-organizations responsible for communications support desperately need some
-means of gaining lead-time before a service failure occurs.  
+According to the operators at the 33d Network Warfare Squadron, predicting and
+alerting on impending network service failures currently uses thresholds and
+rules on discrete items in enterprise system logs.  For example, if the central
+processing unit (CPU) and memory usage on a device exceeds 90\%, then an alert
+may be issued.  This approach works, but only for certain types of failures and
+in order to minimize the false positives, it only makes recommendations minutes
+before a failure, or when the system is in an already degraded performance
+mode.  To maintain network resilience, the operational organizations
+responsible for communications support desperately need some means of gaining
+lead-time before a service failure occurs.  
 
 Preceding a service failure event, multiple indicators spread disparate
 sources, perhaps over a long period of time, may appear in system logs.  The
@@ -77,17 +78,17 @@ present~\cite{salfnerSurvey}.
 
 In recent years much of the work in OFP has gone unused due to the dramatic
 decrease in cost and complexity involved in building hardware-based redundant
-systems.  Furthermore, in most cases OFP implements machine learning algorithms
-that require manual re-training after underlying system changes.  More
-troubling is that system changes are becoming more frequent as the software
-development life cycle moves toward a more continuous integration model.  To
-help solve these challenges, the framework presented in~\cite{irrera2015} uses
-simulated faults to automatically re-train a prediction algorithm to make
-implementing OFP approaches easier.  This work extends that framework to
-capture developments since its writing and generalize it so it works for a
-broader class of devices by translating and implementing the fault injection
-tool from the IA32 architecture to the x86-64 architecture and developing the
-fault load to produce even more representative failures.
+systems~\cite{irrera2015}.  Furthermore, in most cases OFP implements machine
+learning algorithms that require manual re-training after underlying system
+changes.  More troubling is that system changes are becoming more frequent as
+the software development life cycle moves toward a more continuous integration
+model.  To help solve these challenges, the framework presented
+in~\cite{irrera2015} uses simulated faults to automatically re-train a
+prediction algorithm to make implementing OFP approaches easier.  This work
+extends that framework to capture developments since its writing and generalize
+it so it works for a broader class of devices by translating and implementing
+the fault injection tool from the IA32 architecture to the x86-64 architecture
+and developing the fault load to produce even more representative failures.
 
 \section{Hypothesis}
 The implementation of the AFP framework with a more representative fault load

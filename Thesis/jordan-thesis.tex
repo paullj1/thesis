@@ -2,14 +2,6 @@
 \usepackage{../afitStyleFiles/afitThesis}
 \usepackage{../afitStyleFiles/sf298}
 \usepackage[pdftex,pdfpagelabels,bookmarks,hyperindex,hyperfigures]{hyperref}
-\hypersetup{
-    colorlinks,
-    citecolor=black,
-    filecolor=black,
-    linkcolor=black,
-    urlcolor=black
-}
-\usepackage{float}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 \usepackage[percent]{overpic}
@@ -21,8 +13,10 @@
 \input{Preamble/myFigures}
 \input{Preamble/myTables}
 \input{Preamble/commonSymbols}
+
 \begin{document}
 
+%-----------------------------------------------------------------------------%
 \frontmatter
 	\flyleaf                        
 	\disclaimerpage                 
@@ -33,27 +27,41 @@
 	\tableofcontents
 	\listoffigures
 	\listoftables
+%-----------------------------------------------------------------------------%
 \mainmatter
-
 \chapter{Introduction} \label{chapter1}
 \input{chapter01}
 
 \chapter{Overview of Online Failure Prediction} \label{chapter2}
 \input{chapter02}
 
-\chapter{Methodology}
+\chapter{Methodology} \label{chapter3}
 \input{chapter03}
 
-\chapter{Experimental Results and Analysis}
+\chapter{Experimental Results and Analysis} \label{chapter4}
+\input{chapter04}
 
-\chapter{Conclusion and Future Work}
+\chapter{Conclusion and Future Work} \label{chapter5}
 \input{chapter05}
+%-----------------------------------------------------------------------------%
+\appendix
+\chapter{W-SWFIT}
+\section{FaultInjection.cpp} \label{app:w-swfit}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize,language=C++]{
+ ../Code/FaultInjection/FaultInjection.cpp
+}
 
+\chapter{ResourceLeak}
+\section{resourceleak.cpp} \label{app:resourceLeak}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize,language=C++]{
+ ../Code/ResourceLeak/resourceleak.cpp
+}
+%-----------------------------------------------------------------------------%
 \backmatter
 	\singlespace
 	\bibliographystyle{plain}
 	\bibliography{Back/references} 
 	\input{Back/SF298}
 	\clearpage
-	
+%-----------------------------------------------------------------------------%
 \end{document}

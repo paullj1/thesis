@@ -516,6 +516,8 @@ copyright protection in the United States.}
     \setcounter{section}{0}%
     \gdef\@chapapp{Appendix}%
     \gdef\thechapter{\@Alph\c@chapter}
+    \gdef\thesection{\thechapter.\arabic{section}}
+    \gdef\thesubsection{\thesection.\arabic{subsection}}
     }
     
 %==================================================================
@@ -622,7 +624,7 @@ copyright protection in the United States.}
 			{\normalfont\normalsize\bfseries}}
 
 % Set depth of section numbering here; use a number from -1 to 3
-\setcounter{secnumdepth}{1}
+\setcounter{secnumdepth}{3}
 
 % Modified \@sect from latex.ltx code to supply a period for subsections and below 
 \def\@sect#1#2#3#4#5#6[#7]#8{%
