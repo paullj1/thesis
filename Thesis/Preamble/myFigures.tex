@@ -99,9 +99,9 @@
 \definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
 \definecolor{armygreen}{rgb}{0.29, 0.33, 0.13}
 
-\newcommand{\figannotatedAFP}{\begin{figure}[ht!]
+\newcommand{\figannotatedAFPcolor}{\begin{figure}[ht!]
  \begin{center}
-     \begin{overpic}[width=5in,scale=.25]{annotatedAFP}
+     \begin{overpic}[width=5in,scale=.25]{annotatedAFPcolor}
        \put(8,0){
          \begin{tikzpicture}
            [node font=\footnotesize, label/.style={rectangle, draw,
@@ -150,6 +150,67 @@
              {\textcolor{white}{\ref{sec:targetMonitoringTool}}};
            \node[label, below=7.85cm of MonTool] (Target)
              {\textcolor{white}{\ref{sec:target}}};
+         \end{tikzpicture}
+       }
+     \end{overpic}
+     \caption[Annotated AFP Framework~\cite{irrera2015}]{The AFP framework
+     implementation~\cite{irrera2015} with modified components highlighted.}
+     \label{fig:annotatedAFP}
+ \end{center}
+\end{figure}
+}
+
+\newcommand{\figannotatedAFP}{\begin{figure}[ht!]
+ \begin{center}
+     \begin{overpic}[width=5in,scale=.25]{annotatedAFP}
+       \put(8,0){
+         \begin{tikzpicture}
+           [node font=\footnotesize, label/.style={rectangle, draw,
+           fill=white, text width=2cm, text badly centered, minimum
+           height=0.5cm, rounded corners}]
+
+           \node[label] (FPMgr)
+             {\textcolor{black}{\ref{sec:failurePrediction}}};
+           \node[label, below=1.2cm of FPMgr] (FIMgr) 
+             {\textcolor{black}{\ref{sec:faultInjectionMgr}}};
+           \node[label, below=1.3cm of FIMgr] (WMgr) 
+             {\textcolor{black}{\ref{sec:workloadMgr}}};
+           \node[label, below=1.2cm of WMgr] (EMMgr) 
+             {\textcolor{black}{\ref{sec:eventsManagerMgr}}};
+           \node[label, below=1.2cm of EMMgr] (SMgr) 
+             {\textcolor{black}{\ref{sec:sandboxMgr}}};
+           \node[label, below=4.75cm of SMgr] (Controller) 
+             {\textcolor{black}{\ref{sec:controller}}};
+         \end{tikzpicture}
+       }
+
+       \put(40,60.5){
+         \begin{tikzpicture}
+           [node font=\footnotesize, label/.style={rectangle, draw,
+           fill=white, text width=2cm, text badly centered, minimum
+           height=0.5cm, rounded corners}]
+
+           \node[label] (Sandbox)
+             {\textcolor{black}{\ref{sec:sandbox}}};
+           \node[label, below=1.2cm of Sandbox] (SBFITool)
+             {\textcolor{black}{\ref{sec:faultInjectionTool}}};
+           \node[label, below=0.95cm of SBFITool] (SBMTool) 
+             {\textcolor{black}{\ref{sec:sandboxMonitoringTool}}};
+           \node[label, below=0.95cm of SBMTool] (SBWorkload) 
+             {\textcolor{black}{\ref{sec:sandboxWorkload}}};
+         \end{tikzpicture}
+       }
+
+       \put(66,0){
+         \begin{tikzpicture}
+           [node font=\footnotesize, label/.style={rectangle, draw,
+           fill=white, text width=2cm, text badly centered, minimum
+           height=0.5cm, rounded corners}]
+
+           \node[label] (MonTool)
+             {\textcolor{black}{\ref{sec:targetMonitoringTool}}};
+           \node[label, below=7.85cm of MonTool] (Target)
+             {\textcolor{black}{\ref{sec:target}}};
          \end{tikzpicture}
        }
      \end{overpic}
