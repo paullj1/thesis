@@ -16,7 +16,6 @@
 
 \begin{document}
 
-%-----------------------------------------------------------------------------%
 \frontmatter
 	\flyleaf                        
 	\disclaimerpage                 
@@ -27,41 +26,22 @@
 	\tableofcontents
 	\listoffigures
 	\listoftables
-%-----------------------------------------------------------------------------%
+
 \mainmatter
-\chapter{Introduction} \label{chapter1}
-\input{chapter01}
+  \input{chapter01}
+  \input{chapter02}
+  \input{chapter03}
+  \input{chapter04}
+  \input{chapter05}
 
-\chapter{Overview of Online Failure Prediction} \label{chapter2}
-\input{chapter02}
-
-\chapter{Methodology} \label{chapter3}
-\input{chapter03}
-
-\chapter{Experimental Results and Analysis} \label{chapter4}
-\input{chapter04}
-
-\chapter{Conclusion and Future Work} \label{chapter5}
-\input{chapter05}
-%-----------------------------------------------------------------------------%
 \appendix
-\chapter{W-SWFIT}
-\section{FaultInjection.cpp} \label{app:w-swfit}
-\lstinputlisting[basicstyle=\ttfamily\scriptsize,language=C++]{
- ../Code/FaultInjection/FaultInjection.cpp
-}
+  \input{appendices}
 
-\chapter{ResourceLeak}
-\section{resourceleak.cpp} \label{app:resourceLeak}
-\lstinputlisting[basicstyle=\ttfamily\scriptsize,language=C++]{
- ../Code/ResourceLeak/resourceleak.cpp
-}
-%-----------------------------------------------------------------------------%
 \backmatter
 	\singlespace
 	\bibliographystyle{plain}
 	\bibliography{Back/references} 
 	\input{Back/SF298}
 	\clearpage
-%-----------------------------------------------------------------------------%
+
 \end{document}
