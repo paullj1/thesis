@@ -29,7 +29,7 @@ failure when predicted during OFP.  \emph{Lead time} is defined as the time
 between when failure is predicted and when that failure will occur.  Lead time
 is one of the most critical elements of a failure prediction approach.
 
-\figproactiveFaultManagement
+\figproactiveFaultManagement{6in}
 
 OFP is defined as the first step in PFM shown in
 Figure~\ref{fig:proactiveFaultManagement}.  OFP is the act of analyzing the
@@ -82,18 +82,18 @@ errors, whether detected or undetected.  In the memory leak example, a possible
 symptom of the error might be delayed response times due to sluggish
 performance of the overall system.
 
-\figfailureFlowDiagram
+\figfailureFlowDiagram{6in}
 
 Figure~\ref{fig:failureFlowDiagram} illustrates how a software fault can evolve
 into a failure.  Faults, errors, symptoms, and failures can be further
 categorized by how they are detected also shown in
-Figure~\ref{fig:failureFlowDiagram}.  Salfner, et al.~\ref{salfnerSurvey}
+Figure~\ref{fig:failureFlowDiagram}.  Salfner, et al.~\cite{salfnerSurvey}
 introduces a taxonomy of OFP approaches and classifies failure prediction
 approaches by the stage at which a fault is detected as it evolves into a
 failure: auditing, reporting, monitoring, and tracking.  Testing is left out
 because it does not help detect faults in an online sense.  
 
-\figonlinePrediction
+\figonlinePrediction{6in}
 
 Figure~\ref{fig:onlinePrediction} demonstrates the timeline associated with
 OFP.  The parameters used by the community to define a predictor are as
@@ -152,7 +152,7 @@ be a sign of pending failure.  \emph{Classifiers} assign labels to given sets
 of error reports in training data and then make failure predictions based on
 observed labels in real-time data.
 
-\figpatternRecognition
+\figpatternRecognition{6in}
 
 \subsection{Data-Driven Online Failure Prediction}
 % The survey published by Salfner et al. covered approaches in every sub-category
@@ -282,7 +282,7 @@ maintaining the efficacy of failure predictors given underlying system changes.
 The authors conducted a case study implementing the framework using
 virtualization and fault injection on a web server.  
 
-\figAFP
+\figAFP{5in}
 
 The concept reported used past work by Irrera et
 al.~\cite{irrera2013,irrera2014} to generate failure data by injecting software

@@ -21,9 +21,9 @@
 % figure label fig:labSetup.
 % 
 
-\newcommand{\figproactiveFaultManagement}{\begin{figure}[H]
+\newcommand{\figproactiveFaultManagement}[1]{\begin{figure}[H]
  \begin{center}
-    \includegraphics[width=6in]{proactiveFaultManagement}
+    \includegraphics[width=#1]{proactiveFaultManagement}
      \caption[Proactive Fault Management~\cite{salfnerSurvey}]{The stages of
      proactive fault management~\cite{salfnerSurvey}.}
      \label{fig:proactiveFaultManagement}
@@ -31,9 +31,9 @@
 \end{figure}
 }
 
-\newcommand{\figonlinePrediction}{\begin{figure}[H]
+\newcommand{\figonlinePrediction}[1]{\begin{figure}[H]
  \begin{center}
-    \includegraphics[width=6in]{onlinePrediction}
+    \includegraphics[width=#1]{onlinePrediction}
      \caption[Online Failure Prediction~\cite{salfnerSurvey}]{The timeline for
      OFP~\cite{salfnerSurvey}.}
      \label{fig:onlinePrediction}
@@ -41,9 +41,9 @@
 \end{figure}
 }
 
-\newcommand{\figfailureFlowDiagram}{\begin{figure}[H]
+\newcommand{\figfailureFlowDiagram}[1]{\begin{figure}[H]
  \begin{center}
-    \includegraphics[width=6in]{failureFlowDiagram}
+    \includegraphics[width=#1]{failureFlowDiagram}
      \caption[Failure Flow Diagram~\cite{salfnerSurvey}]{How faults and errors
      evolve into failure with the associated methods for detection represented
      by enclosing gray boxes~\cite{salfnerSurvey}.}
@@ -53,9 +53,9 @@
 \end{figure}
 }
 
-\newcommand{\figROC}{\begin{figure}[H]
+\newcommand{\figROC}[1]{\begin{figure}[H]
  \begin{center}
-    \includegraphics[width=3in]{ROC}
+    \includegraphics[width=#1]{ROC}
      \caption[Sample ROC Plots~\cite{salfnerSurvey}]{ROC plots of perfect,
      average, and random predictors~\cite{salfnerSurvey}.}
      \label{fig:ROC}
@@ -63,9 +63,9 @@
 \end{figure}
 }
 
-\newcommand{\figprecisionRecallCurve}{\begin{figure}[H]
+\newcommand{\figprecisionRecallCurve}[1]{\begin{figure}[H]
  \begin{center}
-    \includegraphics[width=3in]{precisionRecallCurve}
+    \includegraphics[width=#1]{precisionRecallCurve}
      \caption[Sample Precision/Recall Curves~\cite{salfnerSurvey}]{Sample
      precision/recall curves~\cite{salfnerSurvey}.  Curve $A$ represents a
      poorly performing predictor, curve $B$ represents an average predictor,
@@ -75,9 +75,9 @@
 \end{figure}
 }
 
-\newcommand{\figpatternRecognition}{\begin{figure}[H]
+\newcommand{\figpatternRecognition}[1]{\begin{figure}[H]
  \begin{center}
-    \includegraphics[width=6in]{patternRecognition}
+    \includegraphics[width=#1]{patternRecognition}
      \caption[Pattern recognition in reported errors~\cite{salfnerSurvey}]{How
      pattern recognition is accomplished in reported
      errors~\cite{salfnerSurvey}.}
@@ -86,9 +86,9 @@
 \end{figure}
 }
 
-\newcommand{\figAFP}{\begin{figure}[H]
+\newcommand{\figAFP}[1]{\begin{figure}[H]
  \begin{center}
-    \includegraphics[width=5in]{AFP}
+    \includegraphics[width=#1]{AFP}
      \caption[AFP Framework Implementation~\cite{irrera2015}]{How the AFP
      framework is implemented~\cite{irrera2015}.}
      \label{fig:AFP}
@@ -221,9 +221,9 @@
 \end{figure}
 }
 
-\newcommand{\figTrainingPhase}{\begin{figure}[H]
+\newcommand{\figTrainingPhase}[1]{\begin{figure}[H]
  \begin{center}
-  \includegraphics[width=4in]{TrainingPhase}
+  \includegraphics[width=#1]{TrainingPhase}
   \caption[AFP Training Phase~\cite{irrera2015}]{The flow of the major steps
     involved in the AFP framework training phase~\cite{irrera2015}.}
   \label{fig:TrainingPhase}
@@ -231,9 +231,9 @@
 \end{figure}
 }
 
-\newcommand{\figExecutionPhase}{\begin{figure}[!ht]
+\newcommand{\figExecutionPhase}[1]{\begin{figure}[!ht]
   \begin{center}
-    \includegraphics[width=2.5in]{ExecutionPhase}
+    \includegraphics[width=#1]{ExecutionPhase}
     \caption[AFP Execution Phase~\cite{irrera2015}]{The flow of the major steps
     involved in the AFP framework execution phase~\cite{irrera2015}.}
     \label{fig:ExecutionPhase}
@@ -241,9 +241,9 @@
 \end{figure}
 }
 
-\newcommand{\figAuthDCPPS}{\begin{figure}[ht!]
+\newcommand{\figAuthDCPPS}[1]{\begin{figure}[ht!]
  \begin{center}
-  \includegraphics[width=4in]{authDCPPS}
+  \includegraphics[width=#1]{authDCPPS}
   \caption[Domain Controller Packets per Second]{How many packets per second
   were sent or received by the domain controller across all five rounds of the
   first test.  In each test, we captured approximately 1.8 million packets.}
@@ -252,9 +252,9 @@
 \end{figure}
 }
 
-\newcommand{\figAuthClientPPS}{\begin{figure}[ht!]
+\newcommand{\figAuthClientPPS}[1]{\begin{figure}[ht!]
  \begin{center}
-  \includegraphics[width=4in]{authClientPPS}
+  \includegraphics[width=#1]{authClientPPS}
   \caption[Client Packets per Second]{How many packets per second were sent or
   received by one of the clients across all five rounds of the first test.}
   \label{fig:authClientPPS}
@@ -262,9 +262,9 @@
 \end{figure}
 }
 
-\newcommand{\figAuthDCMetrics}{\begin{figure}[ht!]
+\newcommand{\figAuthDCMetrics}[1]{\begin{figure}[ht!]
  \begin{center}
-  \includegraphics[width=4in]{authDCMetrics}
+  \includegraphics[width=#1]{authDCMetrics}
   \caption[Test 1:  Domain Controller Metrics]{Domain controller CPU and memory
   utilization during the first test.}
   \label{fig:authDCMetrics}
