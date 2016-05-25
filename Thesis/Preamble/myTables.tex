@@ -86,3 +86,30 @@
   \end{tabular}
 \end{table}
 }
+
+\newcommand{\tabMessage}{
+\begin{table}[!ht] \centering
+  \caption{Typical authentication message sent as keys that correspond to the
+  values as designated in the \emph{Snare} protocol for MSWinEventLog used by
+  the SolarWinds syslog agent.} \label{tab:message}
+  \begin{tabular}{ | l | l | }
+    \hline
+      Key                 & Value                               \\ \hline\hline
+      HostName            & dc.afnet.com                        \\ \hline
+      Criticality         & 5                                   \\ \hline
+      EventLogSource      & Security                            \\ \hline
+      Counter             & 3                                   \\ \hline
+      SubmitTime          & Sun May 08 14:31:50 2016            \\ \hline
+      EventID             & 4672                                \\ \hline
+      SourceName          & Microsoft-Windows-Security-Auditing \\ \hline
+      UserName            & N/A                                 \\ \hline
+      SIDType             & Audit Success                       \\ \hline
+      EventLogType        & dc.afnet.com                        \\ \hline
+      ComputerName        & 12548                               \\ \hline
+      CategoryString      & Special privileges assigned to\dots \\ \hline
+      ExtendedDataString  & Security ID:  S-1-5-21-2379403\dots \\ 
+    \hline
+  \end{tabular}
+  \label{tab:message}
+\end{table}
+}
