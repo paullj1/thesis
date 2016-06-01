@@ -110,6 +110,56 @@
       ExtendedDataString  & Security ID:  S-1-5-21-2379403\dots \\ 
     \hline
   \end{tabular}
-  \label{tab:message}
 \end{table}
 }
+
+\newcommand{\tabSlidingWindow}{
+\begin{table}[!ht] \centering
+  \caption{Sample time window after message translation.} \label{tab:window}
+  \begin{tabular}{ | l | l | }
+    \hline
+      Key                         & Value \\ \hline\hline
+      FailureWindow               & 0     \\ \hline
+      NumObservations             & 2     \\ \hline
+      Criticality: 6              & 2     \\ \hline
+      Criticality: 2              & 0     \\ \hline
+      Criticality: 4              & 0     \\ \hline
+      EventLogSource: Application & 1     \\ \hline
+      EventLogSource: System      & 1     \\ 
+    \hline
+  \end{tabular}
+\end{table}
+}
+
+\newcommand{\tabMemLeakStats}{
+\begin{table}[!ht] \centering
+  \caption{Test data classification statistics.} \label{tab:memLeakStats}
+  \begin{tabular}{ | l | l | }
+    \hline
+      Statistic           & Value  \\ \hline\hline
+      True Positive Rate  & 0.9764 \\ \hline
+      False Positive Rate & 0.4078 \\ \hline
+      Accuracy            & 0.9538 \\ \hline
+      Precision           & 0.9746 \\ \hline
+      Recall              & 0.9764 \\ \hline
+      F-Measure           & 0.9755 \\
+    \hline
+  \end{tabular}
+\end{table}
+}
+
+\newcommand{\tabMemLeakConfusionMatrix}{
+\begin{table}[!ht] \centering
+  \caption{Test data confusion matrix on optimal threshold.}
+  \label{tab:memLeakConfusionMatrix}
+  \begin{tabular}{ | l | r | r | }
+    \hline
+      \         & Actual  & \    \\ \hline\hline
+      Predicted & No-Fail & Fail \\ \hline
+      No-Fail   &    1161 &   42 \\ \hline
+      Fail      &      39 &   61 \\
+    \hline
+  \end{tabular}
+\end{table}
+}
+
