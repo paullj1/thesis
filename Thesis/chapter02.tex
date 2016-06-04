@@ -18,7 +18,7 @@ they provide a summary of definitions and measures of performance commonly used
 in the community for couching the OFP discussion.
 
 \subsection{Definitions} \label{definitions}
-\subsubsection{Proactive Fault Management:} \label{pfm}
+\subsubsection{Proactive Fault Management} \label{pfm}
 Salfner, et al.~\cite{salfnerSurvey} define proactive fault management (PFM) as
 the process by which faults are handled in a proactive way, analogous with
 \emph{fault tolerance} and basically consisting of four steps: online failure
@@ -52,7 +52,7 @@ in~\cite{candea2004microreboot}.  Finally, in order to avoid failure, a system
 must execute the scheduled remediation action or let an operator know which
 actions can be taken in a stage called \emph{action execution}.
 
-\subsubsection{Faults, Errors, Symptoms, and Failures:}
+\subsubsection{Faults, Errors, Symptoms, and Failures}
 This research uses the definitions from~\cite{avivzienis2004basic} as
 interpreted and extended in~\cite{salfnerSurvey} for the following terms:
 failure; error (detected versus undetected); fault; and symptom.
@@ -144,7 +144,7 @@ seek to find automated ways of identifying these conditions in training data.
 reported errors that occur either spatially or temporally close together.
 \emph{Pattern Recognition} predictors attempt to classify patterns of reported
 errors as failure prone.  This research focusses on pattern recognition OFP
-approaches, which can be visualized in Figure~\ref{fig:patternRecognition}.
+approaches, which are shown in Figure~\ref{fig:patternRecognition}.
 \emph{Statistical Tests} attempt to classify a system as failure-prone based on
 statistical analysis of historical data.  For example, if a system is
 generating a much larger volume of error reports than it typically does, it may
@@ -170,7 +170,7 @@ observed labels in real-time data.
 % errors and then classify a situation based on those patterns.  We therefore
 % categorize these approaches as \emph{hybrid} approaches.
 
-\subsubsection{Pattern Recognition:}
+\subsubsection{Pattern Recognition}
 Salfner, et al.~\cite{salfner2006} proposed an approach to predicting failures
 by learning patterns of similar events using a semi-Markov chain model.
 The model learned patterns of error reports that led to failure by mapping the
@@ -187,7 +187,7 @@ no guarantee that the sequence of reported errors will remain constant.
 Further, the authors reported that this approach did not scale well as the
 complexity of the reported errors grew.
 
-In 2007, Salfner et al. extended their previous work in~\cite{salfner2006}
+In 2007, Salfner, et al. extended their previous work in~\cite{salfner2006}
 using semi-Markov models~\cite{salfner2007}.  They generalized the Hidden
 Semi-Markov process for a continuous-time model and called it the Generalized
 Hidden Semi-Markov Model (GHSMM).  By making this generalization, the model
@@ -206,7 +206,7 @@ be limited in use to a single system.  Unfortunately, this approach as well as
 its predecessor, does not scale well and does not adapt to changes to the
 underlying system without retraining.
 
-\subsubsection{Classifiers:}
+\subsubsection{Classifiers}
 Domeniconi, et al.~\cite{domeniconi2002} published a technique based on
 support vector machines (SVM) to classify the present state as either failure
 prone or not based on a window of error reports as an input vector.  As Salfner
@@ -224,7 +224,7 @@ being down.  Many approaches involving SVMs have been explored since and seem
 to be popular in the community~\cite{fronza2013, fulp2008, murray2005,
 domeniconi2002, irrera2015}.
 
-\subsubsection{Hybrid Approaches:}
+\subsubsection{Hybrid Approaches}
 \emph{Fujitsu Labs} has published several papers on an approach for predicting
 failure in a cloud-computing
 environment~\cite{sonoda2012,watanabe2012,watanabe2014}.  Watanabe, et
@@ -276,37 +276,39 @@ avoid the failure problem can be expensive and can add overhead and complexity
 making a system more difficult to manage.
 
 \subsection{Adaptive Failure Prediction (AFP) Framework} \label{afp}
-The Adaptive Failure Prediction (AFP) Framework by Irrera, et al.
-in~\cite{irrera2015} seen in Figure~\ref{fig:AFP} presents a new approach to
+The Adaptive Failure Prediction (AFP) Framework by Irrera, et
+al.~\cite{irrera2015} shown in Figure~\ref{fig:AFP}, presents a new approach to
 maintaining the efficacy of failure predictors given underlying system changes.
 The authors conducted a case study implementing the framework using
 virtualization and fault injection on a web server.  
 
 \figAFP{5in}
 
-The concept reported used past work by Irrera et
+The framework built upon past work by Irrera, et
 al.~\cite{irrera2013,irrera2014} to generate failure data by injecting software
 faults using a tool based on G-SWFIT~\cite{gswfit} in a virtual environment for
-comparing and automatically re-training predictors.  In general, the use of
-simulated data is not well received by the community, however the authors
-in~\cite{irrera2010,irrera2014} report evidence supporting the claim that
-simulated failure data is representative of real failure data.  Further, the
-authors suggest that since systems are so frequently updated and failures are
-in general rare events, real failure data is often not available.  Moreover,
-the literature shows that even if there is a certain type of failure in
-training data and a predictor can detect and predict that type of error
+comparing and automatically re-training predictors.  With the introduction of
+the framework, Irrera, et al.~\cite{irrera2015} report results of a case-study.
+After implementing the AFP using a web server and an SVM predictor, they report
+that their findings demonstrate their framework is able to adapt to changes to
+an underlying system which would normally render a predictor unusable.
+
+In general, the use of simulated data is not well received by the community,
+however the authors in~\cite{irrera2010,irrera2014} report evidence supporting
+the claim that simulated failure data is representative of real failure data.
+Further, the authors suggest that since systems are so frequently updated and
+failures are in general rare events, real failure data is often not available.
+Moreover, the literature shows that even if there is a certain type of failure
+in training data and a predictor can detect and predict that type of error
 accurately, it will still miss failures not present in the training data.  By
 injecting the types of faults that one can expect, each failure type is
 represented in the training data.
 
-The authors then conducted a case-study using a web server and an SVM
-predictor, and report their findings demonstrate their framework is able to
-adapt to changes to an underlying system which would normally render a
-predictor unusable.  They reported good results and concluded that the AFP is
-an effective tool.  Unfortunately, the AFP is not a universal solution and
-requires significant work to be implemented on a modern Microsoft Windows
+Irrera, et al.~\cite{irrera2015} reported good results and concluded that the
+AFP is an effective tool.  Unfortunately, the AFP is not a universal solution
+and requires significant work to be implemented on a modern Microsoft Windows
 enterprise network.  Furthermore, the fault load previously explored does not
-completely represent all possible failures.
+completely represent all possible failures~\cite{kikuchi2014}.
 
 \section{Summary} \label{summary}
 This chapter covered the definitions, measures of performance, and approaches

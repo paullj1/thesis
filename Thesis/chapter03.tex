@@ -1,16 +1,16 @@
 \chapter{Methodology} \label{chapter3}
 The purpose of the AFP framework is to automate the generation of realistic
 labelled failure data for the purposes of automatically training a failure
-prediction algorithm.  The framework breaks down into modules so that the it
-can be more easily adapted for different applications.  This chapter presents
-three topics.  The first describes the process that the extended framework
-executes in order to generate the labelled training data and automatically
-train a failure prediction algorithm.  The second outlines each module of the
-extended AFP framework and their associated extensions in detail.  The final
-section outlines extensions to the AFP not covered in the other two sections.
+prediction algorithm.  The framework breaks down into modules so that it can be
+more easily adapted for different applications.  This chapter presents three
+topics.  The first describes the process that the framework executes in order
+to generate the labelled training data and train a failure prediction
+algorithm.  The second describes each module of the extended AFP framework.
+The final section outlines extensions to the AFP not covered in the other two
+sections.
 
 This chapter outlines the implementation and extensions to the Adaptive Failure
-Prediction (AFP) Framework as seen in~\cite{irrera2015} as well as an
+Prediction (AFP) Framework as shown in~\cite{irrera2015} as well as an
 experiment to validate those extensions and further generalize the framework.
 The AFP was originally tested on a single system running an operating system
 that has been deprecated.  Consequently, the results from the case study
@@ -20,13 +20,14 @@ useful to the general community.
 \section{Failure Data Generation} \label{sec:generation}
 This work extends the Adaptive Failure Prediction framework~\cite{irrera2015}
 by conducting another case study with a Microsoft Windows Server acting as an
-active directory service with a new implementation of the G-SWFIT technique for
-the x86-64 architecture as well as a more representative fault load.  The case
-study is then taken a step further by showing that the approach holds for other
-predictors (maybe).  Specifically, findings are reported after implementing
-this framework with the predictor used by Irrera, et al.~\cite{irrera2015} in
-their case study and the predictor used by Watanabe, et
-al.~\cite{watanabe2014}.
+active directory service with a more representative fault load as well as a new
+implementation of the G-SWFIT technique for the x86-64 architecture.  The case
+study is done using four new types of faults: third-party memory leak,
+third-party CPU hog, process memory corruption, and capacity undersizing.  For
+completeness, standard G-SWFIT technique.  Finally, findings are reported after
+implementing this framework with an SVM predictor with feature reduction as is
+done by Fulp et al.~\cite{fulp2008}, on a sliding time window as is done by
+Irrera, et al.~\cite{irrera2013a} and Vaarandi~\cite{vaarandi2002}.
 
 This section outlines the step-by-step procedure by which the extended AFP is
 evaluated to show how effective it is when used on Windows Server deployments.
@@ -51,9 +52,9 @@ the implementation for this work is detailed in
 Section~\ref{sec:implementation} and is therefore not discussed further here.  
 
 \subsection{Execution Phase}
-A general outline of this process can be seen in
+A general outline of this process can be shown in
 Figure~\ref{fig:ExecutionPhase}.  This phase is divided into three major
-states: data collection and failure prediction, event checking, and
+steps: data collection and failure prediction, event checking, and
 training/update as described in this section.
 
 \figExecutionPhase{2.5in}
@@ -62,9 +63,10 @@ training/update as described in this section.
 In this phase, the system has a working predictor providing input to some sort
 of decision system.  It should be noted here that this decision system does not
 have to be automated.  The system in this phase is making failure predictions
-about the current state based on the last run of the training phase.  For the
-Air Force application, an operator will be the decision maker and the output of
-the AFP will be a message to that operator.  
+about the current state based on the last run of the training phase.  This
+function is not implemented in this research as it is application specific.
+The output of this process in this experiment is a warning message which
+indicates failure.
 
 \subsubsection{Event Checking}
 Concurrent with the data collection and failure prediction sub-phase, the AFP
@@ -82,17 +84,18 @@ new predictor perform better, the old predictor is replaced by the new.
 \subsection{Training Phase}
 The training phase is broken down into five major steps:  target replication,
 data generation \& collection, dataset building, predictor training, and
-analysis.  The general flow can be seen in Figure~\ref{fig:TrainingPhase}.
+analysis.  The general flow can is shown in Figure~\ref{fig:TrainingPhase}.
 Each phase is outlined in the following sub-sections.
 
 \figTrainingPhase{4in}
 
 \subsubsection{Target Replication}
 During this phase a virtual clone of the target is made.  After the clone is
-made, the fault injection and monitoring software must be installed.  In this
-experiment, the monitoring tool is the same as the production system but care
-must be taken to ensure the host-name is changed so the log messages generated
-during this phase are not confused with messages from the production system.
+made, the fault injection and monitoring software is installed.  In this
+experiment, the monitoring tool is the same as on the production system but
+care must be taken to ensure the host-name is changed so the log messages
+generated during this phase are not confused with messages from the production
+system.
 
 \subsubsection{Data Generation \& Collection}
 The purpose of this phase is to generate the data to train a new prediction
@@ -191,7 +194,7 @@ described in Tables~\ref{tab:hyp1}, and \ref{tab:hyp2}.
 
 \subsection{Controller Hypervisor} \label{sec:controller} % 3.1.1
 The controller functions in this experiment are split between two systems on a
-single hypervisor seen on Table~\ref{tab:hyp2}.  One system is a Microsoft
+single hypervisor shown in Table~\ref{tab:hyp2}.  One system is a Microsoft
 Windows Server responsible for workload management and fault injection
 management.  The additional Windows server also hosts remote desktop services
 to allow the load generator to execute third party authentication with the
@@ -225,16 +228,38 @@ as well as a... TODO maybe the method in~\cite{watanabe2014}?
 %%TODO%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%TODO%%
 
 \subsubsection{Fault Injection} \label{sec:faultInjectionMgr}
-This module is responsible for managing the fault injector installed on the
-clone of the production target system.  The purpose of the fault injector is to
-force a loaded software application to fail in a realistic way so that the
-indicators of that failure can be used to train the failure prediction
-algorithm.
+This module is responsible for managing the fault load and fault injection tool
+installed on the clone of the production target system.  The purpose of the
+fault load is to force a stressed software application to fail in a realistic
+way so that the indicators of that failure can be used to train the failure
+prediction algorithm.
 
 Irrera, et al.~\cite{irrera2015} use a tool implementing the G-SWFIT technique
-for this module.  G-SWFIT was developed at the University of Coimbra in Coimbra
-Portugal by Joao Duraes and Henrique Madeira~\cite{gswfit}.  The method is
-widely implemented for use in software fault injection both commercially and
+for this module and pointed out that this module is the most critical piece of
+the AFP implementation.  Unfortunately, as is pointed out by Kikuchi, et
+al.~\cite{kikuchi2014} and Cotroneo, et al.~\cite{cotroneo2012}, fault
+injection cannot always be relied upon and may not be representative of
+completely realistic faults.  Consequently, this research implements four
+additional types of fault load that more exhaustively represents realistic
+faults that may be encountered by a target process.  
+
+This experiment trains a predictor using failures generated by third-party
+applications purposefully written to slowly consume all available resources on
+a target system.  Specifically, the third-party application contains a memory
+leak that slowly allocates all free system memory until the target application
+crashes.  Next, failures are recorded as the result of a third-party
+application consuming all CPU time.  Another failure is recorded after reducing
+the resources available to the host machine as to simulate an undersized
+service as is commonly seen in environments with smaller IT budgets.  Finally,
+failure is recorded after corrupting heap space in memory (versus program
+memory as done by the G-SWFIT).  This type of fault could be caused by
+privileged third party applications writing to the target processes allocated
+memory.  Finally, for completeness, this experiment uses a tool developed for
+this work that implements the G-SWFIT technique.
+
+G-SWFIT was developed at the University of Coimbra in Coimbra Portugal by Joao
+Duraes and Henrique Madeira~\cite{gswfit}.  The method is widely implemented
+for use in software fault injection both commercially and
 academically~\cite{natella2010,irrera2014,cotroneo2012,umadevi2015}.  Recently,
 studies have questioned the representativeness of the failures generated by
 G-SWFIT~\cite{kikuchi2014}.  In each case, the workload generated was critical
@@ -269,22 +294,29 @@ research and is capable of injecting faults into all user and kernel mode
 applications on modern MS Windows operating systems.  
 
 The key contributions of W-SWFIT are ASLR adaption and the x86-64 translation
-we have performed.  G-SWFIT works by scanning binary libraries already in
-memory for patterns (or operators) that match compiled errors in software
-development.  The faults were based on the Orthogonal Defect
-Classification~\cite{bridge1998} and can be seen in~\ref{tab:faults}.  As
-pointed out in~\cite{salfnerSurvey} and~\cite{gswfit}, failures are ultimately
-the result of software developer errors.  Unfortunately, much of the work done
-in~\cite{gswfit} was on encoding common development errors as IA32 assembly
-instructions so that working binary executable code could be mutated in memory
-to introduce these errors in running applications.  The target application in
-this research is strictly an x86-64 (also known as x64 or amd64) application
-and the patterns identified in~\cite{gswfit} are incompatible.  Consequently, a
-fault injection tool capable of mutating x86-64 instructions in the same way
-was required.  W-SWFIT implements many of the operators in~\cite{gswfit} in
-the x86-64 language by translating the operators seen in Table~\ref{tab:faults}
-from IA32 to x86-64.  A simple example of this translation is shown on the
-entry/exit points of a function in Tables~\ref{tab:translationThirtyTwo},
+that have performed.  Further, as pointed out by Irrera, et
+al.~\cite{irrera2013a}, prior implementations of the G-SWFIT were not capable
+of injecting faults into protected processes.  Since the focus of this research
+is on a protected system process, this capability was critical, and as a result,
+W-SWFIT was implemented in a way that made protected process injection
+possible.  
+
+G-SWFIT works by scanning binary libraries already in memory for
+patterns (or operators) that match compiled errors in software development.
+The faults were based on the Orthogonal Defect Classification~\cite{bridge1998}
+and can be shown in~\ref{tab:faults}.  As pointed out in~\cite{salfnerSurvey}
+and~\cite{gswfit}, failures are ultimately the result of software developer
+errors.  Unfortunately, much of the work done in~\cite{gswfit} was on encoding
+common development errors as IA32 assembly instructions so that working binary
+executable code could be mutated in memory to introduce these errors in running
+applications.  The target application in this research is strictly an x86-64
+(also known as x64 or amd64) application and the patterns identified
+in~\cite{gswfit} are incompatible.  Consequently, a fault injection tool
+capable of mutating x86-64 instructions in the same way was required.  W-SWFIT
+implements many of the operators in~\cite{gswfit} in the x86-64 language by
+translating the operators shown in Table~\ref{tab:faults} from IA32 to x86-64.
+A simple example of this translation is shown in the entry/exit points of a
+function in Tables~\ref{tab:translationThirtyTwo},
 and~\ref{tab:translationSixtyFour}.  The rest of the translations can be seen
 in source code for W-SWFIT.  In many cases, the translation was very simple,
 but in others, the IA32 patterns did not cleanly map to x86-64 byte code.  When
@@ -306,14 +338,14 @@ failure occurring, realistic load must be generated against the sandbox clone
 of the production target.
 
 In the original AFP case study, a Windows XP based web-server was used for a
-target and therefore the load generation was done by a simple web request
+target and the load generation was done by a simple web request
 generator.  As previously mentioned, realistic workload is critical in
 generating realistic failure and consequently training a useful predictor.  As
-a result, much emphasis is been placed on this module.  Since the target is
-not a web server, it was not possible to use the same load generator as was
-used in~\cite{irrera2015}.  Initial searches for a load generator suitable for
-this research yeilded a tool developed by Microsoft that initiated remote
-desktop connections to aid in sizing a terminal services
+a result, much emphasis is placed on this module.  Since the target is not a
+web server, it was not possible to use the same load generator as was used
+in~\cite{irrera2015}.  Initial searches for a load generator suitable for this
+research yeilded a tool developed by Microsoft that initiated remote desktop
+connections to aid in sizing a terminal services
 server\footnote{\url{http://www.microsoft.com/en-us/download/details.aspx?id=2218}}.
 By executing a remote desktop session, the authentication and DNS functions of
 the domain controller would also be loaded.  Unfortunately, this tool is no
@@ -342,19 +374,20 @@ the domain controller have been evaluated and D-PLG is designed to sufficiently
 load each of the services responsible for performing those functions.
 functions.
 
-In this experiment, the DC is configured as it is in the Air Force Network
-architecture.  After careful analysis, it has been determined that the major
-roles in the Air Force architecture being performed are authentication and
-domain name service (DNS).  Additionally, by use of native cmdlets, D-PLG is
-capable of generating four kinds of traffic: web, mail, file sharing, and MS
-remote desktop protocol (RDP).  D-PLG uses the MS Powershell environment to
-generate the traffic in an effort to make the traffic as real as possible.
-After building the tool, an experiment was constructed and executed on a scale
-model of a production environment.  The scaled simulation network was built
-using the recommendations of the Microsoft community for sizing a domain
+In this experiment, the DC is configured as it is in many production
+environments.  After careful analysis, it has been determined that the major
+roles being performed by the DC in a typical enterprise environment are
+authentication and domain name service (DNS).  By use of native
+cmdlets, D-PLG is capable of generating four kinds of traffic designed to
+stress these services and others: web, mail, file sharing, and MS remote
+desktop protocol (RDP).  D-PLG uses the MS Powershell environment to generate
+the traffic in an effort to make the traffic as real as possible.  After
+building the tool, an experiment was constructed and executed on a scale model
+of a production environment.  The scaled simulation network was built using the
+recommendations of the Microsoft community for sizing a domain
 controller~\cite{mak12} and tested by running the tool on five client machines
 against the domain controller for five rounds of five minutes.  The results of
-this test can be seen in Figures~\ref{fig:authDCPPS}, \ref{fig:authClientPPS},
+this test are shown in Figures~\ref{fig:authDCPPS}, \ref{fig:authClientPPS},
 \ref{fig:authDCMetrics}.
 
 \figAuthDCPPS{4in}
@@ -364,26 +397,23 @@ this test can be seen in Figures~\ref{fig:authDCPPS}, \ref{fig:authClientPPS},
 D-PLG makes use of client machines running a Windows operating system with
 PowerShell version 4.0 or newer.  The controller asks each machine to generate
 a configurable list of requests at evenly spaced intervals for a configurable
-duration of time.  While this may not be realistic network traffic, it will
+duration of time.  While this may not be realistic network traffic, it does
 produce realistic load against a domain controller.  Since D-PLG depends on the
 use of client machines, it is recommended that any load generation be conducted
 during off-peak hours if spare client sized machines are not available.  It
-should be noted however, that even with poorly resourced client machines (seen
+should be noted however, that even with poorly resourced client machines (shown
 in~\ref{tab:hyp1}), D-PLG was able to generate fifteen thousand authentication
 sessions over a five minute period; approximately 10 authentication sessions
 per machine, per second.  With modern workstations, the impact on these client
-machines will likely be negligible and could likely be in use during load
-generation.
+machines is negligible and they can be in use during load generation.
 
 Based on these results, and that a production domain controller should be at
-approximately 40\% CPU utilization during peak utilization~\cite{mak12}, we
-have concluded that D-PLG is capable of sufficiently loading the domain
-controller over a sustained period of time for the purposes of implementing the
-AFP framework and is used in this research.  Further, we have concluded that
-D-PLG is capable of scaling to provide load against higher capacity domain
-controllers by using only a few client machines.  There are many more uses for
-a load generator of this type and we were not able to find a tool that is
-capable of creating the same type of load so we have published these scripts on
+approximately 40\% CPU utilization during peak utilization~\cite{mak12}, D-PLG
+is capable of sufficiently loading the domain controller over a sustained
+period of time for the purposes of implementing the AFP framework and is used
+in this research.  Further, D-PLG is capable of scaling to provide load against
+higher capacity domain controllers by using only a few client machines.  D-PLG
+is available on
 Github\footnote{https://github.com/paullj1/AFP-DC/tree/master/D-PLG} for others
 to use.
 
@@ -414,9 +444,13 @@ experiment.  It is important to note here that because VMWare has documented
 APIs, in future work, this function could be automated.
 
 \subsection{Sandbox Hypervisor} \label{sec:sandbox}
-The sandbox is constructed on a single hypervisor implemented as seen on
-Table~\ref{tab:hyp1}.  The following sections outline each module within this
-module.
+The sandbox hypervisor hosts the virtual clone of the production environment
+where faults will be injected and from which failure data will be collected.
+Cloning the production environment ensures that the production system will not
+be affected and service will be maintained during the training phase.  For the
+purposes of this experiment, the sandbox is constructed on a single hypervisor
+implemented as shown in Table~\ref{tab:hyp1}.  The following sections outline
+each module within this module.
 
 \subsubsection{Fault Injection} \label{sec:faultInjectionTool} 
 This module is responsible for causing the target application to fail so that
@@ -443,7 +477,7 @@ al.~\cite{irrera2015} use the \emph{Logman} tool in their original study but
 because the experimental infrastructure used in this research is modelled after
 production Air Force networks, the \emph{Solar Winds} log forwarding tool is
 used because it is already present in the Air Force architecture.  The tool is
-a lightweight application that simply forwards windows events to a syslog
+a lightweight application that simply forwards Windows events to a syslog
 server.
 
 \subsubsection{Sandbox Workload}  \label{sec:sandboxWorkload} 
@@ -452,7 +486,7 @@ framework.  Its purpose is to create realistic work for the target application
 to do before faults are injected.  If the workload is not realistic, then the
 failures that occur after fault injection will not be representative of real
 failures and any data or indicators collected cannot be used to train an
-effective prediction algorithm.
+effective prediction algorithm~\cite{cotroneo2012,kikuchi2014,irrera2015}.
 
 Irrera, et al.~\cite{irrera2015} used a web traffic generator called TPC-W
 installed on a single machine in their original study because their target was
@@ -467,11 +501,11 @@ of D-PLG is installed on five client machines managed by the central workload
 manager as discussed in Section~\ref{sec:workloadMgr}.
 
 \subsection{Target Hypervisor} \label{sec:target}
-The target hypervisor was constructed as a clone of the sandbox hypervisor seen
-on Table~\ref{tab:hyp1}.  The following section outlines the monitoring tool
-installed on the domain controller on this hypervisor.  It should be noted here
-that while the client machines were cloned as well for convenience, they were
-not used in this experiment.
+The target hypervisor was constructed as a clone of the sandbox hypervisor
+shown in Table~\ref{tab:hyp1}.  The following section outlines the monitoring
+tool installed on the domain controller on this hypervisor.  It should be noted
+here that while the client machines were cloned as well for convenience, they
+were not used in this experiment.
 
 \subsubsection{Monitoring} \label{sec:targetMonitoringTool}
 The monitoring module is exactly the same as the sandbox monitoring module and

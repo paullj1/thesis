@@ -338,19 +338,6 @@ greater than one line of text, otherwise centred under the figure.}
 \end{figure}
 \end{verbatim}
 
-\begin{figure}
-\begin{center}
-\subfigure[An example of an individual figure sub-caption.]{
-\resizebox*{6cm}{!}{\includegraphics{senu_gr1.eps}}}\hspace{5pt}
-\subfigure[A slightly shorter sub-caption.]{
-\resizebox*{6cm}{!}{\includegraphics{senu_gr2.eps}}}
-\caption{\label{fig2} Example of a two-part figure with individual
-sub-captions showing that captions are flush left and justified if
-greater than one line of text, otherwise centred under the figure.}
-\label{sample-figure}
-\end{center}
-\end{figure}
-
 The control sequences \verb"\subfigure{}" and \verb"\includegraphics{}" require subfigure.sty and graphicx.sty.
 The former is called in the preamble of the \texttt{tEISguide.tex} file (in order to allow your choice of alternative if preferred)
 and the latter by the \texttt{tEIS2e} class file; both are included with the \LaTeX\ style guide package for this journal for convenience.
@@ -1045,6 +1032,11 @@ unpack with the downloaded Guide for Authors and class file: amsbsy.sty; amsfont
 This Guide for Authors, the class file and the associated open-source \LaTeX\ packages are also available by
 e-mail. Requests should be addressed to {\tt latex.helpdesk@tandf.co.uk} clearly stating for which journal you
 require the Guide for Authors and/or class file.
+
+\cite{salfnerSurvey}
+
+\bibliographystyle{tEIS}
+\bibliography{../Back/references} 
 
 \label{lastpage}
 
