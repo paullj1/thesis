@@ -33,7 +33,7 @@
 
 	push ebp & stack frame & move esp,ebp & stack frame \\ \hline
 	mov ebp, esp & setup & pop ebp & cleanup \\ \hline
-	sub esp, immed &  & ret &  \\ \hline
+	sub esp, \emph{immed} &  & ret &  \\ \hline
 \end{tabular}
 \end{table}
 }
@@ -51,8 +51,8 @@
 	\textbf{Instruction Sequence} & \textbf{Explanation} & 
   \textbf{Instruction Sequence} & \textbf{Explanation} \\ \hline \hline
 
-	push rbp & stack frame & add rsp, immed & stack frame \\ \hline
-	sub rsp, immed &  & pop rbp & cleanup \\ \hline
+	push rbp & stack frame & add rsp, \emph{immed} & stack frame \\ \hline
+	sub rsp, \emph{immed} &  & pop rbp & cleanup \\ \hline
 	mov rbp, rdx & setup & ret &  \\ \hline
 \end{tabular}
 \end{table}
