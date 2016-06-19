@@ -1,18 +1,19 @@
 \chapter{Experimental Results and Analysis} \label{chapter4}
 This chapter reports results after conducting the experiments laid out in
-Chapter~\ref{chapter3}.  First, common measures of performance are reviewed
-followed by a short discussion of the findings.  The chapter concludes with a
-detailed analysis of the outcomes of this research.
+Chapter~\ref{chapter3}.  First, common reporting techniques and measures of
+performance are reviewed.  These measures and reporting techniques are then
+used to report the results of the experiments conducted.  The chapter concludes
+with a short summary.
 
 \section{Performance Measures} \label{metrics}
 This section reviews the performance measures used in this chapter to
-demonstrate the efficacy and quality of the models trained in this research.
-These measures are commonly used in the field of machine learning to compare
-and assess predictors and are taken from a survey of online failure prediction
-methods written by Salfner et al.~\cite{salfnerSurvey}.
+demonstrate the efficacy and quality of the statistical models trained in this
+research.  These measures are commonly used in the field of machine learning to
+compare and assess predictors and are taken from a survey of online failure
+prediction methods written by Salfner et al.~\cite{salfnerSurvey}.
 
 This research utilizes a technique called cross-validation in which a set of
-labelled training data is broken into three parts as follows:
+labelled training data are broken into three parts as follows:
 \begin{enumerate}
 \item{Training Set:  A data set that allows a prediction model to establish and
 optimize its parameters}
@@ -85,12 +86,13 @@ expressed as:
 \]
 
 \subsection{Negative Predictive Value (NPV) and Accuracy:}
-In some cases, we wish to show that a prediction approach can correctly
-classify non-failure-prone situations.  The following performance measures 
-usually can not stand alone due to the nature of failures being rare events.
-In other words, a highly ``accurate'' predictor could classify a state 100\% of
-the time as non-failure-prone and still fail to predict every single true
-failure.
+In some cases, it may be desirable to show that a prediction approach can
+correctly classify non-failure-prone situations.  The following performance
+measures usually can not stand alone due to the nature of failures being rare
+events.  In other words, a highly ``accurate'' predictor could classify a state
+$100\%$ of the time as non-failure-prone and still fail to predict every single
+true failure.  This predictor would be highly accurate, but ultimately
+ineffective.
 
 Negative Predictive Value (NPV) is the number of times a predictor correctly
 classifies a state as non-failure-prone to the total number all
@@ -135,4 +137,111 @@ pure random predictor will result in an AUC of $0.5$ and a perfect predictor a
 value of~$1$.  The AUC can be thought of as the probability that a predictor
 will be able to accurately distinguish between a failure-prone state and a
 non-failure-prone state, over the entire operating range of the predictor.
+
+The results of the experiments conducted in this research will report all of
+the above described measures of performance in the next section.
+
+\section{Results} \label{results}
+The experiments designed in Chapter~\ref{chapter3} were executed in a virtual
+environment to produce failure data.  The failure data generated was used to
+train statistical learning models using the open source statistical learning
+software suite: \emph{R}.  The parameters used to train each model were
+selected using cross-validation on a subset of the failures generated.
+Finally, each model was evaluated using a held-out test set.  The results of
+this evaluation for each fault load are reported here.
+
+The rest of this chapter is organized by the different fault loads that were
+used to generate the corresponding failure data: fault injection,
+under-resourced CPU, under-resourced memory, and heap space corruption.  In
+each sub-section, the results after training a machine learning model on
+failure data generated using that type of fault are detailed.
+
+\subsection{Fault Injection}
+This fault-load was quite effective at creating a failure, but unfortunately,
+each failure observed occurred immediately after introducing the fault.
+Because there was no delay between injection and failure, there did not exist
+any indicators of failure.  Consequently, machine learning cannot help in this
+situation.  According to Russinovich, et al.~\cite{russinovich2009} the
+\emph{lsass.exe} process is at the top of the structured exception handling
+stack and does not actually handle any exceptions.  When faced with an
+exception, the process exits and the system reboots.
+
+\subsection{Under-Resourced CPU}
+This fault-load never resulted in a failure.  To test this fault-load, the
+virtual domain controllers resources were reduced.  The CPU went from a
+dual-core to a single virtual CPU, and the memory was reduced from $2$ Gb to
+$512$ Mb.  This reduction was well beneath the recommended
+capacity~\cite{mak12} for a domain controller.  The workload generator was then
+allowed to run against this configuration for seven days.  For the duration of
+the test, the CPU load was $100\%$, and physical memory was $90\%$ utilized on
+average.  While the service did experience reduced response time, failure did
+not occur.
+
+\subsection{Under-Resourced Memory}
+The under-resourced memory fault load was the first that created observable
+indicators of failure with any lead time.  This fault load produced the best
+performing predictor and the largest sliding time window for prediction of
+sixty seconds.  Two machine learning models were tested against the data
+generated using this type of fault: support vector machine (SVM), and boosting
+using the multinomial distribution.  According to James, et al.~\cite{islr},
+the SVM is closely related to traditional machine learning methods like
+logistic regression.  For this reason, this experiment explores the use of both
+prediction techniques.
+
+\subsubsection{Support Vector Machine}
+For this prediction method, the \emph{e1071} package was used to train an SVM.
+The \emph{tune} function was used to run a $5$-fold cross-validation a total of
+$48$ times to select the optimal parameters (gamma, cost, and degree
+polynomial) using: four kernels, four sliding time windows, and three
+training/test data splits.  Additionally, in order to offset the imbalanced
+data, classification weights were used at $0.99$ for failure, and $0.01$ for
+non-failure.
+
+The optimal model was selected with the Radial kernel with $\gamma = 0.1$,
+$cost = 1$, time window $= 60$ seconds, and the split of data $= 4$ of the
+observed failures used for training.
+
+The test data was then evaluated in sequential order using a threshold.  After
+two sequential windows were predicted as failure-prone, the next $w$ windows
+were also predicted as failure-prone, where $w = $ \emph{window size} $-$
+\emph{threshold size}.  The resulting confusion matrix for the optimal
+F-Measure, ROC curve, and precision/recall curve are shown in
+Table~\ref{tab:memLeakPreUpdateSVMConfusionMatrix}, and
+Figure~\ref{fig:memLeakPreUpdateSVMPerf} respectively.
+
+\figMemLeakPreUpdateSVMPerf
+\tabMemLeakPreUpdateSVMConfusionMatrix
+
+\subsubsection{Boosting}
+The precision/recall, and ROC curves on a sixty second time window are shown in
+Figure~\ref{fig:memLeakPreUpdateBoostingPerf}.  The confusion matrix at the optimal
+threshold for F-measure is shown in
+Table~\ref{tab:memLeakPreUpdateBoostingConfusionMatrix}.
+
+\figMemLeakPreUpdateBoostingPerf
+\tabMemLeakPreUpdateBoostingConfusionMatrix
+
+After the software update, the same prediction model was used on a generated
+failure.  A list of updates that were applied are shown in
+Appendix~\ref{app:updates}.  The precision/recall and ROC curves on data
+generated after the software update using the old model are shown in
+Figure~\ref{fig:memLeakPostUpdateSameBoostedModel}.  The confusion matrix at
+the optimal threshold for F-measure is shown in
+Table~\ref{tab:memLeakPreUpdateBoostingConfusionMatrix}
+
+\figMemLeakPostUpdateSameBoostedModel
+\tabMemLeakPostUpdateBoostingSameModelConfusionMatrix
+
+Finally, a new predictor was trained using more generated failures as was done
+before the update.  The precision/recall, and ROC curves on the held-out test
+data are shown in Figure~\ref{fig:memLeakPostUpdateBoostingPerf} and the
+confusion matrix at the optimal threshold for F-measure is shown in
+Table~\ref{tab:memLeakPostUpdateBoostingConfusionMatrix}.
+
+\figMemLeakPostUpdateBoostingPerf
+\tabMemLeakPostUpdateBoostingConfusionMatrix
+
+\subsection{Heap Space Corruption}
+
+\subsection{Summary}
 

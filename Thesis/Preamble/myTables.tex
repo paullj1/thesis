@@ -131,38 +131,102 @@
 \end{table}
 }
 
-\newcommand{\tabMemLeakStats}{
+\newcommand{\tabMemLeakPreUpdateSVMStats}{
 \begin{table}[!t] \centering
-  \caption{Test data classification statistics.} \label{tab:memLeakStats}
+  \caption[Pre-Update, Memory Leak, SVM Statistics]{Classification statistics
+  on test data created before software updates.}
+  \label{tab:memLeakPreUpdateSVMStats}
   \begin{tabular}{ | l | l | }
     \hline
       Statistic           & Value  \\ \hline\hline
-      True Positive Rate  & 0.9764 \\ \hline
-      False Positive Rate & 0.4078 \\ \hline
-      Accuracy            & 0.9538 \\ \hline
-      Precision           & 0.9746 \\ \hline
-      Recall              & 0.9764 \\ \hline
-      F-Measure           & 0.9755 \\
+      True Positive Rate  & 0.8525 \\ \hline
+      False Positive Rate & 0.0098 \\ \hline
+      Accuracy            & 0.9777 \\ \hline
+      Precision           & 0.8966 \\ \hline
+      Recall              & 0.8525 \\ \hline
+      F-Measure           & 0.8739 \\
     \hline
   \end{tabular}
 \end{table}
 }
-
-\newcommand{\tabMemLeakConfusionMatrix}{
-\begin{table}[!t] \centering
-  \caption{Test data confusion matrix on optimal threshold.}
-  \label{tab:memLeakConfusionMatrix}
-  \begin{tabular}{ | l | r | r | }
-    \hline
-      \         & Actual  & \    \\ \hline\hline
-      Predicted & No-Fail & Fail \\ \hline
-      No-Fail   &    1161 &   42 \\ \hline
-      Fail      &      39 &   61 \\
-    \hline
-  \end{tabular}
-\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%   SVM   %%%%
+% Pre-Update
+\newcommand{\tabMemLeakPreUpdateSVMConfusionMatrix}{
+  \begin{table}[!ht]
+    \centering
+    \caption[Pre-Update, Memory Leak, SVM Confusion Matrix]{Confusion matrix on
+    test data created before software updates on threshold with highest
+    F-Measure (0.8739) using SVM.}
+    \label{tab:memLeakPreUpdateSVMConfusionMatrix}
+    \begin{tabular}{llll}
+                                                               &                                       & \multicolumn{2}{c}{\textbf{Actual}}                                        \\ \cline{3-4} 
+                                                               & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{\textbf{Fail}} & \multicolumn{1}{l|}{\textbf{No-Fail}} \\ \cline{2-4} 
+      \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Predicted}}} & \multicolumn{1}{l|}{\textbf{Fail}}    & \multicolumn{1}{l|}{52}            & \multicolumn{1}{l|}{6}                \\ \cline{2-4} 
+      \multicolumn{1}{c|}{}                                    & \multicolumn{1}{l|}{\textbf{No-Fail}} & \multicolumn{1}{l|}{9}             & \multicolumn{1}{l|}{607}              \\ \cline{2-4} 
+    \end{tabular}
+  \end{table}
 }
 
+% Post-Update (old model)
+
+% Post-Update New Model
+
+%%%%   BOOSTING   %%%%
+% Pre-Update
+\newcommand{\tabMemLeakPreUpdateBoostingConfusionMatrix}{
+  \begin{table}[!ht]
+    \centering
+    \caption[Pre-Update, Memory Leak, Boosting Confusion Matrix]{Confusion
+    matrix on test data created before software updates on threshold with
+    highest F-Measure (0.9917) using boosting.}
+    \label{tab:memLeakPreUpdateBoostingConfusionMatrix}
+    \begin{tabular}{llll}
+                                                               &                                       & \multicolumn{2}{c}{\textbf{Actual}}                                        \\ \cline{3-4} 
+                                                               & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{\textbf{Fail}} & \multicolumn{1}{l|}{\textbf{No-Fail}} \\ \cline{2-4} 
+      \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Predicted}}} & \multicolumn{1}{l|}{\textbf{Fail}}    & \multicolumn{1}{l|}{60}            & \multicolumn{1}{l|}{0}                \\ \cline{2-4} 
+      \multicolumn{1}{c|}{}                                    & \multicolumn{1}{l|}{\textbf{No-Fail}} & \multicolumn{1}{l|}{1}             & \multicolumn{1}{l|}{412}              \\ \cline{2-4} 
+    \end{tabular}
+  \end{table}
+}
+
+% Post-Update (old model)
+\newcommand{\tabMemLeakPostUpdateBoostingSameModelConfusionMatrix}{
+  \begin{table}[!ht]
+    \centering
+    \caption[Post-Update, Memory Leak, Same Model, Confusion
+    Matrix]{Post-update failure data confusion matrix on threshold with highest
+    F-Measure (0.4691) using model trained on failure data generated before
+    software update.}
+    \label{tab:memLeakPostUpdateBoostingSameModelConfusionMatrix}
+    \begin{tabular}{llll}
+                                                               &                                       & \multicolumn{2}{c}{\textbf{Actual}}                                        \\ \cline{3-4} 
+                                                               & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{\textbf{Fail}} & \multicolumn{1}{l|}{\textbf{No-Fail}} \\ \cline{2-4} 
+      \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Predicted}}} & \multicolumn{1}{l|}{\textbf{Fail}}    & \multicolumn{1}{l|}{19}            & \multicolumn{1}{l|}{1}                \\ \cline{2-4} 
+      \multicolumn{1}{c|}{}                                    & \multicolumn{1}{l|}{\textbf{No-Fail}} & \multicolumn{1}{l|}{42}            & \multicolumn{1}{l|}{222}              \\ \cline{2-4} 
+    \end{tabular}
+  \end{table}
+}
+
+% Post-Update New Model
+\newcommand{\tabMemLeakPostUpdateBoostingConfusionMatrix}{
+  \begin{table}[!ht]
+    \centering
+    \caption[Post-Update, Memory Leak, New Model, Confusion
+    Matrix]{Post-update failure data confusion matrix on threshold with highest
+    F-Measure (0.9355) using model trained on failure data generated after
+    software update.}
+    \label{tab:memLeakPostUpdateBoostingConfusionMatrix}
+    \begin{tabular}{llll}
+                                                               &                                       & \multicolumn{2}{c}{\textbf{Actual}}                                        \\ \cline{3-4} 
+                                                               & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{\textbf{Fail}} & \multicolumn{1}{l|}{\textbf{No-Fail}} \\ \cline{2-4} 
+      \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Predicted}}} & \multicolumn{1}{l|}{\textbf{Fail}}    & \multicolumn{1}{l|}{58}            & \multicolumn{1}{l|}{5}                \\ \cline{2-4} 
+      \multicolumn{1}{c|}{}                                    & \multicolumn{1}{l|}{\textbf{No-Fail}} & \multicolumn{1}{l|}{3}             & \multicolumn{1}{l|}{218}              \\ \cline{2-4} 
+    \end{tabular}
+  \end{table}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\tabModelSelection}{
 \begin{table*}[!t]
   \centering
@@ -171,7 +235,7 @@
   \label{tab:model:selection}
   \begin{tabular}{cllllllllllll}
     \multicolumn{1}{l}{}                       & \multicolumn{12}{c}{{\ul \textbf{Amount of Training Data}}}                                                                                                                                                                                         \\ \cline{2-13} 
-    \multicolumn{1}{l|}{{\ul \textbf{Window}}} & \multicolumn{4}{c}{10\%}                                                        & \multicolumn{4}{c}{30\%}                                                        & \multicolumn{4}{c|}{60\%}                                                       \\ \cline{2-13} 
+    \multicolumn{1}{l|}{{\ul \textbf{Window}}} & \multicolumn{4}{c}{One Failure}                                             & \multicolumn{4}{c}{Two Failures}                                                & \multicolumn{4}{c|}{Four Failures}                                              \\ \cline{2-13} 
     \multicolumn{1}{c|}{\multirow{2}{*}{30s}}  & \textbf{Linear:}  & 0.0557 & \textbf{Poly:}   & \multicolumn{1}{l|}{0.0523} & \textbf{Linear:}  & 0.0756 & \textbf{Poly:}   & \multicolumn{1}{l|}{0.0659} & \textbf{Linear:}  & 0.0733 & \textbf{Poly:}   & \multicolumn{1}{l|}{0.0547} \\
     \multicolumn{1}{c|}{}                      & \textbf{Sigmoid:} & 0.0626 & \textbf{Radial:} & \multicolumn{1}{l|}{0.0459} & \textbf{Sigmoid:} & 0.0591 & \textbf{Radial:} & \multicolumn{1}{l|}{0.0438} & \textbf{Sigmoid:} & 0.0794 & \textbf{Radial:} & \multicolumn{1}{l|}{0.0542} \\ \cline{2-13} 
     \multicolumn{1}{c|}{\multirow{2}{*}{60s}}  & \textbf{Linear:}  & 0.0628 & \textbf{Poly:}   & \multicolumn{1}{l|}{0.0662} & \textbf{Linear:}  & 0.0779 & \textbf{Poly:}   & \multicolumn{1}{l|}{0.064}  & \textbf{Linear:}  & 0.0791 & \textbf{Poly:}   & \multicolumn{1}{l|}{0.0779} \\

@@ -21,6 +21,28 @@ failure has occured so that it gets labelled}
 \item{More data.  Use variables as recommended by Irrera et al.}
 \item{Realistic data.  Get real failure data from 83/561 NOS}
 \item{Implement and use the AFP to predict failure in production environment!}
+\item{More features.  Solve volume/velocity problem using solutions like STORM,
+CAPSA, SPARK, and OS Query}
+\item{Try new fault-loads on another service (like web-server)}
 \end{itemize}
 
 \section{Conclusion}
+This research explored the use of the AFP to predict failure in MS domain
+controllers... unaltered, did not work... not enough lead time.
+
+Memory leak did provide useful results if the user isn't concerned with false
+positives.  Noticed that there are axiomatic predictors in log messages as well
+that may precede SVM appraoch.
+
+CPU leak did not provide any useful information.  Failure was not achieved.
+Service just became very slow.
+
+Heap space was not very consistent.  Domain controller will go back to disk if
+heap is corrupted.  Maybe in the future, consider corrupting both disk and
+memory.
+
+Bottom line: when a process is designed to handle these types of faults, then
+failure prediction will not be possible.
+
+
+

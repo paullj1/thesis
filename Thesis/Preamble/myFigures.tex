@@ -68,8 +68,8 @@
     \includegraphics[width=#1]{precisionRecallCurve}
      \caption[Sample Precision/Recall Curves~\cite{salfnerSurvey}]{Sample
      precision/recall curves~\cite{salfnerSurvey}.  Curve $A$ represents a
-     poorly performing predictor, curve $B$ represents an average predictor,
-     and curve $C$ represents an exceptional predictor.}
+     poorly performing predictor, curve $B$ an average predictor, and curve $C$
+     an exceptional predictor.}
      \label{fig:precisionRecallCurve}
  \end{center}
 \end{figure}
@@ -304,5 +304,73 @@
 \end{figure}
 }
 
+%%%%   SMV   %%%%
+% Pre-Update
+\newcommand{\figMemLeakPreUpdateSVMPerf}{\begin{figure*}[ht!]
+  \centering
+  \subfigure[Precision/Recall Curve.]{
+    \includegraphics[width=0.45\textwidth]{results/pre-update/memleak/svm-prc}
+  }
+  \subfigure[Receiver Operating Characteristic (ROC) Curve (AUC = 0.8664).]{
+    \includegraphics[width=0.45\textwidth]{results/pre-update/memleak/svm-roc}
+  }
+  \caption[Pre-Update, Memory Leak SVM Performance]{Test data performance of
+  the SVM prediction method on failure data obtained by consuming all available
+  memory until target application fails.} \label{fig:memLeakPreUpdateSVMPerf}
+\end{figure*}
+}
 
+% Post-Update (old model)
 
+% Post-Update New Model
+
+%%%%   BOOSTING   %%%%
+% Pre-Update
+\newcommand{\figMemLeakPreUpdateBoostingPerf}{\begin{figure*}[ht!]
+  \centering
+  \subfigure[Precision/Recall Curve.]{
+    \includegraphics[width=0.45\textwidth]{results/pre-update/memleak/boosting-prc}
+  }
+  \subfigure[Receiver Operating Characteristic (ROC) Curve (AUC = 0.9984).]{
+    \includegraphics[width=0.45\textwidth]{results/pre-update/memleak/boosting-roc}
+  }
+  \caption[Pre-Update, Memory Leak Boosting Performance]{Test data performance
+  of the boosting prediction method on failure data obtained by consuming all
+  available memory until target application fails.}
+  \label{fig:memLeakPreUpdateBoostingPerf}
+\end{figure*}
+}
+
+% Post-Update (old model)
+\newcommand{\figMemLeakPostUpdateSameBoostedModel}{\begin{figure*}[ht!]
+  \centering
+  \subfigure[Precision/Recall Curve.]{
+    \includegraphics[width=0.45\textwidth]{results/post-update/memleak/boost-samemodel-prc}
+  }
+  \subfigure[Receiver Operating Characteristic (ROC) Curve (AUC = 0.4854).]{
+    \includegraphics[width=0.45\textwidth]{results/post-update/memleak/boost-samemodel-roc}
+  }
+  \caption[Post-Update, Memory Leak Using Old Model Performance]{Performance of
+  the boosting prediction method trained on failure data created before the
+  software upate obtained by consuming all available memory until target
+  application fails.}
+  \label{fig:memLeakPostUpdateSameBoostedModel}
+\end{figure*}
+}
+
+% Post-Update New Model
+\newcommand{\figMemLeakPostUpdateBoostingPerf}{\begin{figure*}[ht!]
+  \centering
+  \subfigure[Precision/Recall Curve.]{
+    \includegraphics[width=0.45\textwidth]{results/post-update/memleak/boost-prc}
+  }
+  \subfigure[Receiver Operating Characteristic (ROC) Curve (AUC = 0.9801).]{
+    \includegraphics[width=0.45\textwidth]{results/post-update/memleak/boost-roc}
+  }
+  \caption[Post-Update, Memory Leak Using New Model Performance]{Performance of
+  the boosting prediction method trained on failure data created after the
+  software upate obtained by consuming all available memory until target
+  application fails.}
+  \label{fig:memLeakPostUpdateBoostingPerf}
+\end{figure*}
+}
