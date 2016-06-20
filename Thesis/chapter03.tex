@@ -285,26 +285,30 @@ written to slowly consume all available resources on a target system.
 Specifically, the third-party application contains a memory leak that slowly
 allocates all free system memory until the target application crashes.  Next,
 failures are recorded as the result of a third-party application consuming all
-\ac{CPU} time.  Finally, failure is recorded after corrupting heap space in
-memory (versus program memory as done by the \ac{G-SWFIT}).  This type of fault
-could be caused by privileged third party applications writing to the target
-processes allocated memory.  Finally, for completeness, this experiment uses a
-tool developed for this work that implements the \ac{G-SWFIT} technique.
+\ac{CPU} time.  Source code for this application is included in
+Appendix~\ref{app:resourceLeak}.  Finally, failure is recorded after corrupting
+heap space in memory (versus program memory as done by the \ac{G-SWFIT}).  This
+type of fault could be caused by privileged third party applications writing to
+the target processes allocated memory.  Finally, for completeness, this
+experiment uses a tool developed for this work that implements the \ac{G-SWFIT}
+technique.
 
 This work introduces an x86-64 implementation of the \ac{G-SWFIT} technique
 called \ac{W-SWFIT} for Windows Software Fault Injection Tool.  The source code
 for \ac{W-SWFIT} has been published as open source on
 Github\footnote{\url{https://github.com/paullj1/w-swfit/}} so that others may
 use it for any of the reasons cited in the original \ac{G-SWFIT}
-paper~\cite{gswfit}.  For this research, the original plan was to use the same
-fault injection tool used in the original case study by Irrera, et
-al.~\cite{irrera2015}.  Unfortunately, that tool and all prior \ac{G-SWFIT}
-implementations were incapable of injecting faults into x86-64 binary
-executables.  Further, many of the commercial products that were evaluated for
-this research were incapable of dealing with modern \ac{ASLR}.  As a result,
-\ac{W-SWFIT} was developed for this research and is capable of injecting faults
-into all user and kernel mode applications on modern \ac{MS} Windows operating
-systems.  
+paper~\cite{gswfit}.  For completeness, the source is also included in
+Appendix~\ref{app:wswfit}.  
+
+For this research, the original plan was to use the same fault injection tool
+used in the original case study by Irrera, et al.~\cite{irrera2015}.
+Unfortunately, that tool and all prior \ac{G-SWFIT} implementations were
+incapable of injecting faults into x86-64 binary executables.  Further, many of
+the commercial products that were evaluated for this research were incapable of
+dealing with modern \ac{ASLR}.  As a result, \ac{W-SWFIT} was developed for
+this research and is capable of injecting faults into all user and kernel mode
+applications on modern \ac{MS} Windows operating systems.  
 
 The key contributions of \ac{W-SWFIT} are \ac{ASLR} adaption, the x86-64
 translations that have performed.  Further, as pointed out by Irrera, et
@@ -342,8 +346,8 @@ correctly mapped to x86-64.
 
 \subsubsection{Workload Managmement} \label{sec:workloadMgr} 
 The Workload module creates realistic work for the target system in the sandbox
-hypervisor to do as a way of generating computational load.  Without this
-module, it could take a very long time for an injected fault to evolve into a
+hypervisor to accomplish as a way of generating computational load.  Without
+this module, it could take too long for an injected fault to evolve into a
 failure.  Consider a missing \emph{free} statement and the consequent memory
 leak.  A production target server may have a considerable amount of memory and
 the leak could be very small.  To accelerate the possibility of failure
