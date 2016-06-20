@@ -1,40 +1,39 @@
-\chapter{Overview of Online Failure Prediction} \label{chapter2}
-This chapter reviews current research regarding online failure prediction and
-its many approaches to build a foundation for this research.  Further, the
-taxonomy of approaches developed by Salfner, et al.~\cite{salfnerSurvey}, is
-updated by classifying approaches since its publication and creating a new
-sub-category.
+\chapter{Overview of \ac{OFP}} \label{chapter2}
+This chapter reviews current research regarding \ac{OFP} and its many
+approaches to build a foundation for this research.  Further, the taxonomy of
+approaches developed by Salfner, et al.~\cite{salfnerSurvey}, is updated by
+classifying approaches since its publication and creating a new sub-category.
 
 The rest of this chapter is organized as follows.  In Section~\ref{background},
-a brief background on the topic of online failure prediction (OFP) is given
-including definitions, terminology, and measures of performance used by the
-community.  In Section~\ref{approaches}, the approaches relevant to this
-research are presented followed by a brief summary in Section~\ref{summary}.
+a brief background on the topic of \ac{OFP} is given including definitions,
+terminology, and measures of performance used by the community.  In
+Section~\ref{approaches}, the approaches relevant to this research are
+presented followed by a brief summary in Section~\ref{summary}.
 
 \section{Background} \label{background}
 In 2010, Salfner, et al.~\cite{salfnerSurvey} published a survey paper that
-provides a comprehensive summary of the state of the art on the topic of OFP.
-In addition to the review of the literature up to the point of publication,
-they provide a summary of definitions and measures of performance commonly used
-in the community for couching the OFP discussion.
+provides a comprehensive summary of the state of the art on the topic of
+\ac{OFP}.  In addition to the review of the literature up to the point of
+publication, they provide a summary of definitions and measures of performance
+commonly used in the community for couching the \ac{OFP} discussion.
 
 \subsection{Definitions} \label{definitions}
-\subsubsection{Proactive Fault Management} \label{pfm}
-Salfner, et al.~\cite{salfnerSurvey} define proactive fault management (PFM) as
-the process by which faults are handled in a proactive way, analogous with
-\emph{fault tolerance} and basically consisting of four steps: online failure
-prediction, diagnosis, action scheduling, and action execution as shown in
-Figure~\ref{fig:proactiveFaultManagement}.
-The final three stages of PFM define how much lead time is required to avoid a
-failure when predicted during OFP.  \emph{Lead time} is defined as the time
-between when failure is predicted and when that failure will occur.  Lead time
-is one of the most critical elements of a failure prediction approach.
+\subsubsection{\ac{PFM}} \label{pfm}
+Salfner, et al.~\cite{salfnerSurvey} define \ac{PFM} as the process by which
+faults are handled in a proactive way, analogous with \emph{fault tolerance}
+and basically consisting of four steps: \ac{OFP}, diagnosis, action scheduling,
+and action execution as shown in Figure~\ref{fig:proactiveFaultManagement}.
+The final three stages of \ac{PFM} define how much lead time is required to
+avoid a failure when predicted during \ac{OFP}.  \emph{Lead time} is defined as
+the time between when failure is predicted and when that failure will occur.
+Lead time is one of the most critical elements of a failure prediction
+approach.
 
-\figproactiveFaultManagement{6in}
+\figproactiveFaultManagement{0.8\textwidth}
 
-OFP is defined as the first step in PFM shown in
-Figure~\ref{fig:proactiveFaultManagement}.  OFP is the act of analyzing the
-running state of a system in order to predict a failure in that system. Once
+\ac{OFP} is defined as the first step in \ac{PFM} shown in
+Figure~\ref{fig:proactiveFaultManagement}.  \ac{OFP} is the act of analyzing
+the running state of a system in order to predict failure in that system. Once
 failure has been predicted, a fault tolerant system must determine what will
 cause the failure.  This stage is called the \emph{diagnosis} stage or
 ``root-cause analysis'' stage.  During the \emph{diagnosis} stage, the analysis
@@ -83,21 +82,21 @@ errors, whether detected or undetected.  In the memory leak example, a possible
 symptom of the error might be delayed response times due to sluggish
 performance of the overall system.
 
-\figfailureFlowDiagram{6in}
+\figfailureFlowDiagram{\textwidth}
 
 Figure~\ref{fig:failureFlowDiagram} illustrates how a software fault can evolve
 into a failure.  Faults, errors, symptoms, and failures can be further
 categorized by how they are detected also shown in
 Figure~\ref{fig:failureFlowDiagram}.  Salfner, et al.~\cite{salfnerSurvey}
-introduces a taxonomy of OFP approaches and classifies failure prediction
+introduces a taxonomy of \ac{OFP} approaches and classifies failure prediction
 approaches by the stage at which a fault is detected as it evolves into a
 failure: auditing, reporting, monitoring, and tracking.  Testing is left out
 because it does not help detect faults in an online sense.  
 
-\figonlinePrediction{6in}
+\figonlinePrediction{0.8\textwidth}
 
 Figure~\ref{fig:onlinePrediction} demonstrates the timeline associated with
-OFP.  The parameters used by the community to define a predictor are as
+\ac{OFP}.  The parameters used by the community to define a predictor are as
 follows:
 \begin{itemize}
 	\item{Present Time: $t$}
@@ -118,17 +117,18 @@ useful.  For example, it is clear that as a predictor looks further into the
 future potentially increasing \emph{lead time}, confidence in its prediction is
 likely to be reduced.  On the other hand, if \emph{lead time} is too small,
 there will likely not be enough time to effectively take remediation action.
-In general, OFP approaches seek to find a balance between the parameters,
+In general, \ac{OFP} approaches seek to find a balance between the parameters,
 within an acceptable bound depending on application, to achieve the best
 possible performance.
 
-\section{Approaches to Online Failure Prediction (OFP)} \label{approaches}
-\subsection{OFP Taxonomy}
-The taxonomy by Salfner, et al.~\cite{salfnerSurvey} classifies many of the OFP
-approaches in the literature into four major categories.  These four major
-categories are defined by the four techniques used to detect faults in
-real-time: auditing, monitoring, reporting, and tracking.  The taxonomy is
-shown in Figure~\ref{fig:OFPTaxonomy}.
+\section{Approaches to \ac{OFP}} \label{approaches}
+\subsection{\ac{OFP} Taxonomy}
+The taxonomy by Salfner, et al.~\cite{salfnerSurvey} classifies many of the
+\ac{OFP} approaches in the literature into four major categories.  These four
+major categories are defined by the four techniques used to detect faults in
+real-time: auditing, monitoring, reporting, and tracking as illustrated in
+Figure~\ref{fig:failureFlowDiagram}.  The taxonomy is shown in
+Figure~\ref{fig:OFPTaxonomy}.
 
 \figOFPTaxonomy{0.8\textwidth}
 
@@ -147,18 +147,20 @@ seek to find automated ways of identifying these conditions in training data.
 \emph{Co-occurrence} predictors generate failure predictions based on the
 reported errors that occur either spatially or temporally close together.
 \emph{Pattern Recognition} predictors attempt to classify patterns of reported
-errors as failure prone.  This research focusses on pattern recognition OFP
-approaches, which are shown in Figure~\ref{fig:patternRecognition}.
-\emph{Statistical Tests} attempt to classify a system as failure-prone based on
-statistical analysis of historical data.  For example, if a system is
-generating a much larger volume of error reports than it typically does, it may
-be a sign of pending failure.  \emph{Classifiers} assign labels to given sets
-of error reports in training data and then make failure predictions based on
-observed labels in real-time data.
+errors as failure prone.  \emph{Statistical Tests} attempt to classify a system
+as failure-prone based on statistical analysis of historical data.  For
+example, if a system is generating a much larger volume of error reports than
+it typically does, it may be a sign of pending failure.  \emph{Classifiers}
+assign labels to given sets of error reports in training data and then make
+failure predictions based on observed labels in real-time data.  
 
-\figpatternRecognition{6in}
+This research focusses on pattern recognition OFP approaches, which are shown
+in Figure~\ref{fig:patternRecognition}.  Strategies employed in the other
+sub-categories are closely related and thus are also explored in this research.
 
-\subsection{Data-Driven Online Failure Prediction}
+\figpatternRecognition{\textwidth}
+
+\subsection{Data-Driven \ac{OFP}}
 % The survey published by Salfner et al. covered approaches in every sub-category
 % of the \emph{reporting} category.  Since the publication of the survey, we
 % found approaches in two of the subcategories, \emph{pattern recognition} and
@@ -193,40 +195,40 @@ complexity of the reported errors grew.
 
 In 2007, Salfner, et al. extended their previous work in~\cite{salfner2006}
 using semi-Markov models~\cite{salfner2007}.  They generalized the Hidden
-Semi-Markov process for a continuous-time model and called it the Generalized
-Hidden Semi-Markov Model (GHSMM).  By making this generalization, the model
-was able to effectively predict the sequence of similar events (or in this
-case, errors) in the continuous time domain.  The authors then tested the model
-and training algorithm using telecommunication performance failure data and
-compared it to three other approaches.  While this GHSMM model did not perform
-as well as their previous work, it did outperform the models to which it was
-compared and more importantly did not depend on the sequence of reported
-errors.  In other words, this new GHSMM model predicted failure for
-permutations of a known failure-prone sequence making it more suited for a
-distributed or parallel system.
+Semi-Markov process for a continuous-time model and called it the \ac{GHSMM}.
+By making this generalization, the model was able to effectively predict the
+sequence of similar events (or in this case, errors) in the continuous time
+domain.  The authors then tested the model and training algorithm using
+telecommunication performance failure data and compared it to three other
+approaches.  While this \ac{GHSMM} model did not perform as well as their
+previous work, it did outperform the models to which it was compared and more
+importantly did not depend on the sequence of reported errors.  In other words,
+this new \ac{GHSMM} model predicted failure for permutations of a known
+failure-prone sequence making it more suited for a distributed or parallel
+system.
 
-The GHSMM approach has been well received by the community, although appears to
-be limited in use to a single system.  Unfortunately, this approach as well as
-its predecessor, does not scale well and does not adapt to changes to the
-underlying system without retraining.
+The \ac{GHSMM} approach has been well received by the community, although
+appears to be limited in use to a single system.  Unfortunately, this approach
+as well as its predecessor, does not scale well and does not adapt to changes
+to the underlying system without retraining.
 
 \subsubsection{Classifiers}
-Domeniconi, et al.~\cite{domeniconi2002} published a technique based on
-support vector machines (SVM) to classify the present state as either failure
-prone or not based on a window of error reports as an input vector.  As Salfner
-points out in~\cite{salfnerSurvey}, this SVM approach would not be useful
-without some sort of transformation of the input vector since the exact same
-sequence of error messages, rotated by one message, would not be classified as
-similar.  To solve this permutation challenge, the authors
-in~\cite{domeniconi2002} used singular value decomposition to isolate the
-sequence of error reports that led to a failure.
+Domeniconi, et al.~\cite{domeniconi2002} published a technique that used
+\ac{SVM} to classify the present state as either failure prone or not based on
+a window of error reports as an input vector.  As Salfner points out
+in~\cite{salfnerSurvey}, this \ac{SVM} approach would not be useful without
+some sort of transformation of the input vector since the exact same sequence
+of error messages, rotated by one message, would not be classified as similar.
+To solve this permutation challenge, the authors in~\cite{domeniconi2002} used
+singular value decomposition to isolate the sequence of error reports that led
+to a failure.
 
-This SVM approach used training data from a production computer environment
-with 750 hosts over a period of 30 days.  The types of failures the system was
-trying to detect was the inability to route to a web-page and an arbitrary node
-being down.  Many approaches involving SVMs have been explored since and seem
-to be popular in the community~\cite{fronza2013, fulp2008, murray2005,
-domeniconi2002, irrera2015}.
+This \ac{SVM} approach used training data from a production computer
+environment with 750 hosts over a period of 30 days.  The types of failures the
+system was trying to detect was the inability to route to a web-page and an
+arbitrary node being down.  Many approaches involving \ac{SVM}s have been
+explored since and seem to be popular in the community~\cite{fronza2013,
+fulp2008, murray2005, domeniconi2002, irrera2015}.
 
 \subsubsection{Hybrid Approaches}
 \emph{Fujitsu Labs} has published several papers on an approach for predicting
@@ -237,7 +239,8 @@ Bayesian learning approach to detect patterns in similar log messages.  Their
 approach abstracts the log messages by breaking them down into single words and
 categorizing them based on the number of identical words between multiple
 messages.  This hybrid approach removes the details from the messages, like
-node identifier, and IP address while retaining meaning of the log message.
+node identifier, and \ac{IP} address while retaining meaning of the log
+message.
 
 Watanabe et al.'s~\cite{watanabe2014} hybrid approach attempts to solve the
 problem of underlying system changes by learning new patterns of messages in
@@ -255,16 +258,16 @@ period.  The authors reported a precision of 0.8 and a recall of 0.9, resulting
 in an F-measure of 0.847.  
 
 Fronza, et al.~\cite{fronza2013} introduced a pattern-recognition/classifier
-hybrid approach that used an SVM to detect patterns in log messages that would
-lead to failure.  The authors used random indexing to solve the problem
-previously discussed of SVMs failing to classify two sequences as similar if
-they are offset by one error report.  The authors report that their predictor
-was able to almost perfectly detect non-failure conditions but was poor at
-identifying failures.  The authors then weighted the SVMs to account for this
-discrepancy by assigning a larger penalty for false negatives than false
-positives and had better results.
+hybrid approach that used an \ac{SVM} to detect patterns in log messages that
+would lead to failure.  The authors used random indexing to solve the problem
+previously discussed of \ac{SVM}s failing to classify two sequences as similar
+if they are offset by one error report.  The authors report that their
+predictor was able to almost perfectly detect non-failure conditions but was
+poor at identifying failures.  The authors then weighted the \ac{SVM}s to
+account for this discrepancy by assigning a larger penalty for false negatives
+than false positives and had better results.
 
-\subsection{Industry Approaches to Online Failure Prediction} \label{industry}
+\subsection{Industry Approaches to \ac{OFP}} \label{industry}
 Because hardware has become so easy to acquire, industry has sought to avoid
 the problem of software failure by implementing massive redundancy in their
 systems.  The work in~\cite{watanabe2014,irrera2015} attributes the problem
@@ -279,23 +282,24 @@ Redundancy is not without problems however.  Implementing redundant systems to
 avoid the failure problem can be expensive and can add overhead and complexity
 making a system more difficult to manage.
 
-\subsection{Adaptive Failure Prediction (AFP) Framework} \label{afp}
-The Adaptive Failure Prediction (AFP) Framework by Irrera, et
-al.~\cite{irrera2015} shown in Figure~\ref{fig:AFP}, presents a new approach to
-maintaining the efficacy of failure predictors given underlying system changes.
-The authors conducted a case study implementing the framework using
-virtualization and fault injection on a web server.  
+\subsection{\ac{AFP} Framework} \label{afp}
+The \ac{AFP} Framework by Irrera, et al.~\cite{irrera2015} shown in
+Figure~\ref{fig:AFP}, presents a new approach to maintaining the efficacy of
+failure predictors given underlying system changes.  The authors conducted a
+case study implementing the framework using virtualization and fault injection
+on a web server.  
 
-\figAFP{5in}
+\figAFP{0.8\textwidth}
 
 The framework built upon past work by Irrera, et
 al.~\cite{irrera2013,irrera2014} to generate failure data by injecting software
-faults using a tool based on G-SWFIT~\cite{gswfit} in a virtual environment for
-comparing and automatically re-training predictors.  With the introduction of
-the framework, Irrera, et al.~\cite{irrera2015} report results of a case-study.
-After implementing the AFP using a web server and an SVM predictor, they report
-that their findings demonstrate their framework is able to adapt to changes to
-an underlying system which would normally render a predictor unusable.
+faults using a tool based on \ac{G-SWFIT}~\cite{gswfit} in a virtual
+environment for comparing and automatically re-training predictors.  With the
+introduction of the framework, Irrera, et al.~\cite{irrera2015} report results
+of a case-study.  After implementing the \ac{AFP} using a web server and an
+\ac{SVM} predictor, they report that their findings demonstrate their framework
+is able to adapt to changes to an underlying system which would normally render
+a predictor unusable.
 
 In general, the use of simulated data is not well received by the community,
 however the authors in~\cite{irrera2010,irrera2014} report evidence supporting
@@ -309,19 +313,20 @@ injecting the types of faults that one can expect, each failure type is
 represented in the training data.
 
 Irrera, et al.~\cite{irrera2015} reported good results and concluded that the
-AFP is an effective tool.  Unfortunately, the AFP is not a universal solution
-and requires significant work to be implemented on a modern Microsoft Windows
-enterprise network.  Furthermore, the fault load previously explored does not
-completely represent all possible failures~\cite{kikuchi2014}.
+\ac{AFP} is an effective tool.  Unfortunately, the \ac{AFP} is not a universal
+solution and requires significant work to be implemented on a modern \ac{MS}
+Windows enterprise network.  Furthermore, the fault load previously explored
+does not completely represent all possible failures~\cite{kikuchi2014}.
 
 \section{Summary} \label{summary}
 This chapter covered the definitions, measures of performance, and approaches
 that are relevant to this research as organized under the subsection of
-\emph{reporting} within the OFP field of study.  There has been a tremendous
-amount of research surrounding the topic of OFP and many prediction approaches
-have been presented.  Unfortunately, these approaches do not appear on modern
-operational systems and failures are still relatively prevalent.  Recent
-approaches as covered here have sought to make predictors more adaptive to the
-changes in underlying systems in an effort to make implementing existing
-failure predictors easier.  In this work, we plan to extend the adaptive
-failure prediction framework and further generalize the approach.  
+\emph{reporting} within the \ac{OFP} field of study.  There has been a
+tremendous amount of research surrounding the topic of \ac{OFP} and many
+prediction approaches have been presented.  Unfortunately, these approaches do
+not appear on modern operational systems and failures are still relatively
+prevalent.  Recent approaches as covered here have sought to make predictors
+more adaptive to the changes in underlying systems in an effort to make
+implementing existing failure predictors easier.  In this work, we plan to
+extend the \ac{AFP} framework and further generalize the
+approach.  

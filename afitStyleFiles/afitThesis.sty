@@ -43,10 +43,12 @@
 \usepackage{varioref} 
 \usepackage{tocbibind} 
 \usepackage{multirow}
+\usepackage{longtable}
 \usepackage{listings} 
 \lstset{
     breaklines=true,
-    basicstyle=\ttfamily\scriptsize
+    basicstyle=\ttfamily\scriptsize,
+    columns=flexible,
 }
 \usepackage{xspace}
 \usepackage{fixltx2e}
@@ -544,6 +546,7 @@ copyright protection in the United States.}
 % Rewrite \chapter to add proper punctuation in Table of Contents
 
 \renewcommand\chapter{\if@openright\cleardoublepage\else\clearpage\fi
+      \glsresetall
       \thispagestyle{plain}
       \global\@topnum\z@
       \@afterindentfalse

@@ -5,15 +5,15 @@
   \caption{Table of Faults Injected~\cite{gswfit}.}\label{tab:faults}
 \begin{tabular}{ | c | l | c | } 
 \hline
-	\textbf{Type}  & \textbf{Description}  & \textbf{ODC Classes}  \\ \hline \hline
-	MIFS  & Missing "If (cond) \{ statement(s) \}"  & Algorithm  \\ \hline
-	MFC  & Missing function call  & Algorithm  \\ \hline
-	MLAC  & Missing "AND EXPR" in expression used as branch & Checking  \\ \hline
-	MLPC  & Missing small and localized part of the algorithm  & Algorithm  \\ \hline
-	WVAV  & Wrong value assigned to a value  & Assignment  \\ \hline
-	MVI  & Missing variable initialization  & Assignment  \\ \hline
-	MVAV  & Missing variable assignment using a value  & Assignment  \\ \hline
-	WPFV  & Wrong variable used in parameter of function call  & Interface  \\ \hline
+  \textbf{Type}  & \textbf{Description}  & \textbf{ODC Classes}  \\ \hline \hline
+  MIFS  & Missing "If (cond) \{ statement(s) \}"  & Algorithm  \\ \hline
+  MFC  & Missing function call  & Algorithm  \\ \hline
+  MLAC  & Missing "AND EXPR" in expression used as branch & Checking  \\ \hline
+  MLPC  & Missing small and localized part of the algorithm  & Algorithm  \\ \hline
+  WVAV  & Wrong value assigned to a value  & Assignment  \\ \hline
+  MVI  & Missing variable initialization  & Assignment  \\ \hline
+  MVAV  & Missing variable assignment using a value  & Assignment  \\ \hline
+  WPFV  & Wrong variable used in parameter of function call  & Interface  \\ \hline
 \end{tabular}
 \end{table}
 }
@@ -25,15 +25,15 @@
   (IA32)~\cite{gswfit}.}\label{tab:translationThirtyTwo}
 \begin{tabular}{ | l | l | l | l | }
 \hline
-	\multicolumn{2}{|c|}{\textbf{Module Entry Point}}& 
+  \multicolumn{2}{|c|}{\textbf{Module Entry Point}}& 
   \multicolumn{2}{c|}{\textbf{Module Exit Point}} \\ \hline
 
-	\textbf{Instruction Sequence} & \textbf{Explanation} &
+  \textbf{Instruction Sequence} & \textbf{Explanation} &
   \textbf{Instruction Sequence} & \textbf{Explanation} \\ \hline \hline
 
-	push ebp & stack frame & move esp,ebp & stack frame \\ \hline
-	mov ebp, esp & setup & pop ebp & cleanup \\ \hline
-	sub esp, \emph{immed} &  & ret &  \\ \hline
+  push ebp & stack frame & move esp,ebp & stack frame \\ \hline
+  mov ebp, esp & setup & pop ebp & cleanup \\ \hline
+  sub esp, \emph{immed} &  & ret &  \\ \hline
 \end{tabular}
 \end{table}
 }
@@ -45,15 +45,15 @@
   (x86-64)~\cite{gswfit}.}\label{tab:translationSixtyFour}
 \begin{tabular}{ | l | l | l | l | }
 \hline
-	\multicolumn{2}{|c|}{\textbf{Module Entry Point}}& 
+  \multicolumn{2}{|c|}{\textbf{Module Entry Point}}& 
   \multicolumn{2}{c|}{\textbf{Module Exit Point}} \\ \hline
 
-	\textbf{Instruction Sequence} & \textbf{Explanation} & 
+  \textbf{Instruction Sequence} & \textbf{Explanation} & 
   \textbf{Instruction Sequence} & \textbf{Explanation} \\ \hline \hline
 
-	push rbp & stack frame & add rsp, \emph{immed} & stack frame \\ \hline
-	sub rsp, \emph{immed} &  & pop rbp & cleanup \\ \hline
-	mov rbp, rdx & setup & ret &  \\ \hline
+  push rbp & stack frame & add rsp, \emph{immed} & stack frame \\ \hline
+  sub rsp, \emph{immed} &  & pop rbp & cleanup \\ \hline
+  mov rbp, rdx & setup & ret &  \\ \hline
 \end{tabular}
 \end{table}
 }
@@ -89,9 +89,10 @@
 
 \newcommand{\tabMessage}{
 \begin{table}[!ht] \centering
-  \caption{Typical authentication message sent as keys that correspond to the
-  values as designated in the \emph{Snare} protocol for MSWinEventLog used by
-  the SolarWinds syslog agent.} \label{tab:message}
+  \caption[MSWinEventLog Authentication Message]{Typical authentication message
+  sent as keys that correspond to the values as designated in the \emph{Snare}
+  protocol for MSWinEventLog used by the SolarWinds syslog agent.}
+  \label{tab:message}
   \begin{tabular}{ | l | l | }
     \hline
       Key                 & Value                               \\ \hline\hline
@@ -118,7 +119,7 @@
   \caption{Sample time window after message translation.} \label{tab:window}
   \begin{tabular}{ | l | l | }
     \hline
-      Key                         & Value \\ \hline\hline
+      Predictor                   & Value \\ \hline\hline
       FailureWindow               & 0     \\ \hline
       NumObservations             & 2     \\ \hline
       Criticality: 6              & 2     \\ \hline
@@ -246,4 +247,21 @@
     \multicolumn{1}{c|}{}                      & \textbf{Sigmoid:} & 0.204  & \textbf{Radial:} & \multicolumn{1}{l|}{0.104}  & \textbf{Sigmoid:} & 0.2864 & \textbf{Radial:} & \multicolumn{1}{l|}{0.0585} & \textbf{Sigmoid:} & 0.3056 & \textbf{Radial:} & \multicolumn{1}{l|}{0.0792} \\ \cline{2-13} 
   \end{tabular}
 \end{table*}
+}
+
+
+\newcommand{\tabMessageIDs}{
+\begin{table}[!ht] \centering
+  \caption[Microsoft Log Message IDs]{Microsoft Log Message IDs\protect
+  \footnotemark} \label{tab:messageIDs}
+  \begin{tabular}{ l | l }
+    ID   & Message                                                \\ \hline
+    4624 & An account was successfully logged on.                 \\
+    4634 & An account was logged off.                             \\
+    4672 & Special privileges assigned to new logon.              \\
+    4769 & A Kerberos service ticket was requested.               \\
+    4770 & A Kerberos service ticket was renewed.                 \\
+    4776 & The computer attempted to validate the credentials for an account. \\ 
+  \end{tabular}
+\end{table}
 }

@@ -2,6 +2,7 @@
 \usepackage{../afitStyleFiles/afitThesis}
 \usepackage{../afitStyleFiles/sf298}
 \usepackage[pdftex,pdfpagelabels,bookmarks,hyperindex,hyperfigures]{hyperref}
+\usepackage[nogroupskip,automake,nonumberlist,nopostdot,toc,shortcuts]{glossaries}
 
 \mathchardef\mhyphen="2D % Define a "math hyphen"
 \graphicspath{{../Figures/}}
@@ -10,19 +11,20 @@
 \input{Preamble/myFigures}
 \input{Preamble/myTables}
 \input{Preamble/commonSymbols}
+\input{Back/glossary}
 
 \begin{document}
 
 \frontmatter
-	\flyleaf                        
-	\disclaimerpage                 
-	\titlepageAFIT                      
-	\committeepage  
-	\input{Front/abstract}
-	\input{Front/acknowledgements}
-	\tableofcontents
-	\listoffigures
-	\listoftables
+  \flyleaf                        
+  \disclaimerpage                 
+  \titlepageAFIT                      
+  \committeepage  
+  \input{Front/abstract}
+  \input{Front/acknowledgements}
+  \tableofcontents
+  \listoffigures
+  \listoftables
 
 \mainmatter
   \input{chapter01}
@@ -33,12 +35,13 @@
 
 \appendix
   \input{appendices}
+  \printglossary[type=\acronymtype,style=super]
 
 \backmatter
-	\singlespace
-	\bibliographystyle{../afitStyleFiles/afitThesis}
-	\bibliography{Back/references} 
-	\input{Back/SF298}
-	\clearpage
+  \singlespace
+  \bibliographystyle{../afitStyleFiles/afitThesis}
+  \bibliography{Back/references} 
+  \input{Back/SF298}
+  \clearpage
 
 \end{document}
