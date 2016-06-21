@@ -51,7 +51,7 @@ The performance of various prediction techniques will be evaluated both before
 and after the Windows Update is allowed to run.  A complete list of the updates
 installed is shown in Appendix~\ref{app:updates}.
 
-This phase is ultimately the manual act of implementating the framework.  Each
+This phase is ultimately the manual act of implementing the framework.  Each
 module of the implementation for this work is detailed in
 Section~\ref{sec:implementation} and is therefore not discussed further here.  
 
@@ -303,7 +303,7 @@ Appendix~\ref{app:wswfit}.
 
 For this research, the original plan was to use the same fault injection tool
 used in the original case study by Irrera, et al.~\cite{irrera2015}.
-Unfortunately, that tool and all prior \ac{G-SWFIT} implementations were
+Unfortunately, that tool, and all prior \ac{G-SWFIT} implementations were
 incapable of injecting faults into x86-64 binary executables.  Further, many of
 the commercial products that were evaluated for this research were incapable of
 dealing with modern \ac{ASLR}.  As a result, \ac{W-SWFIT} was developed for
@@ -332,13 +332,12 @@ previously are incompatible.  Consequently, a fault injection tool capable of
 mutating x86-64 instructions in the same way was required.  \ac{W-SWFIT}
 implements two of the operators in~\cite{gswfit} in the x86-64 language by
 translating the operators shown in Table~\ref{tab:faults} from IA32 to x86-64.
-A simple example of this translation is shown in the entry/exit points of a
-function in Tables~\ref{tab:translationThirtyTwo},
-and~\ref{tab:translationSixtyFour}.  The rest of the translations can be seen
-in source code for \ac{W-SWFIT}.  In many cases, the translation was very
-simple, but in others, the IA32 patterns did not cleanly map to x86-64 byte
-code.  When this happened, great care was taken to ensure the pattern was
-correctly mapped to x86-64.
+The translation of these operators was not trivial given the complexity of the
+x86-64 architecture.  However, a simple example is shown using the entry/exit
+points of a function in Tables~\ref{tab:translationThirtyTwo},
+and~\ref{tab:translationSixtyFour}.  The rest of the translations were done
+using the \emph{Capstone}~\footnote{\url{http://www.capstone-engine.org}}
+library and can be seen in source code for \ac{W-SWFIT}.
 
 \tabFaults
 \tabTranslationThirtyTwo
