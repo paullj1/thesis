@@ -358,10 +358,10 @@ a target and the load generation was done by a simple web request
 generator~\cite{irrera2015}.  As previously mentioned, realistic workload is
 critical in generating realistic failure and consequently training a useful
 predictor.  Initial searches for a load generator suitable for this research
-yielded a tool developed by \ac{MS} that initiated remote desktop connections
+yielded a tool developed by \ac{MS} that initiated \ac{RDP} connections
 to aid in sizing a terminal services
 server\footnote{\url{http://www.microsoft.com/en-us/download/details.aspx?id=2218}}.
-By executing a remote desktop session, the authentication and \ac{DNS}
+By executing an \ac{RDP} session, the authentication and \ac{DNS}
 functions of the \ac{DC} would also be loaded.  Unfortunately, this tool is no
 longer maintained and would not execute on the target
 machine\footnote{\url{https://social.technet.microsoft.com/Forums/windowsserver/en-US/2f8fa5cf-3714-4eb3-a895-c30e2b26862d/debug-assertion-failed-sockcorecpp-line-623}}.
@@ -370,9 +370,9 @@ produce any results.  Consequently, a tool to produce realistic load for a
 \ac{DC} was developed for this research and is introduced here.
 
 The \ac{D-PLG} is a collection of \ac{MS} PowerShell scripts designed to
-generate realistic traffic that will sufficiently load an \ac{MS} \ac{DC}.
-Other network traffic generators typically work by replaying traffic captured
-on a live network.  Unfortunately, due to the cryptographic nature of
+generate realistic traffic that will sufficiently load a \ac{DC}.  Other
+network traffic generators typically work by replaying traffic captured on a
+live network.  Unfortunately, due to the cryptographic nature of
 authentication, simply replaying traffic will not load a service since the
 timestamps and challenge responses will no longer be valid.  As a result, any
 replayed traffic will be dropped and ignored by a live \ac{DC}.  \ac{D-PLG}
@@ -384,19 +384,18 @@ sufficiently load each of the services responsible for performing those
 functions.
 
 In this experiment, the \ac{DC} is configured as it is in many production
-environments.  After careful analysis, it has been determined that the major
-roles being performed by the \ac{DC} in a typical enterprise environment are
-authentication and \ac{DNS}.  By use of native cmdlets, \ac{D-PLG} is capable
-of generating four kinds of traffic designed to stress these services and
-others: web, mail, file sharing, and \ac{MS} \ac{RDP}.  \ac{D-PLG} uses the
-\ac{MS} Powershell environment to generate the traffic in an effort to make the
-traffic as real as possible.  After building the tool, an experiment was
-constructed and executed on a scale model of a production environment.  The
-scaled simulation network was built using the recommendations of the \ac{MS}
-community for sizing a \ac{DC}~\cite{mak12} and tested by running the
-tool on five client machines against the \ac{DC} for five rounds of five
-minutes.  The results of this test are shown in Figures~\ref{fig:authDCPPS},
-\ref{fig:authClientPPS}, \ref{fig:authDCMetrics}.
+environments.  The major roles being performed by the \ac{DC} in a typical
+enterprise environment are authentication and \ac{DNS}.  By use of native
+cmdlets, \ac{D-PLG} is capable of generating four kinds of traffic designed to
+stress these services and others: web, mail, file sharing, and \ac{MS}
+\ac{RDP}.  \ac{D-PLG} uses the \ac{MS} Powershell environment to generate the
+traffic in an effort to make the traffic as real as possible.  After building
+the tool, an experiment was constructed and executed on a scale model of a
+production environment.  The scaled simulation network was built using the
+recommendations of the \ac{MS} community for sizing a \ac{DC}~\cite{mak12} and
+tested by running the tool on five client machines against the \ac{DC} for five
+rounds of five minutes.  The results of this test are shown in
+Figures~\ref{fig:authDCPPS}, \ref{fig:authClientPPS}, \ref{fig:authDCMetrics}.
 
 \figAuthDCPPS{4in}
 \figAuthClientPPS{4in}
@@ -410,7 +409,7 @@ produce realistic load against a \ac{DC}.  Since \ac{D-PLG} depends on the use
 of client machines, it is recommended that any load generation be conducted
 during off-peak hours if spare client sized machines are not available.  It
 should be noted however, that even with poorly resourced client machines (shown
-in~\ref{tab:hyp1}), \ac{D-PLG} was able to generate fifteen thousand
+in Table~\ref{tab:hyp1}), \ac{D-PLG} was able to generate fifteen thousand
 authentication sessions over a five minute period; approximately 10
 authentication sessions per machine, per second.  With modern workstations, the
 impact on these client machines is negligible and they can be in use during
@@ -430,13 +429,14 @@ to use.
 This module is responsible for receiving and managing log messages and other
 events that may be used to train the failure prediction algorithm.  Irrera, et
 al.~\cite{irrera2015} use the \emph{Logman} tool for event management in their
-original case study.  Since the experimental environment was modelled after the
-Air Force enterprise environment, the \emph{Solar Winds} log forwarding tool is
-used to perform the functions in this module as it is already present on many
-of the Air Force \ac{DC}s.  The \ac{DC}s on the Sandbox and Target hypervisors
-forward all events to the Ubuntu \ac{VM} with the \emph{rsyslog} server daemon
-configured to receive all messages.  These messages are then processed and
-added to a \ac{SQL} database for training and prediction.  
+original case study.  Since the experimental environment in this work was
+modelled after modern enterprise environments, the \emph{Solar Winds} log
+forwarding tool is used to perform the functions in this module as it is
+already present on many enterprise \ac{DC}s.  The \ac{DC}s on the Sandbox and
+Target hypervisors forward all events to the Ubuntu \ac{VM} with the
+\emph{rsyslog} server daemon configured to receive all messages.  These
+messages are then processed and added to a \ac{SQL} database for training and
+prediction.  
 
 \subsubsection{Sandbox Management} \label{sec:sandboxMgr} 
 The purpose of the sandbox management module is to supervise the virtual
@@ -466,7 +466,7 @@ labelled failure data can be generated in a short period of time.  As described
 in Section~\ref{sec:faultInjectionMgr}, \ac{W-SWFIT} has been developed to
 serve this purpose and implements the \ac{G-SWFIT} technique developed by
 Duraes, et al.~\cite{gswfit} for fault injection.  The execution is controlled
-by the Windows Server \ac{VM} on the Controller hypervisor through PowerShell
+by the Windows Server \ac{VM} on the `Controller' hypervisor through PowerShell
 remote execution to reduce the interaction and potential to introduce bias into
 the training data.  The tool allows us to inject a comprehensive list of faults
 into the \ac{AD} Services processes and binary libraries which are mostly
@@ -475,7 +475,7 @@ performed by the \ac{AD} Services processes are performed in one library called
 `ntdsa.dll', it is the focus of fault injection.
 
 This function is extended by this research to include failure as a result of
-excessive load and failure as a result of a corrupt database.
+third-party memory and \ac{CPU} leaks, and memory corruption.
 Section~\ref{sec:extensions} covers these extensions in more depth.
 
 \subsubsection{Monitoring} \label{sec:sandboxMonitoringTool} 
@@ -483,18 +483,18 @@ The purpose of this module is to capture some evidence or indication of pending
 failure so that it may be used to train a prediction algorithm.  Irrera, et
 al.~\cite{irrera2015} use the \emph{Logman} tool in their original study but
 because the experimental infrastructure used in this research is modelled after
-production Air Force networks, the \emph{Solar Winds} log forwarding tool is
-used because it is already present in the Air Force architecture.  The tool is
-a lightweight application that simply forwards Windows events to a syslog
-server.
+modern production networks, the \emph{Solar Winds} log forwarding tool is used
+because it or some similar syslog forwarding client is already present in many
+modern enterprise architectures.  The tool is a lightweight application that
+simply forwards Windows events to a syslog server.
 
 \subsubsection{Sandbox Workload}  \label{sec:sandboxWorkload} 
-The sandbox workload module is likely the most critical module in the entire
-framework.  Its purpose is to create realistic work for the target application
-to do before faults are injected.  If the workload is not realistic, then the
-failures that occur after fault injection will not be representative of real
-failures and any data or indicators collected cannot be used to train an
-effective prediction algorithm~\cite{cotroneo2012,kikuchi2014,irrera2015}.
+The purpose of this module is to create realistic work for the target
+application to do before faults are injected.  If the workload is not
+realistic, then the failures that occur after fault injection will not be
+representative of real failures and any data or indicators collected cannot be
+used to train an effective prediction
+algorithm~\cite{cotroneo2012,kikuchi2014,irrera2015}.
 
 Irrera, et al.~\cite{irrera2015} used a web traffic generator called TPC-W
 installed on a single machine in their original study because their target was
@@ -534,9 +534,9 @@ other faults that may occur in a production environment:  an under-resourced
 Under some circumstances these faults may not be considered to lead to
 realistic failure.  However, one reason an organization may wish to implement
 the \ac{AFP} may be that monetary resources are not available to implement an
-adequately redundant or sized \ac{DC}.  Consequently, load based failure may be a
-realistic challenge faced by some organizations and knowing that such a failure
-may occur might be valuable.  Furthermore, in some cases, third-party
+adequately redundant or sized \ac{DC}.  Consequently, load based failure may be
+a realistic challenge faced by some organizations and knowing that such a
+failure may occur might be valuable.  Furthermore, in some cases, third-party
 applications or hardware drivers may be responsible for memory leaks or
 accidental heap-space corruption.  Since the Windows operating system
 implements shared library linking, hardware drivers that operate in kernel
