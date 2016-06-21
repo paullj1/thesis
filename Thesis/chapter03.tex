@@ -26,7 +26,11 @@ using three new types of faults: third-party memory leak, third-party \ac{CPU}
 hog, and process memory corruption.  For completeness, the standard
 \ac{G-SWFIT} technique is also used.  Finally, findings are reported after
 implementing this framework using two different statistical machine learning
-techniques: boosted decision trees and \ac{SVM}.  In both cases, feature
+techniques: boosted decision trees and the weighted \ac{SVM}.  The weighted
+\ac{SVM} is used because of it performs well on imbalanced data and it is
+popular in the \ac{OFP} community~\cite{salfnerSurvey}.  The boosted decision
+tree is used because it is non-parametric, it is capable of classification, and
+it is particularly suited for imbalanced data.  In both cases, feature
 reduction is performed as is done by Fulp et al.~\cite{fulp2008}, on a sliding
 time window as is done by Irrera, et al.~\cite{irrera2013a} and
 Vaarandi~\cite{vaarandi2002}.

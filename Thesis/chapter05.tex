@@ -1,6 +1,10 @@
 \chapter{Conclusion and Future Work} \label{chapter5}
 This research has shown that it is possible to predict failure in modern
-computer operating systems given a representative fault load.
+\ac{MS} enterprise authentication architecture given a representative fault
+load.  While two out of the three fault loads introduced in this research were
+not successful in generating useful failure, one was.  More importantly,
+without modification, the original \ac{AFP} was incapable of inducing failure
+that was useful in training a statistical learning model.  
 
 \section{Future Work}
 Future lines of research should include the following\dots
@@ -25,6 +29,8 @@ failure has occured so that it gets labelled}
 CAPSA, SPARK, and OS Query}
 \item{Try new fault-loads on another service (like web-server)}
 \item{This works in a small environment, but may face challenges when scaling}
+\item{Explore fault injection in processes outside targetted area.  Won't find
+faults in target, but may reproduce faults in overall system}
 \end{itemize}
 
 \section{Conclusion}
@@ -45,5 +51,6 @@ memory.
 Bottom line: when a process is designed to handle these types of faults, then
 failure prediction will not be possible.
 
-
-
+**Still recommend using all fault loads in automated process... while the
+software may not be vulnerable to them now, a software update could get pushed
+which introduces this vulnerability.
