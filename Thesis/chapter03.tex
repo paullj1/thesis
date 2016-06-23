@@ -11,8 +11,8 @@ covered in the other two sections.
 
 This chapter outlines the implementation and extensions to the \ac{AFP}
 Framework~\cite{irrera2015} as well as an experiment to validate those
-extensions and further generalize the framework.  The \ac{AFP} was originally tested
-on a single system running an operating system that has been deprecated.
+extensions and further generalize the framework.  The \ac{AFP} was originally
+tested on a single system running an operating system that has been deprecated.
 Consequently, the results from the case study conducted using the \ac{AFP} are
 limited in utility and require generalization to be useful to the general
 community.
@@ -26,14 +26,14 @@ using three new types of faults: third-party memory leak, third-party \ac{CPU}
 hog, and process memory corruption.  For completeness, the standard
 \ac{G-SWFIT} technique is also used.  Finally, findings are reported after
 implementing this framework using two different statistical machine learning
-techniques: boosted decision trees and the weighted \ac{SVM}.  The weighted
-\ac{SVM} is used because of it performs well on imbalanced data and it is
-popular in the \ac{OFP} community~\cite{salfnerSurvey}.  The boosted decision
-tree is used because it is non-parametric, it is capable of classification, and
-it is particularly suited for imbalanced data.  In both cases, feature
-reduction is performed as is done by Fulp et al.~\cite{fulp2008}, on a sliding
-time window as is done by Irrera, et al.~\cite{irrera2013a} and
-Vaarandi~\cite{vaarandi2002}.
+techniques on reported errors (log messages): boosted decision trees and the
+weighted \ac{SVM}.  The weighted \ac{SVM} is used because of it performs well
+on imbalanced data and it is popular in the \ac{OFP}
+community~\cite{salfnerSurvey}.  The boosted decision tree is used because it
+is non-parametric, it is capable of classification, and it is particularly
+suited for imbalanced data.  In both cases, feature reduction is performed as
+is done by Fulp et al.~\cite{fulp2008}, on a sliding time window as is done by
+Irrera, et al.~\cite{irrera2013a} and Vaarandi~\cite{vaarandi2002}.
 
 This section outlines the step-by-step procedure by which the extended \ac{AFP}
 is evaluated to show how effective it is when used on Windows Server
@@ -55,7 +55,7 @@ The performance of various prediction techniques will be evaluated both before
 and after the Windows Update is allowed to run.  A complete list of the updates
 installed is shown in Appendix~\ref{app:updates}.
 
-This phase is ultimately the manual act of implementing the framework.  Each
+This phase is comprised of the manual act of implementing the framework.  Each
 module of the implementation for this work is detailed in
 Section~\ref{sec:implementation} and is therefore not discussed further here.  
 
@@ -347,7 +347,7 @@ library and can be seen in source code for \ac{W-SWFIT}.
 \tabTranslationThirtyTwo
 \tabTranslationSixtyFour
 
-\subsubsection{Workload Managmement} \label{sec:workloadMgr} 
+\subsubsection{Workload Management} \label{sec:workloadMgr} 
 The Workload module creates realistic work for the target system in the sandbox
 hypervisor to accomplish as a way of generating computational load.  Without
 this module, it could take too long for an injected fault to evolve into a
@@ -432,15 +432,19 @@ to use.
 \subsubsection{Events Manager} \label{sec:eventsManagerMgr}
 This module is responsible for receiving and managing log messages and other
 events that may be used to train the failure prediction algorithm.  Irrera, et
-al.~\cite{irrera2015} use the \emph{Logman} tool for event management in their
-original case study.  Since the experimental environment in this work was
-modelled after modern enterprise environments, the \emph{Solar Winds} log
-forwarding tool is used to perform the functions in this module as it is
-already present on many enterprise \ac{DC}s.  The \ac{DC}s on the Sandbox and
-Target hypervisors forward all events to the Ubuntu \ac{VM} with the
-\emph{rsyslog} server daemon configured to receive all messages.  These
-messages are then processed and added to a \ac{SQL} database for training and
-prediction.  
+al.~\cite{irrera2015} use the \ac{MS} \emph{Logman} tool from the remote
+controller for event management in their original case study.  \emph{Logman}
+was configured to poll $170$ system variables on the target machine once per
+second.  
+
+Since the focus of this research is on \emph{reported errors}, and the
+experimental environment in this work was modelled after modern enterprise
+environments where this sort of polling could produce too much data, this
+experiment implements an \emph{rsyslog} server daemon and the target is
+configured to forward logs to it.  Moreover, because syslog is a standard
+protocol, it is already in use in many enterprise networks today.  The messages
+forwarded to the events manager are then processed and added to a \ac{SQL}
+database for training and prediction.  
 
 \subsubsection{Sandbox Management} \label{sec:sandboxMgr} 
 The purpose of the sandbox management module is to supervise the virtual
@@ -484,12 +488,14 @@ Section~\ref{sec:extensions} covers these extensions in more depth.
 
 \subsubsection{Monitoring} \label{sec:sandboxMonitoringTool} 
 The purpose of this module is to capture some evidence or indication of pending
-failure so that it may be used to train a prediction algorithm.  Irrera, et
-al.~\cite{irrera2015} use the \emph{Logman} tool in their original study but
-because the experimental infrastructure used in this research is modelled after
-modern production networks, the \emph{Solar Winds} log forwarding tool is used
-because it or some similar syslog forwarding client is already present in many
-modern enterprise architectures.  The tool is a lightweight application that
+failure at the target host level so that it may be used to train a prediction
+algorithm.  Since Irrera, et al.~\cite{irrera2015} use the \emph{Logman}
+remotely, no additional software is needed on the host.  Unfortunately, while
+syslog is a recognized standard, it is not produced natively and requires an
+agent on \ac{MS} Windows systems to be forwarded to an external syslog server.
+For this experiment, the \emph{Solar Winds} syslog forwarding tool is used
+because of its popularity in the security community and existing presence on
+many enterprise networks.  The tool is a lightweight application that
 simply forwards Windows events to a syslog server.
 
 \subsubsection{Sandbox Workload}  \label{sec:sandboxWorkload} 
@@ -528,7 +534,7 @@ hostname of the sandbox target machine.
 
 \setcounter{secnumdepth}{3}
 
-\section{Extenstions to the \ac{AFP}} \label{sec:extensions}
+\section{Extensions to the \ac{AFP}} \label{sec:extensions}
 This section outlines a few extensions to the \ac{AFP} Framework specifically
 with respect to the fault load.  Given that fault injection isn't always
 considered representative~\cite{kikuchi2014}, this experiment explores three

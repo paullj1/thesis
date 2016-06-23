@@ -136,9 +136,14 @@ Since this research focusses on real-time \emph{data-driven} device failure
 prediction approaches, our focus is on the \emph{reporting} category of
 Salfner's taxonomy.  The \emph{reporting} category organizes failure prediction
 techniques that attempt to classify a state as failure prone based on reported
-errors.  Salfner, et al.~\cite{salfnerSurvey} further organize the reporting
-category into five sub-categories: rule-based systems; co-occurrence; pattern
-recognition; statistical tests; and classifiers.
+errors.  This is different from prediction methods that rely on observing the
+current state of a machine such as auditing and monitoring.  As pointed out by
+Salfner, et al.~\cite{salfnerSurvey}, in general these methods have difficulty
+distinguishing a system under peak load and one that may be about to fail.
+
+The reporting category of the taxonomy is further organized into five
+sub-categories: rule-based systems; co-occurrence; pattern recognition;
+statistical tests; and classifiers.
 
 \emph{Rule-Based Systems} attempt to classify a system as being failure-prone
 or not based a set of conditions met by reported errors.  Since modern systems
@@ -162,19 +167,20 @@ sub-categories are closely related and thus are also explored in this research.
 
 \subsection{Data-Driven \ac{OFP}}
 % The survey published by Salfner et al. covered approaches in every sub-category
-% of the \emph{reporting} category.  Since the publication of the survey, we
-% found approaches in two of the subcategories, \emph{pattern recognition} and
-% \emph{classifiers}.  We therefore only cover the approaches in those
-% sub-categories of the reporting category here.  We found some of the approaches
-% published since Salfner's survey to be difficult to classify because they
-% employ aspects of the other sub-categories in the \emph{reporting} category.
-% More specifically, many of the modern techniques seem to be a blend between the
-% two sub-categories \emph{pattern recognition} and \emph{classifiers}.  We
-% believe these categories have been blended because these approaches seem to
-% follow general human intuition when looking for software failures.  In other
-% words, we have found that cyber operators tend to look for patterns in reported
-% errors and then classify a situation based on those patterns.  We therefore
-% categorize these approaches as \emph{hybrid} approaches.
+% of the \emph{reporting} category.  Since the publication of the survey, the
+% majority of approaches published have been in two of the subcategories,
+% \emph{pattern recognition} and \emph{classifiers}.  We therefore only cover
+% the approaches in those sub-categories of the reporting category here.  We
+% found some of the approaches published since Salfner's survey to be difficult
+% to classify because they employ aspects of the other sub-categories in the
+% \emph{reporting} category.  More specifically, many of the modern techniques
+% seem to be a blend between the two sub-categories \emph{pattern recognition}
+% and \emph{classifiers}.  We believe these categories have been blended
+% because these approaches seem to follow general human intuition when looking
+% for software failures.  In other words, we have found that cyber operators
+% tend to look for patterns in reported errors and then classify a situation
+% based on those patterns.  We therefore categorize these approaches as
+% \emph{hybrid} approaches.
 
 \subsubsection{Pattern Recognition}
 Salfner, et al.~\cite{salfner2006} proposed an approach to predicting failures

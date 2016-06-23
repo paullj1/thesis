@@ -2,7 +2,8 @@
 \newcommand{\tabFaults}{
 \begin{table}[htbp]
   \centering
-  \caption{Table of Faults Injected~\cite{gswfit}.}\label{tab:faults}
+  \caption[Fault Operators Injected~\cite{gswfit}]{Fault operators used for
+  fault injection~\cite{gswfit}.}\label{tab:faults}
 \begin{tabular}{ | c | l | c | } 
 \hline
   \textbf{Type}  & \textbf{Description}  & \textbf{ODC Classes}  \\ \hline \hline
@@ -21,8 +22,9 @@
 \newcommand{\tabTranslationThirtyTwo}{
 \begin{table}[htbp]
   \centering
-  \caption{Funtion Entry/Exit Patterns
-  (IA32)~\cite{gswfit}.}\label{tab:translationThirtyTwo}
+  \caption[Funtion Entry/Exit Patterns (IA32)~\cite{gswfit}]{Function
+  entry/exit patterns in IA32 bytecode~\cite{gswfit}.}
+  \label{tab:translationThirtyTwo}
 \begin{tabular}{ | l | l | l | l | }
 \hline
   \multicolumn{2}{|c|}{\textbf{Module Entry Point}}& 
@@ -41,8 +43,9 @@
 \newcommand{\tabTranslationSixtyFour}{
 \begin{table}[htbp]
   \centering
-  \caption{Funtion Entry/Exit Patterns
-  (x86-64)~\cite{gswfit}.}\label{tab:translationSixtyFour}
+  \caption[Funtion Entry/Exit Patterns (x86-64)~\cite{gswfit}]{Function
+  entry/exit patterns in x86-64 bytecode~\cite{gswfit}.}
+  \label{tab:translationSixtyFour}
 \begin{tabular}{ | l | l | l | l | }
 \hline
   \multicolumn{2}{|c|}{\textbf{Module Entry Point}}& 
@@ -61,7 +64,8 @@
 \newcommand{\tabHypervisorOne}{
 \begin{table}[htbp]
   \centering
-  \caption{Hypervisor 1 Configuration (Sandbox/Target).} \label{tab:hyp1}
+  \caption[Hypervisor 1 (Sandbox/Target)]{Hypervisor 1 configuration
+  (sandbox/target).} \label{tab:hyp1}
   \begin{tabular}{ | c | l | l | c | l |}
     \hline
     Qty. & Role   & Operating System    & CPU / Mem. \\ \hline\hline
@@ -76,7 +80,8 @@
 \newcommand{\tabHypervisorTwo}{
 \begin{table}[htbp]
   \centering
-  \caption{Hypervisor 2 Configuration (Controller).} \label{tab:hyp2}
+  \caption[Hypervisor 2 (Controller)]{Hypervisor 2 configuration (controller).}
+  \label{tab:hyp2}
   \begin{tabular}{ | c | l | l | c | l |}
     \hline
     Qty. & Role & Operating System    & CPU / Mem. \\ \hline\hline
@@ -89,9 +94,9 @@
 
 \newcommand{\tabMessage}{
 \begin{table}[!ht] \centering
-  \caption[MSWinEventLog Authentication Message]{Typical authentication message
-  sent as keys that correspond to the values as designated in the \emph{Snare}
-  protocol for MSWinEventLog used by the SolarWinds syslog agent.}
+  \caption[Example MSWinEventLog Authentication Message]{Typical authentication
+  message sent as keys that correspond to the values as designated in the
+  \emph{Snare} protocol for MSWinEventLog used by the SolarWinds syslog agent.}
   \label{tab:message}
   \begin{tabular}{ | l | l | }
     \hline
@@ -116,7 +121,8 @@
 
 \newcommand{\tabSlidingWindow}{
 \begin{table}[!ht] \centering
-  \caption{Sample time window after message translation.} \label{tab:window}
+  \caption[Sample Data Window Translation]{Sample message data window after
+  translation.} \label{tab:window}
   \begin{tabular}{ | l | l | }
     \hline
       Predictor                   & Value \\ \hline\hline
@@ -156,8 +162,8 @@
 \newcommand{\tabMemLeakPreUpdateSVMConfusionMatrix}{
   \begin{table}[!ht]
     \centering
-    \caption[Pre-Update, Memory Leak, SVM Confusion Matrix]{Confusion matrix on
-    test data created before software updates on threshold with highest
+    \caption[Pre-Update, Memory Leak, SVM Confusion Matrix]{Confusion matrix
+    on test data created before software updates on threshold with highest
     F-Measure (0.8739) using SVM.}
     \label{tab:memLeakPreUpdateSVMConfusionMatrix}
     \begin{tabular}{llll}
@@ -196,9 +202,9 @@
   \begin{table}[!ht]
     \centering
     \caption[Post-Update, Memory Leak, Same Model, Confusion
-    Matrix]{Post-update failure data confusion matrix on threshold with highest
-    F-Measure (0.4691) using model trained on failure data generated before
-    software update.}
+    Matrix]{Post-update failure data confusion matrix on threshold with
+    highest F-Measure (0.4691) using model trained on failure data generated
+    before software update.}
     \label{tab:memLeakPostUpdateBoostingSameModelConfusionMatrix}
     \begin{tabular}{llll}
                                                                &                                       & \multicolumn{2}{c}{\textbf{Actual}}                                        \\ \cline{3-4} 
@@ -214,9 +220,9 @@
   \begin{table}[!ht]
     \centering
     \caption[Post-Update, Memory Leak, New Model, Confusion
-    Matrix]{Post-update failure data confusion matrix on threshold with highest
-    F-Measure (0.9355) using model trained on failure data generated after
-    software update.}
+    Matrix]{Post-update failure data confusion matrix on threshold with
+    highest F-Measure (0.9355) using model trained on failure data generated
+    after software update.}
     \label{tab:memLeakPostUpdateBoostingConfusionMatrix}
     \begin{tabular}{llll}
                                                                &                                       & \multicolumn{2}{c}{\textbf{Actual}}                                        \\ \cline{3-4} 
@@ -231,8 +237,8 @@
 \newcommand{\tabModelSelection}{
 \begin{table*}[!t]
   \centering
-  \caption{Cross-validation runs on training data for model selection and
-  resulting classification accuracy.}
+  \caption[SVM Cross-Validation Results]{Cross-validation runs on training data
+  for model selection and resulting classification accuracy.}
   \label{tab:model:selection}
   \begin{tabular}{cllllllllllll}
     \multicolumn{1}{l}{}                       & \multicolumn{12}{c}{{\ul \textbf{Amount of Training Data}}}                                                                                                                                                                                         \\ \cline{2-13} 
@@ -252,8 +258,8 @@
 
 \newcommand{\tabMessageIDs}{
 \begin{table}[!ht] \centering
-  \caption[Microsoft Log Message IDs]{Microsoft Log Message IDs\protect
-  \footnotemark} \label{tab:messageIDs}
+  \caption[Microsoft Log Message IDs]{Microsoft log message IDs\protect
+  \footnotemark.} \label{tab:messageIDs}
   \begin{tabular}{ l | l }
     ID   & Message                                                \\ \hline
     4624 & An account was successfully logged on.                 \\

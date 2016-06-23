@@ -185,7 +185,7 @@ The under-resourced memory fault load was the first that created observable
 indicators of failure with any lead time.  This fault load produced the best
 performing predictors and the largest sliding time window for prediction of
 sixty seconds.  According to James, et al.~\cite{islr}, there can be advantages
-and tradeoffs between parametric and non-parametric models.  For this reason,
+and trade-offs between parametric and non-parametric models.  For this reason,
 this experiment explores the use of two machine learning models: the weighted
 \ac{SVM}, and boosted decision trees using the multinomial distribution.  
 
@@ -276,10 +276,11 @@ fault injection, there were no preceding indicators of failure and thus
 training a prediction model was unsuccessful.
 
 \subsection{Summary}
-The only fault load usable in this experiment was the memory leak.
-Furthermore, even though the same data was used to train both models, the
-boosted decision tree outperformed the weighted \ac{SVM}.  More importantly,
-the software update made training a useful \ac{SVM} impossible.  This should
-not discourage the use of \ac{SVM}s completely, but it would appear that they
-should be used in addition to another model.
-
+In summary, the only fault load usable for training a statistical model to
+predict failure based only on reported errors was the memory leak.  As
+expected, the software update did drastically reduce the effectiveness of the
+model trained with failure data before the software update.  The boosted
+decision tree was able to be re-trained after the software update, but the
+\ac{SVM} was not.  This suggests that both models should be used to ensure the
+\ac{AFP} is able to adapt to the underlying system changes and maintain at
+least one useful predictor.
