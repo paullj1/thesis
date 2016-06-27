@@ -37,9 +37,9 @@ is such a rare event, access to this type of training data may not be possible.
 Irrera et al.~\cite{irrera2015} presented a framework in 2015 to automate the
 process of dynamically generating failure data and using it to train a
 predictor after an underlying system change.  This framework is called the
-\ac{AFP} Framework and this research explores an implementation of it.  More
+\ac{AFP} framework and this research explores an implementation of it.  More
 specifically, this research presents results after implementing a modernized
-\ac{AFP} using a \ac{MS} Windows Server \ac{DC} that is capable of
+\ac{AFP} framework using a \ac{MS} Windows Server \ac{DC} that is capable of
 generating more diverse and specific failure data for training.  Successive
 software updates are then applied until the model selected becomes useless, the
 framework is then allowed to re-train a new more effective predictor.
@@ -87,7 +87,7 @@ presented in~\cite{irrera2015} uses simulated faults to automatically re-train
 a prediction algorithm to make implementing \ac{OFP} approaches easier.  This
 work extends that framework to capture developments since its writing and
 generalize it so it works for a broader class of devices by exploring and
-developing the fault-load.  Specifically, this work explores additional kinds
+developing the fault load.  Specifically, this work explores additional kinds
 of faults and modernizes the fault injection tool by translating it from the
 IA32 architecture to the x86-64 architecture.
 
@@ -96,15 +96,17 @@ The implementation of an \ac{AFP} framework with a more representative fault
 load for the \ac{MS} Windows enterprise infrastructure using data in log
 messages will lead to accurate failure prediction with better lead time than is
 available today without any prediction model.  This hypothesis is tested by
-implementing the \ac{AFP} in a scaled virtual environment and evaluating its
-performance after successive software updates.  Prior to this research, the
-faults produced and consequently predicted by the \ac{AFP} were the result of
-first-order software faults.  This research evaluates the performance of the
-\ac{AFP} when second and third order faults are introduced.  Additionally, the
-implementation of the \ac{AFP} was not possible on modern \ac{MS} Windows
-infrastructure because the fault injection tool used, had not been written for
-the x86-64 architecture, and was incapable of injecting faults in protected
-system processes.
+implementing the \ac{AFP} framework in a scaled virtual environment and
+evaluating its performance after successive software updates.  To validate the
+approach, the same \ac{AFP} framework implementation is evaluated against an
+Apache web server.  Prior to this research, the faults produced and
+consequently predicted by the \ac{AFP} framework were the result of first-order
+software faults.  This research evaluates the performance of the \ac{AFP}
+framework when second and third order faults are introduced.  Additionally, the
+implementation of the \ac{AFP} framework was not possible on modern \ac{MS}
+Windows infrastructure because the fault injection tool used, had not been
+written for the x86-64 architecture, and was incapable of injecting faults in
+protected system processes.
 
 \section{Research Goals} 
 The goal of this research is to inform decision makers about the potential

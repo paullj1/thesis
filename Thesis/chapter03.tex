@@ -6,57 +6,58 @@ it can be more easily adapted for different applications.  This chapter
 presents three topics.  The first describes the process that the framework
 executes in order to generate the labelled training data and train a failure
 prediction algorithm.  The second describes each module of the extended
-\ac{AFP} framework.  The final section outlines extensions to the \ac{AFP} not
-covered in the other two sections.
+\ac{AFP} framework.  The final section details extensions to the \ac{AFP}
+framework explored by this research.
 
 This chapter outlines the implementation and extensions to the \ac{AFP}
-Framework~\cite{irrera2015} as well as an experiment to validate those
-extensions and further generalize the framework.  The \ac{AFP} was originally
-tested on a single system running an operating system that has been deprecated.
-Consequently, the results from the case study conducted using the \ac{AFP} are
-limited in utility and require generalization to be useful to the general
-community.
+framework~\cite{irrera2015} as well as an experiment that was conducted to
+validate those extensions and further generalize the framework.  The \ac{AFP}
+framework was originally tested on a single system running an operating system
+that has been deprecated.  Consequently, the results from the case study
+conducted using the \ac{AFP} framework are limited in utility and require
+generalization to be useful to the general community.
 
 \section{Failure Data Generation} \label{sec:generation}
-This work extends the \ac{AFP} framework~\cite{irrera2015} by conducting
-another case study with an \ac{MS} Windows Server acting as an \ac{AD} service
-with a more representative fault load as well as a new implementation of the
-\ac{G-SWFIT} technique for the x86-64 architecture.  The case study is done
-using three new types of faults: third-party memory leak, third-party \ac{CPU}
-hog, and process memory corruption.  For completeness, the standard
-\ac{G-SWFIT} technique is also used.  Finally, findings are reported after
-implementing this framework using two different statistical machine learning
-techniques on reported errors (log messages): boosted decision trees and the
-weighted \ac{SVM}.  The weighted \ac{SVM} is used because of it performs well
-on imbalanced data and it is popular in the \ac{OFP}
-community~\cite{salfnerSurvey}.  The boosted decision tree is used because it
-is non-parametric, it is capable of classification, and it is particularly
-suited for imbalanced data.  In both cases, feature reduction is performed as
-is done by Fulp et al.~\cite{fulp2008}, on a sliding time window as is done by
-Irrera, et al.~\cite{irrera2013a} and Vaarandi~\cite{vaarandi2002}.
+This work extends the \ac{AFP} framework~\cite{irrera2015} by presenting
+results after conducting another case study with an \ac{MS} Windows Server
+acting as an \ac{AD} service with a more representative fault load as well as a
+new implementation of the \ac{G-SWFIT} technique for the x86-64 architecture.
+The case study was done using three new types of faults: third-party memory
+leak, third-party \ac{CPU} hog, and process memory corruption.  For
+completeness, the standard \ac{G-SWFIT} technique was also used.  Finally,
+findings are reported after implementing this framework using two different
+statistical machine learning techniques on reported errors (log messages):
+boosted decision trees and the weighted \ac{SVM}.  The weighted \ac{SVM} was
+used because of it performs well on imbalanced data and it is popular in the
+\ac{OFP} community~\cite{salfnerSurvey}.  The boosted decision tree was used
+because it is non-parametric, it is capable of classification, and it is
+particularly suited for imbalanced data.  In both cases, feature reduction was
+performed as is done by Fulp et al.~\cite{fulp2008}, on a sliding time window
+as is done by Irrera, et al.~\cite{irrera2013a} and
+Vaarandi~\cite{vaarandi2002}.
 
 This section outlines the step-by-step procedure by which the extended \ac{AFP}
-is evaluated to show how effective it is when used on Windows Server
-deployments.  This is done by dividing the steps taken in an experiment into
+framework was evaluated to show how effective it is when used on Windows Server
+deployments.  This is done by dividing the steps taken in the experiment into
 the three major phases as defined in~\cite{irrera2015}: preparation phase,
 execution phase, and training phase.
 
 \subsection{Preparation Phase}
-In this phase the \ac{AFP} is prepared to run for the first time as described
-in~\cite{irrera2015}.  The \ac{CRISP-DM}~\cite{crispdm} should be applied to
-this situation when evaluating how to best apply the \ac{AFP} for a particular
-target.  For the purposes of this research, our focus is on the \ac{MS}
-Windows Directory Services and predicting failure in those services.  To
-demonstrate the efficacy of the \ac{AFP}, a predictor must be evaluated before
+In this phase the \ac{AFP} framework is prepared to run for the first time as
+described in~\cite{irrera2015}.  The \ac{CRISP-DM}~\cite{crispdm} should be
+applied to this situation when evaluating how to best apply the \ac{AFP} for a
+particular target.  For the purposes of this research, the focus was on the
+\ac{MS} Windows Directory Services and predicting failure in those services.
+To demonstrate the efficacy of the \ac{AFP}, a predictor was evaluated before
 and after a significant software update.  As a result, the most critical
-preparation made in evaluating this framework is to hold back all software
+preparation made in evaluating this framework was to hold back all software
 updates on the target system prior to the first run of the execution phase.
-The performance of various prediction techniques will be evaluated both before
-and after the Windows Update is allowed to run.  A complete list of the updates
-installed is shown in Appendix~\ref{app:updates}.
+The performance of various prediction techniques were evaluated both before and
+after the Windows Update application was allowed to run.  A complete list of
+the updates installed is shown in Appendix~\ref{app:updates}.
 
-This phase is comprised of the manual act of implementing the framework.  Each
-module of the implementation for this work is detailed in
+This phase is essentially comprised of the manual act of implementing the
+framework.  Each module of the implementation for this work is detailed in
 Section~\ref{sec:implementation} and is therefore not discussed further here.  
 
 \subsection{Execution Phase}
@@ -69,24 +70,25 @@ prediction, event checking, and training/update as described in this section.
 \subsubsection{Data Collection and Failure Prediction}
 In this phase, the system has a working predictor providing input to some sort
 of decision system.  It should be noted here that this decision system does not
-have to be automated.  The system in this phase is making failure predictions
-about the current state based on the last run of the training phase.  This
-function is not implemented in this research as it is application specific.
-The output of this process in this experiment is a warning message which
-indicates failure.
+have to be automated.  The system in this phase makes failure predictions about
+the current state based on the last run of the training phase.  This function
+was not implemented in this research as it is application specific.  The output
+of this process in this experiment was a warning message indicating a predicted
+failure.
 
 \subsubsection{Event Checking}
 Concurrent with the data collection and failure prediction sub-phase, the
-\ac{AFP} continuously monitors events that may alter the underlying system.
-For this experiment, these events are software updates.  The output of each
-episode of this phase is a binary decision to either begin the training phase,
-or not.  In this experiment, the training phase is manually triggered upon
-completion of a major software update.
+\ac{AFP} framework continuously monitors events that may alter the underlying
+system.  The output of each episode of this phase is a binary decision to
+either begin the training phase, or not.  For this experiment, these events
+were software updates and the training phase was manually triggered upon
+completion of these updates.
 
 \subsubsection{Failure Predictor (Re-)Training and Update}
 The purpose of this sub-phase is to initiate the training phase and compare its
 results (a new predictor) with the currently employed predictor.  Should the
-new predictor perform better, the old predictor is replaced by the new.
+new predictor perform better, the old predictor is replaced by the new.  In
+this experiment, this phase was accomplished manually.
 
 \subsection{Training Phase}
 The training phase is broken down into five major steps:  target replication,
@@ -99,10 +101,9 @@ phase is outlined in the following sub-sections.
 \subsubsection{Target Replication}
 During this phase a virtual clone of the target is made.  After the clone is
 made, the fault injection and monitoring software is installed.  In this
-experiment, the monitoring tool is the same as on the production system but
-care must be taken to ensure the host-name is changed so the log messages
-generated during this phase are not confused with messages from the production
-system.
+experiment, the monitoring tool was the same as was already installed on the
+production system so the extra step of installing the monitoring software was
+unnecessary.
 
 \subsubsection{Data Generation \& Collection}
 The purpose of this phase is to generate the data to train a new prediction
@@ -117,52 +118,51 @@ rebooted for the next run.  To generate golden data (or data with no failures
 present to aid training), the first run omits the fault injection step.
 
 The most critical part of this process is labelling the data when failure
-occurs.  For the purposes of this experiment, failure is defined by the log
+occurs.  For the purposes of this experiment, failure was defined by the log
 message ID $4625$: An account failed to log
 on\footnote{\url{https://support.microsoft.com/en-us/kb/977519}}.  When this
-occurs in conjunction with known valid credentials on an account that is not
-disabled, the preceding data window defined for the experiment is labelled as
-failure prone.  Additionally, the workload generator used in this research
-reports when authentication fails and transmits a syslog message to the
-controller.  
+occurred in conjunction with known valid credentials on an enabled account, the
+preceding data window defined for the experiment was labelled as failure prone.
+Additionally, the workload generator used in this research reported when
+authentication failed and transmitted a syslog message to the controller.  
 
-\subsubsection{Dataset Building}
+\subsubsection{Dataset Building} \label{sec:dataset.building}
 In this phase, the raw syslog messages are formatted and encoded to train the
 prediction model.  The purpose of this phase is to prepare the raw messages to
 be used as numeric inputs for the training phase.  Irrera, et
 al.~\cite{irrera2015} loaded all event messages into a database for processing.
-In this work, the events are initially stored in a flat file on the Ubuntu
-machine by the syslog daemon.  The raw log messages appear in a flat text file
-as follows:
+In this work, the events were initially stored in a flat file on the Ubuntu
+machine by the syslog daemon.  The raw log messages appeared in a flat text
+file as follows:
 
 \begin{lstlisting}
 May  8 14:31:52 dc.afnet.com MSWinEventLog 5 Security 3 Sun May 08 14:31:50 2016 4672 Microsoft-Windows-Security-Auditing  N/A Audit Success dc.afnet.com 12548 Special privileges assigned to new logon.  Subject:  Security ID:  S-1-5-21-2379403389-181978965-2953995107-500  Account Name:  Administrator  Account Domain:  AFNET  Logon ID:  0x9beb4e7a  Privileges:  SeSecurityPrivilege    SeBackupPrivilege    SeRestorePrivilege    SeTakeOwnershipPrivilege    SeDebugPrivilege    SeSystemEnvironmentPrivilege    SeLoadDriverPrivilege    SeImpersonatePrivilege    SeEnableDelegationPrivilege
 \end{lstlisting}
 
-The messages are formatted using the
+The messages were formatted using the
 \emph{Snare}\footnote{\url{http://wiki.rsyslog.com/index.php/Snare\_and\_rsyslog}}
-MSWinEventLog format which can be divided into several categories.  The first
-is the time-stamp and host name of the sender prepended by the syslog server
-daemon: \emph{May 8 14:31:52 dc.afnet.com}.  The remainder of the message
-contains tab delimited values where the keys (and consequent features) are
-shown in Table~\ref{tab:message}.  Of these features, Criticality,
-EventLogSource, EventID, SourceName, and CategoryString are selected for
+MSWinEventLog format which is generally divided into several categories.  The
+first is the time-stamp and host name of the sender prepended by the syslog
+server daemon: \emph{May 8 14:31:52 dc.afnet.com}.  The remainder of the
+message contains tab delimited values where the keys (and consequent features)
+are shown in Table~\ref{tab:message}.  Of these features, Criticality,
+EventLogSource, EventID, SourceName, and CategoryString were selected for
 further encoding.
 
 \tabMessage
 
-The raw messages are then encoded.  First, the events are filtered by EventID
+The raw messages were then encoded.  First, the events were filtered by EventID
 as is done by Fulp et al.~\cite{fulp2008} to reduce the noise generated by
 successful login attempts.  Log messages with IDs shown in
-Table~\ref{tab:messageIDs} are filtered from the input.  
+Table~\ref{tab:messageIDs} were filtered from the input.  
 
 Next, to encode the time dimension and reduced the sequential message ordering
-dependency, a sliding time window is created by counting each unique entry for
+dependency, a sliding time window was created by counting each unique entry for
 each feature within the data window ($\delta t_d$) as is done by
 Vaarandi~\cite{vaarandi2002}.  During this stage, the number of messages that
-were reported in the data window is also recorded and used as a feature.
+were reported in the data window were also recorded and used as a feature.
 
-Finally, each time window preceding the failure within $\delta t$ is labelled
+Finally, each time window preceding the failure within $\delta t$ was labelled
 as failure prone as is done by Irrera, et al.~\cite{irrera2015}.  This encoding
 enables the use of classification algorithms in the training phase.  An example
 of the final encoding is shown in Table~\ref{tab:window}.
@@ -171,22 +171,23 @@ of the final encoding is shown in Table~\ref{tab:window}.
 \footnotetext{\url{https://support.microsoft.com/en-us/kb/977519}}
 \tabSlidingWindow
 
-\subsubsection{Predictor Training}
+\subsubsection{Predictor Training} \label{sec:predictor.training}
 The purpose of this phase is to use the data generated by the forced failure of
 the virtual clone to train a machine learning algorithm to classify a system as
 failure prone or not.  
 
-During this phase, each of the $k$ datasets produced by the $k$ runs of the
-execution phase, each containing a single failure, are used to train a
-statistical classification model.  Each dataset is an $n \times p$ matrix where
-$n$ is the number of sliding time windows and $p$ is the number of predictors
-present in the output of the dataset building phase.  These $k$ datasets are
-used to conduct a $k - 1$-fold cross validation training and evaluation process
-where the first $k - 2$ datasets are used to train the statistical model.  The
-remaining set is used to validate the trained model.  The data is then rotated
-and repeated $k - 1$ times.  Parameters for the classification model are
+In this experiment, the execution phase was run $k$ times.  During this phase,
+each of the $k$ datasets produced by the $k$ runs of the execution phase (each
+containing a single failure), were used to train a statistical classification
+model.  Each dataset was an $n \times p$ matrix where $n$ was the number of
+sliding time windows and $p$ was the number of predictors present in the output
+of the dataset building phase.  These $k$ datasets were used to conduct a $k -
+1$-fold cross validation training and evaluation process where the first $k -
+2$ datasets were used to train the statistical model.  The remaining set was
+used to validate the trained model.  The data was then rotated and the process
+was repeated $k - 1$ times.  Parameters for the classification model were
 selected based on the output of this cross validation.  Finally, statistics and
-performance are reported on the final model's performance on the held out data
+performance was reported on the final model's performance on the held out data
 set.
 
 \subsubsection{Analysis}
@@ -194,21 +195,27 @@ During this phase, the precision, recall, f-measure, and area under the
 \ac{ROC} curve are computed using the figures measured in the previous phase so
 that the new predictor can be compared against the old.  If a new predictor
 outperforms the old, the old is replaced with the new.  Upon completion of this
-phase, control flow returns to the \emph{Event Checking} phase.
+phase, control flow returns to the \emph{Event Checking} phase.  In this phase,
+this analysis was done manually.
 
 \section{Implementation of the \ac{AFP}} \label{sec:implementation}
 \subsection{\ac{AFP} Framework Implementation}
-This experiment replicates the experiment in~\cite{irrera2015} except in place
-of the web-server an \ac{MS} Windows Server running \ac{AD} Domain Services.
-In addition, several extensions to the original experiment are made and
-presented here.  Multiple prediction techniques have been applied using this
-framework to further generalize and validate the framework.  The original
-\ac{AFP} architecture is shown in Figure~\ref{fig:annotatedAFP} with the parts
-that are modified in this work highlighted.  
+This experiment replicated the experiment in~\cite{irrera2015} with the
+following modifications.  Most importantly, since the focus of this research is
+on reported errors, log messages were used to train the predictor as is done in
+many other recent
+approaches~\cite{domeniconi2002,fulp2008,salfner2007,watanabe2014}.  Instead of
+only using fault injection to induce failure, three additional fault loads were
+explored.  In addition to using the \ac{SVM} model, boosted decision trees were
+evaluated.  Finally, in addition to the Apache web-server, the primary target
+was the \ac{MS} Windows Server running \ac{AD} Domain Services.  The purpose of
+Apache web server was to validate the approach and additional fault loads.  The
+original \ac{AFP} architecture is shown in Figure~\ref{fig:annotatedAFP} with
+the parts that were modified in this work highlighted.  
 
 \subsection{\ac{AFP} Modules}
 Irrera, et al.~\cite{irrera2015} outline multiple modules into which they have
-broken the \ac{AFP} Framework for organizational purposes.  This research does
+broken the \ac{AFP} framework for organizational purposes.  This research does
 not modify these modules, instead, it takes a more granular approach and
 presents a modified architecture and details each element of that architecture.
 
@@ -217,8 +224,9 @@ presents a modified architecture and details each element of that architecture.
 The following sections detail the virtual environment in which this
 architecture was constructed.  For reference, this virtual environment was
 hosted on two VMWare ESXi 5.5 hypervisors each with two 2.6 \ac{GHz} AMD
-Opteron 4180 (6 cores each) \ac{CPU}s and 64 \ac{GB} memory.  The individual
-\ac{VM}s are described in Tables~\ref{tab:hyp1}, and \ref{tab:hyp2}.
+Opteron 4180 (6 cores each) \ac{CPU}s and 64 \ac{GB} memory.  The
+specifications of the individual \ac{VM}s are shown in Tables~\ref{tab:hyp1},
+and \ref{tab:hyp2}.
 
 \tabHypervisorOne
 \tabHypervisorTwo
@@ -226,14 +234,12 @@ Opteron 4180 (6 cores each) \ac{CPU}s and 64 \ac{GB} memory.  The individual
 \setcounter{secnumdepth}{5}
 
 \subsection{Controller Hypervisor} \label{sec:controller} % 3.X.1
-The controller functions in this experiment are split between two systems on a
-single hypervisor shown in Table~\ref{tab:hyp2}.  One system is an \ac{MS}
-Windows Server responsible for workload management and fault injection
-management.  The additional Windows server also hosts remote desktop services
-to allow the load generator to execute third party authentication with the
-\ac{DC}.  The other system is an Ubuntu 14.04 server that performs the failure
-prediction management and event management.  Each of these functions is
-detailed in the following sections.
+The controller responsibilities in this experiment were split between two
+systems on a single hypervisor shown in Table~\ref{tab:hyp2}.  One system was
+the \ac{MS} Windows Server responsible for workload management and fault
+injection management.  The other system was an Ubuntu 14.04 server that
+performed the failure prediction management and event management.  Each of
+these functions is detailed in the following sections.
 
 \subsubsection{Failure Prediction} \label{sec:failurePrediction} % 3.X.1.1
 The failure prediction module predicts failure using machine learning
@@ -242,16 +248,11 @@ this framework.  This module is constantly either training a new predictor
 because a software update occurred, or predicting failure based on log messages
 and possibly other features produced by the production system.
 
-The \ac{AFP} failure prediction function as outlined in~\cite{irrera2015}, is
-performed by a \ac{SVM} predictor using \emph{libsvm}.  Additionally, the
-original experiment made use of a database that stored the features and
-observations used for the failure prediction training algorithm.  This
-experiment does not modify the failure prediction module drastically as it has
-already been shown in previous work that the \ac{OFP} area of study is well
-explored~\cite{salfnerSurvey}.  This research makes use of a different tool-set
-to execute the training and predicting phases.  Due to its widespread use in
-the statistical community~\cite{islr}, the prediction and training algorithms
-make use of the \emph{R} programming language.
+In the original case study, this module was implemented using an \ac{SVM}
+prediction model using the \emph{libsvm} software library.  In this experiment,
+the statistical models were trained on input built as described in
+Section~\ref{sec:dataset.building} using the popular statistical learning
+software suite \emph{R}.
 
 \subsubsection{Fault Injection} \label{sec:faultInjectionMgr}
 This module is responsible for managing the fault load used to create realistic
@@ -261,10 +262,10 @@ critical piece of the \ac{AFP} implementation.  \ac{G-SWFIT} was developed by
 Duraes, et al.~\cite{gswfit} to emulate software failures for the purposes of
 software testing.  The method is widely implemented for use in software fault
 injection both commercially and
-academically~\cite{natella2010,irrera2014,cotroneo2012,umadevi2015}.  
+academically~\cite{cotroneo2012,irrera2014,natella2010,umadevi2015}.  
 
 Recently, studies have questioned the representativeness of the failures
-generated by \ac{G-SWFIT}~\cite{kikuchi2014,cotroneo2012}.  In each case, the
+generated by \ac{G-SWFIT}~\cite{cotroneo2012,kikuchi2014}.  In each case, the
 workload generated was critical in creating representative faults.  This
 concern has been addressed in this research and is discussed in
 Section~\ref{sec:workloadMgr}.
@@ -281,29 +282,28 @@ automatically scans each library loaded by the target executable for fault
 injection points and then is capable of evenly distributing the faults it does
 inject.
 
-Because of the concerns with fault injection, this research implements three
-additional types of fault load that more exhaustively represents realistic
-faults that may be encountered by a target process.  This experiment trains a
-predictor using failures generated by third-party applications purposefully
-written to slowly consume all available resources on a target system.
-Specifically, the third-party application contains a memory leak that slowly
-allocates all free system memory until the target application crashes.  Next,
-failures are recorded as the result of a third-party application consuming all
-\ac{CPU} time.  Source code for this application is included in
-Appendix~\ref{app:resourceLeak}.  Finally, failure is recorded after corrupting
-heap space in memory (versus program memory as done by the \ac{G-SWFIT}).  This
-type of fault could be caused by privileged third party applications writing to
-the target processes allocated memory.  Finally, for completeness, this
-experiment uses a tool developed for this work that implements the \ac{G-SWFIT}
-technique.
+Because of the concerns with fault injection, the experiment conducted in this
+research tested three additional types of fault load to more exhaustively
+represent realistic faults that may be encountered by a target process.  This
+experiment trained a predictor using failures generated by third-party
+applications purposefully written to slowly consume all available resources on
+the target systems.  Specifically, the third-party application contains a
+memory leak that slowly allocates all free system memory until the target
+application crashes.  Next, failures were recorded as the result of a
+third-party application consuming all \ac{CPU} time.  Source code for this
+application is included in Appendix~\ref{app:resourceLeak}.  Finally, failure
+was recorded after corrupting heap space in memory (versus program memory as
+done by the \ac{G-SWFIT}).  This type of fault could be caused by privileged
+third party applications such as hardware drivers inadvertently writing to the
+target processes allocated memory.  Finally, for completeness, this experiment
+uses a tool developed for this work that implements the \ac{G-SWFIT} technique.
 
-This work introduces an x86-64 implementation of the \ac{G-SWFIT} technique
-called \ac{W-SWFIT} for Windows Software Fault Injection Tool.  The source code
-for \ac{W-SWFIT} has been published as open source on
-Github\footnote{\url{https://github.com/paullj1/w-swfit/}} so that others may
-use it for any of the reasons cited in the original \ac{G-SWFIT}
+This work introduces an x86-64 implementation of \ac{G-SWFIT} called
+\ac{W-SWFIT}.  The source code for \ac{W-SWFIT} has been published as open
+source on Github\footnote{\url{https://github.com/paullj1/w-swfit/}} so that
+others may use it for any of the reasons cited in the original \ac{G-SWFIT}
 paper~\cite{gswfit}.  For completeness, the source is also included in
-Appendix~\ref{app:wswfit}.  
+Appendix~\ref{app:w-swfit}.  
 
 For this research, the original plan was to use the same fault injection tool
 used in the original case study by Irrera, et al.~\cite{irrera2015}.
@@ -314,120 +314,139 @@ dealing with modern \ac{ASLR}.  As a result, \ac{W-SWFIT} was developed for
 this research and is capable of injecting faults into all user and kernel mode
 applications on modern \ac{MS} Windows operating systems.  
 
-The key contributions of \ac{W-SWFIT} are \ac{ASLR} adaption, the x86-64
-translations that have performed.  Further, as pointed out by Irrera, et
+The key contributions of \ac{W-SWFIT} are \ac{ASLR} adaption, and the x86-64
+translations that have been performed.  Further, as pointed out by Irrera, et
 al.~\cite{irrera2013a}, prior implementations of the \ac{G-SWFIT} were not
 capable of injecting faults into protected (kernel mode) processes.  Since the
 focus of this research is on a protected system process, this capability was
 critical, and as a result, \ac{W-SWFIT} was implemented in a way that made
 protected process injection possible.  
 
-\ac{G-SWFIT} works by scanning binary libraries already in memory for patterns
-(or operators) that match compiled errors made during development.  The faults
-were based on the Orthogonal Defect Classification~\cite{bridge1998} and are
-shown in~\ref{tab:faults}.  As pointed out by Salfner, et
-al.~\cite{salfnerSurvey} Duraes, et al.~\cite{gswfit}, failures are ultimately
-the result of software developer errors.  Unfortunately, \ac{G-SWFIT} has only
-previously been implemented for Java
-applications~\cite{sanches2011jswfit,martins2002jaca}, and the IA32 instruction
-set~\cite{gswfit}.  The target application in this research is strictly an
-x86-64 (also known as x64 or amd64) application and the patterns identified
-previously are incompatible.  Consequently, a fault injection tool capable of
-mutating x86-64 instructions in the same way was required.  \ac{W-SWFIT}
-implements two of the operators in~\cite{gswfit} in the x86-64 language by
-translating the operators shown in Table~\ref{tab:faults} from IA32 to x86-64.
-The translation of these operators was not trivial given the complexity of the
-x86-64 architecture.  However, a simple example is shown using the entry/exit
-points of a function in Tables~\ref{tab:translationThirtyTwo},
-and~\ref{tab:translationSixtyFour}.  The rest of the translations were done
-using the \emph{Capstone}~\footnote{\url{http://www.capstone-engine.org}}
-library and can be seen in source code for \ac{W-SWFIT}.
-
 \tabFaults
+
+\ac{G-SWFIT} works by scanning binary libraries already in memory for known
+patterns (or operators).  These operators are then mutated to match compiled
+errors that could have been made during development.  The errors targeted by
+\ac{G-SWFIT} were discovered by analyzing open source project bug reports and
+code repositories.  The errors were then classified based on the
+\ac{ODC}~\cite{bridge1998} and are shown in Table~\ref{tab:faults}.  The point
+of this mutation is that failure is ultimately the result of developer
+error~\cite{irrera2015,salfnerSurvey}, and that fault injection accurately
+simulates those errors~\cite{gswfit}.  Unfortunately, \ac{G-SWFIT} has only
+previously been implemented for Java
+applications~\cite{martins2002jaca,sanches2011jswfit}, and the IA32 instruction
+set~\cite{gswfit,natella2010}.  Furthermore, the target applications in this
+research are strictly x86-64 (also known as x64 or amd64) applications, and the
+patterns identified previously are incompatible.  Consequently, to implement
+the \ac{AFP} framework completely, a fault injection tool capable of mutating
+x86-64 instructions in the same way was required.  \ac{W-SWFIT} implements two
+of the operators from the original \ac{G-SWFIT} shown in
+Table~\ref{tab:faults}: OMFC and OMLPA.  The translation of these operators was
+not trivial given the complexity of the x86-64 architecture.  However, a simple
+example of this translation is shown using the entry/exit points of a function
+in Tables~\ref{tab:translationThirtyTwo}, and~\ref{tab:translationSixtyFour}.
+The rest of the translations were done using the
+\emph{Capstone}~\footnote{\url{http://www.capstone-engine.org}} library and can
+be seen in source code for \ac{W-SWFIT}.
+
 \tabTranslationThirtyTwo
 \tabTranslationSixtyFour
 
-\subsubsection{Workload Management} \label{sec:workloadMgr} 
-The Workload module creates realistic work for the target system in the sandbox
-hypervisor to accomplish as a way of generating computational load.  Without
-this module, it could take too long for an injected fault to evolve into a
-failure.  Consider a missing \emph{free} statement and the consequent memory
-leak.  A production target server may have a considerable amount of memory and
-the leak could be very small.  To accelerate the possibility of failure
-occurring, realistic load must be generated against the sandbox clone of the
-production target.
+In summary, for the purposes of this research, fault injection was performed
+four ways: software fault injection with \ac{W-SWFIT}, under-resourced memory,
+under-resourced CPU, and heap space corruption.  Apart from \ac{W-SWFIT}, these
+new fault loads are covered in more detail in Section~\ref{sec:extensions}.
 
-In the original \ac{AFP} case study, a Windows XP based web-server was used for
-a target and the load generation was done by a simple web request
-generator~\cite{irrera2015}.  As previously mentioned, realistic workload is
-critical in generating realistic failure and consequently training a useful
-predictor.  Initial searches for a load generator suitable for this research
-yielded a tool developed by \ac{MS} that initiated \ac{RDP} connections
-to aid in sizing a terminal services
+\subsubsection{Workload Management} \label{sec:workloadMgr} 
+The workload management module controls the generation of computational load by
+directing the sandbox workload module to create realistic work for the
+virtually cloned target to accomplish.  Without this module, it could take too
+long for an injected fault to evolve into a failure.  Consider a missing
+\emph{free} statement and the consequent memory leak.  A production target
+server may have a large amount of available memory and the leak could be
+relatively small.  To accelerate the possibility of failure occurring,
+realistic load must be generated against the sandbox clone of the production
+target.
+
+In the original \ac{AFP} case study, a Windows XP based web-server was the
+target and the load generation management was collocated with the actual load
+generator - a simple web request generator~\cite{irrera2015}.  In this
+experiment, the management and actual load generator roles have been divided
+and a new tool has been developed: \ac{D-PLG}.  The rest of this section
+outlines \ac{D-PLG} and how it fulfills the workload and workload management
+functions of the \ac{AFP} framework.
+
+Realistic workload is critical in generating realistic failure and consequently
+training a useful predictor.  Initial searches for a load generator suitable
+for this research yielded a tool developed by \ac{MS} that initiated \ac{RDP}
+connections to aid in sizing a terminal services
 server\footnote{\url{http://www.microsoft.com/en-us/download/details.aspx?id=2218}}.
-By executing an \ac{RDP} session, the authentication and \ac{DNS}
-functions of the \ac{DC} would also be loaded.  Unfortunately, this tool is no
-longer maintained and would not execute on the target
+By executing an \ac{RDP} session, the authentication and \ac{DNS} functions of
+the \ac{DC} would also be loaded.  Unfortunately, this tool is no longer
+maintained and would not execute on the target
 machine\footnote{\url{https://social.technet.microsoft.com/Forums/windowsserver/en-US/2f8fa5cf-3714-4eb3-a895-c30e2b26862d/debug-assertion-failed-sockcorecpp-line-623}}.
 Further searches for tools that would sufficiently load the \ac{DC} did not
-produce any results.  Consequently, a tool to produce realistic load for a
-\ac{DC} was developed for this research and is introduced here.
+produce any results which led to the development of \ac{D-PLG}.
 
-The \ac{D-PLG} is a collection of \ac{MS} PowerShell scripts designed to
-generate realistic traffic that will sufficiently load a \ac{DC}.  Other
-network traffic generators typically work by replaying traffic captured on a
-live network.  Unfortunately, due to the cryptographic nature of
-authentication, simply replaying traffic will not load a service since the
-timestamps and challenge responses will no longer be valid.  As a result, any
-replayed traffic will be dropped and ignored by a live \ac{DC}.  \ac{D-PLG}
-solves this problem by making native authentication requests by use of built-in
-PowerShell cmdlets (command-lets).  By doing this, realistic authentication
-requests are sent to the \ac{DC} and are actually processed.  The functions
-performed by the \ac{DC} have been evaluated and \ac{D-PLG} is designed to
-sufficiently load each of the services responsible for performing those
-functions.
+\ac{D-PLG} is a collection of remotely executed \ac{MS} PowerShell scripts
+managed by a central script designed to generate realistic traffic that will
+sufficiently load \ac{MS} enterprise services including a web server and
+\ac{DC}.  Other network traffic generators typically work by replaying traffic
+captured on a live network~\cite{jordan2016}.  This would likely work against
+an unsecured web server, but unfortunately, due to the cryptographic nature of
+authentication on a \ac{DC}, simply replaying traffic will not load such a
+service since the timestamps and challenge responses will no longer be valid.
+As a result, any replayed traffic will be dropped and ignored by a live
+\ac{DC}.  \ac{D-PLG} solves this problem by making native authentication
+requests by use of built-in PowerShell cmdlets (pronounced command-lets).  By
+doing this, realistic authentication requests are sent to a \ac{DC} and are
+actually processed.  Finally, the \ac{DNS} role can be stressed by sending the
+authentication requests using domain names without allowing local caching.
 
-In this experiment, the \ac{DC} is configured as it is in many production
-environments.  The major roles being performed by the \ac{DC} in a typical
-enterprise environment are authentication and \ac{DNS}.  By use of native
-cmdlets, \ac{D-PLG} is capable of generating four kinds of traffic designed to
-stress these services and others: web, mail, file sharing, and \ac{MS}
-\ac{RDP}.  \ac{D-PLG} uses the \ac{MS} Powershell environment to generate the
-traffic in an effort to make the traffic as real as possible.  After building
-the tool, an experiment was constructed and executed on a scale model of a
-production environment.  The scaled simulation network was built using the
-recommendations of the \ac{MS} community for sizing a \ac{DC}~\cite{mak12} and
-tested by running the tool on five client machines against the \ac{DC} for five
-rounds of five minutes.  The results of this test are shown in
-Figures~\ref{fig:authDCPPS}, \ref{fig:authClientPPS}, \ref{fig:authDCMetrics}.
+By use of native cmdlets, \ac{D-PLG} is capable of generating four kinds of
+traffic designed to stress the following services: authentication, web, mail,
+file sharing, and \ac{MS} \ac{RDP}.  \ac{D-PLG} uses the \ac{MS} PowerShell
+environment to generate the traffic in an effort to make the traffic as real as
+possible.  After building the tool, an experiment was constructed and executed
+on a scale model of a production environment.  The scaled simulation network
+was built using the recommendations of the \ac{MS} community for sizing a
+\ac{DC}~\cite{mak12} and tested by running the tool on five client machines
+against the \ac{DC} for five rounds of five minutes.  The results of this test
+are shown in Figures~\ref{fig:authDCPPS}, \ref{fig:authClientPPS},
+\ref{fig:authDCMetrics}.
 
 \figAuthDCPPS{4in}
 \figAuthClientPPS{4in}
 \figAuthDCMetrics{4in}
 
 \ac{D-PLG} makes use of client machines running a Windows operating system with
-PowerShell version 4.0 or newer.  The controller asks each machine to generate
-a configurable list of requests at evenly spaced intervals for a configurable
-duration of time.  While this may not be realistic network traffic, it does
-produce realistic load against a \ac{DC}.  Since \ac{D-PLG} depends on the use
-of client machines, it is recommended that any load generation be conducted
-during off-peak hours if spare client sized machines are not available.  It
-should be noted however, that even with poorly resourced client machines (shown
-in Table~\ref{tab:hyp1}), \ac{D-PLG} was able to generate fifteen thousand
-authentication sessions over a five minute period; approximately 10
-authentication sessions per machine, per second.  With modern workstations, the
-impact on these client machines is negligible and they can be in use during
-load generation.
+PowerShell version $4.0$ or newer.  The controller asks each machine to
+generate a configurable list of requests at evenly spaced intervals for a
+configurable duration of time.  While this may not be realistic network
+traffic, it does produce realistic load against a \ac{DC}.  Since \ac{D-PLG}
+depends on the use of client machines, it is recommended that any load
+generation be conducted during off-peak hours if spare client sized machines
+are not available.  It should be noted however, that even with poorly resourced
+client machines (shown in Table~\ref{tab:hyp1}), \ac{D-PLG} was able to
+generate fifteen thousand authentication sessions over a five minute period;
+approximately 10 authentication sessions per machine, per second.  With modern
+workstations, the impact on these client machines is negligible and they can be
+in use during load generation.
 
 Based on these results, and that a production \ac{DC} should be at
-approximately 40\% \ac{CPU} utilization during peak utilization~\cite{mak12},
+approximately 40\% \ac{CPU} utilization during peak usage~\cite{mak12},
 \ac{D-PLG} is capable of sufficiently loading the \ac{DC} over a sustained
-period of time for the purposes of implementing the \ac{AFP} framework and is
+period of time for the purposes of implementing the \ac{AFP} framework and was
 used in this research.  Further, \ac{D-PLG} is capable of scaling to provide
 load against higher capacity \ac{DC}s by using only a few client machines.
 \ac{D-PLG} is available on
 Github\footnote{https://github.com/paullj1/AFP-DC/tree/master/D-PLG} for others
 to use.
+
+In this experiment, \ac{D-PLG} was used as the central workload manager.
+Furthermore, the client portion of \ac{D-PLG} was used installed on five client
+machines and used as the sandbox workload generator as discussed in
+Section~\ref{sec:sandboxWorkload}.
 
 \subsubsection{Events Manager} \label{sec:eventsManagerMgr}
 This module is responsible for receiving and managing log messages and other
@@ -440,31 +459,33 @@ second.
 Since the focus of this research is on \emph{reported errors}, and the
 experimental environment in this work was modelled after modern enterprise
 environments where this sort of polling could produce too much data, this
-experiment implements an \emph{rsyslog} server daemon and the target is
+experiment implemented an \emph{rsyslog} server daemon and the target was
 configured to forward logs to it.  Moreover, because syslog is a standard
 protocol, it is already in use in many enterprise networks today.  The messages
-forwarded to the events manager are then processed and added to a \ac{SQL}
+forwarded to the events manager were then processed and added to a \ac{SQL}
 database for training and prediction.  
 
 \subsubsection{Sandbox Management} \label{sec:sandboxMgr} 
 The purpose of the sandbox management module is to supervise the virtual
 cloning of the production system that is made when a new predictor is to be
-trained.  As Irrera, et al.~\cite{irrera2015,irrera2013} point out, it is
+trained.  As Irrera, et al.~\cite{irrera2013,irrera2015} point out, it is
 typically inappropriate to inject faults and cause failures in production
-systems, so a virtual clone must be created for that purpose.
+systems, so a virtual clone must be created for that purpose.  Furthermore, the
+virtualization of the target process has little affect on generated
+data~\cite{irrera2013}.
 
-The sandbox is managed manually using \ac{VM} snapshots.  After an initial
-stable state was configured, snapshots of every component of the architecture
-were taken so that they could be reset after iterations of the experiment.  It
-is important to note here that because VMWare has documented \ac{API}s, in
-future work, this function could be automated.
+For this experiment, the sandbox was managed manually using \ac{VM} snapshots.
+After an initial stable state was configured, snapshots of every component of
+the architecture were taken so that they could be reset after iterations of the
+experiment.  It is important to note here that because VMWare has documented
+\ac{API}s, in future work, this function could be automated.
 
 \subsection{Sandbox Hypervisor} \label{sec:sandbox}
 The sandbox hypervisor hosts the virtual clone of the production environment
-where faults will be injected and from which failure data will be collected.
-Cloning the production environment ensures that the production system will not
-be affected and service will be maintained during the training phase.  For the
-purposes of this experiment, the sandbox is constructed on a single hypervisor
+where faults are injected and from which failure data is collected.  Cloning
+the production environment ensures that the production system is not be
+affected and service are maintained during the training phase.  For the
+purposes of this experiment, the sandbox was constructed on a single hypervisor
 implemented as shown in Table~\ref{tab:hyp1}.  The following sections outline
 each module within this module.
 
@@ -476,27 +497,29 @@ serve this purpose and implements the \ac{G-SWFIT} technique developed by
 Duraes, et al.~\cite{gswfit} for fault injection.  The execution is controlled
 by the Windows Server \ac{VM} on the `Controller' hypervisor through PowerShell
 remote execution to reduce the interaction and potential to introduce bias into
-the training data.  The tool allows us to inject a comprehensive list of faults
-into the \ac{AD} Services processes and binary libraries which are mostly
+the training data.  The tool allowed us to inject a comprehensive list of faults
+into the \ac{AD} services processes and binary libraries which are mostly
 contained within the `lsass.exe' process.  Since many of the critical functions
-performed by the \ac{AD} Services processes are performed in one library called
-`ntdsa.dll', it is the focus of fault injection.
+performed by the \ac{AD} services processes are performed in one library called
+`ntdsa.dll'\footnote{\url{https://technet.microsoft.com/en-us/library/cc780455(v=ws.10).aspx}},
+it was the focus of fault injection.
 
-This function is extended by this research to include failure as a result of
+This function was extended by this research to include failure as a result of
 third-party memory and \ac{CPU} leaks, and memory corruption.
 Section~\ref{sec:extensions} covers these extensions in more depth.
 
 \subsubsection{Monitoring} \label{sec:sandboxMonitoringTool} 
 The purpose of this module is to capture some evidence or indication of pending
-failure at the target host level so that it may be used to train a prediction
-algorithm.  Since Irrera, et al.~\cite{irrera2015} use the \emph{Logman}
-remotely, no additional software is needed on the host.  Unfortunately, while
-syslog is a recognized standard, it is not produced natively and requires an
-agent on \ac{MS} Windows systems to be forwarded to an external syslog server.
-For this experiment, the \emph{Solar Winds} syslog forwarding tool is used
-because of its popularity in the security community and existing presence on
-many enterprise networks.  The tool is a lightweight application that
-simply forwards Windows events to a syslog server.
+failure at the target host level so that it may be used to train a statistical
+prediction model.  Since Irrera, et al.~\cite{irrera2015} use the \emph{Logman}
+remotely, no additional software was needed on the host.  In this experiment,
+syslog was used and while it is a recognized standard, syslog messages are not
+produced natively in Windows.  Fortunately, several forwarding agents are
+available to translate and forward native Windows log messages to a syslog
+server.  For this experiment, the \emph{Solar Winds} syslog forwarding tool was
+used because of its popularity in the security community and existing presence
+on many enterprise networks.  The tool is a lightweight application that simply
+forwards Windows events to a syslog server.
 
 \subsubsection{Sandbox Workload}  \label{sec:sandboxWorkload} 
 The purpose of this module is to create realistic work for the target
@@ -504,55 +527,102 @@ application to do before faults are injected.  If the workload is not
 realistic, then the failures that occur after fault injection will not be
 representative of real failures and any data or indicators collected cannot be
 used to train an effective prediction
-algorithm~\cite{cotroneo2012,kikuchi2014,irrera2015}.
+algorithm~\cite{cotroneo2012,irrera2015,kikuchi2014}.
 
 Irrera, et al.~\cite{irrera2015} used a web traffic generator called TPC-W
 installed on a single machine in their original study because their target was
-a web server.  Because the \ac{DC} does not respond to web-requests and a tool
-had not previously been written for this application, a tool was developed for
-this research called \ac{D-PLG}. \ac{D-PLG} is a tool that generates
-approximately ten full-stack authentication sessions requests per second in
-order to sufficiently load the \ac{DC}.  \ac{D-PLG} is a distributed tool and
-requires the use of client machines as a result.  This module is represented by
-those client machines.  In this experiment, the client portion of \ac{D-PLG} is
-installed on five client machines managed by the central workload manager as
-discussed in Section~\ref{sec:workloadMgr}.
+a web server.  This would be the ideal tool for the validation test on the
+Apache web server in this experiment but unfortunately, this tool has been
+deprecated and no substitute has been
+written~\footnote{\url{http://www.tpc.org/tpcw/}}.  As a result, \ac{D-PLG} was
+used as the work load generator for both the \ac{DC} and web requests.
+
+\ac{D-PLG} is a distributed tool and requires the use of client machines.  This
+module is represented by those client machines.  In this experiment, the client
+portion of \ac{D-PLG} was installed on five client machines managed by the
+central workload manager as discussed in Section~\ref{sec:workloadMgr}.
 
 \subsection{Target Hypervisor} \label{sec:target}
 The target hypervisor was constructed as a clone of the sandbox hypervisor
 shown in Table~\ref{tab:hyp1}.  The following section outlines the monitoring
-tool installed on the \ac{DC} on this hypervisor.  It should be noted here that
-while the client machines were cloned as well for convenience, they were not
-used in this experiment.
+tool installed on both the \ac{DC} and web server on this hypervisor.
 
 \subsubsection{Monitoring} \label{sec:targetMonitoringTool}
 The monitoring module is exactly the same as the sandbox monitoring module and
-for this experiment, the \emph{Solar Winds} syslog forwarding tool is used.  To
-ensure that the messages that are sent are uniquely identified by the
-controller, the hostname of the target machine must be different from the
-hostname of the sandbox target machine.
+for this experiment, the \emph{Solar Winds} syslog forwarding tool was used.
+The only modification worth noting here is that to ensure that the messages
+sent were uniquely identified by the controller, the hostname of the target
+machine must be different from the hostname of the sandbox target machine.
 
 \setcounter{secnumdepth}{3}
 
 \section{Extensions to the \ac{AFP}} \label{sec:extensions}
-This section outlines a few extensions to the \ac{AFP} Framework specifically
-with respect to the fault load.  Given that fault injection isn't always
-considered representative~\cite{kikuchi2014}, this experiment explores three
-other faults that may occur in a production environment:  an under-resourced
-\ac{CPU}, not enough memory, and heap-space corruption.
+This section outlines the extensions to the \ac{AFP} framework explored by this
+research.  Given that fault injection isn't always considered
+representative~\cite{kikuchi2014}, the next three sub-sections outline three
+addition fault loads explored.  Next, an outline of the changes in how data was
+collected from the target is presented.  Finally, this chapter concludes with a 
+brief summary of these extensions.
 
-Under some circumstances these faults may not be considered to lead to
-realistic failure.  However, one reason an organization may wish to implement
-the \ac{AFP} may be that monetary resources are not available to implement an
-adequately redundant or sized \ac{DC}.  Consequently, load based failure may be
-a realistic challenge faced by some organizations and knowing that such a
-failure may occur might be valuable.  Furthermore, in some cases, third-party
-applications or hardware drivers may be responsible for memory leaks or
-accidental heap-space corruption.  Since the Windows operating system
-implements shared library linking, hardware drivers that operate in kernel
-space are able to overwrite areas of memory that are in use by critical system
-processes~\cite{russinovich2009}.  The result is typically a system crash.
+\subsection{Under-Resourced \ac{CPU}} \label{sec:extUnderResourcedCPU}
+A \ac{CPU} may become under-resourced in a few ways.  The organization
+implementing the target service may not accurately anticipate the amount of
+load the service may experience.  Alternatively, a third-party application
+installed on the same physical machine may inadvertently consume all \ac{CPU}
+time.  The result in both of these situations is the target process gets
+starved of \ac{CPU} time.
 
-By adding these additional faults when generating failure data used to train a
-prediction algorithm, the resulting algorithm will be able to predict a wider
-range of realistic failures.  
+This condition was simulated in two ways to accurately capture both scenarios
+outlined above.  First, by downsizing the number of virtual \ac{CPU}s available
+to the target \ac{VM}.  Second, by introducing a third-party application that
+ran at $100\%$ \ac{CPU}.  The source code for this application is shown in
+Appendix~\ref{app:resourceLeak}.
+
+\subsection{Under-Resourced Memory} \label{sec:extUnderResourcedMem}
+Available memory can be limited in a few ways.  As with the under-resourced
+\ac{CPU}, the implementing organization may under estimate the amount of memory
+that will be needed by a server to handle the required demand.  Additionally, a
+third-party application could contain a memory leak.  In both cases, the target
+application may not have enough memory to accomplish the work it has been
+assigned.
+
+To test this fault load, this experiment created both conditions outlined
+above. First, as was done for the \ac{CPU}, the amount of memory available to
+the target \ac{VM} was reduced.  Second, a third-party application with an
+intentional memory leak was run on the target system.  The source code for this
+application is also shown in Appendix~\ref{app:resourceLeak}.
+
+\subsection{Heap Space Corruption} \label{sec:extHeapSpaceCorrupt}
+Finally, heap-space corruption can happen in a production environment in a few
+ways.  First, in the Windows operating system, device drivers share critical
+kernel mode libraries and have elevated permissions~\cite{russinovich2009}.  If
+a hardware device driver developer inadvertently writes to an area of memory
+not allocated for his software, say by forgetting to dereference a pointer,
+Windows may not warn him.  Consequently, he may corrupt the memory of another
+process.
+
+In this experiment, the focus of this fault load was on the user database.
+First, users that had been cached by the \ac{DC} process were corrupted.  Next,
+to simulate a disk failure, the same user was corrupted on disk.  To do this,
+the \ac{W-SWFIT} code was modified to be able to search and write anywhere in a
+processes memory.  This code is shown in Appendix~\ref{app:w-swfit}.
+
+\subsection{Reported Errors} \label{sec:extReportedErrors}
+Finally, this research focusses on reported errors instead of system
+information using the \emph{Logman} tool in the original
+study~\cite{irrera2015}.  As pointed out by Salfner, et
+al.~\cite{salfnerSurvey}, a predictor only given system information is not
+typically able to determine the difference between a system that is going to
+fail and one that is perhaps under higher than average load.  It may be able to
+pick up on \emph{undetected errors}, but there is little to distinguish those
+from every day use.  Consider the \ac{DC} and a memory leak situation.
+According to Russinovich, et al.~\cite{russinovich2009}, the \ac{MS} \ac{DC}
+will use as much memory as is available to cache user credentials.  This
+consumption of all available memory may appear very similar to a memory leak if
+system information is all that is being recorded.
+
+\subsection{Summary} \label{sec:extSum}
+In summary, by adding these additional faults and considering reported errors
+when generating failure data used to train a prediction algorithm, the
+resulting algorithm will be able to predict a wider range of realistic
+failures.  

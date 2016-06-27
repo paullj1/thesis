@@ -30,7 +30,7 @@ failure has been predicted and then does not occur; \ac{TN} is when a state has
 been accurately classified as non-failure prone; \ac{FN} is when a state has
 been classified as non-failure prone and a failure occurs.
 
-\subsection{Precision and Recall:}
+\subsection{Precision and Recall}
 Precision and recall are the most popular performance measures used when
 for comparing \ac{OFP} approaches.  The two are related and often times
 improving precision results in reduced recall.  Precision is the number of
@@ -53,15 +53,15 @@ Recall is expressed as:
 	= \dfrac{TP}{TP + FN} \in [0,1]
 \]
 
-F-Measure, as defined by~\cite{rijsbergen1979v}, is the harmonic mean of
-precision and recall and represents a trade-off between the two.  A higher
-F-Measure reflects a higher quality predictor.  F-Measure is expressed as:
+F-Measure is the harmonic mean of precision and recall and represents a
+trade-off between the two~\cite{rijsbergen1979v}.  A higher F-Measure reflects
+a higher quality predictor.  F-Measure is expressed as:
 
 \[ F\mhyphen Measure 
 	= \dfrac{2 \cdot Precision \cdot Recall}{Precision + Recall} \in [0,1]
 \]
 
-\subsection{\ac{FPR} and Specificity:}
+\subsection{\ac{FPR} and Specificity}
 Precision and recall do not account for true negatives (correctly predicted
 non-failure-prone situations) which can bias an assessment of a predictor.  The
 following performance measures take true negatives into account to help
@@ -84,7 +84,7 @@ expressed as:
 	= \dfrac{TN}{FP + TN} = 1 - FPR
 \]
 
-\subsection{\ac{NPV} and Accuracy:}
+\subsection{\ac{NPV} and Accuracy}
 In some cases, it may be desirable to show that a prediction approach can
 correctly classify non-failure-prone situations.  The following performance
 measures usually can not stand alone due to the nature of failures being rare
@@ -109,7 +109,7 @@ made.  Accuracy is expressed as:
 	= \dfrac{TP + TN}{TP + FP + FN + TN}
 \]
 
-\subsection{Precision/Recall Curve:}
+\subsection{Precision/Recall Curve}
 Much like with other predictors, many \ac{OFP} approaches implement variable
 thresholds to sacrifice precision for recall or vice versa.  That trade-off is
 typically visualized using a precision/recall curve as shown in
@@ -127,17 +127,16 @@ The \ac{ROC} curve relationship can be further illustrated by calculating the
 \ac{AUC}.  Predictors are commonly compared using the \ac{AUC} which is
 calculated as follows:
 
-$$AUC = \int_{0}^{1} \mathit{TPR}(\mathit{FPR}) \,d\,\mathit{FPR} \in [0,1],$$.
+$$AUC = \int_{0}^{1} \mathit{TPR}(\mathit{FPR}) \,d\,\mathit{FPR} \in [0,1]$$.
 
-\noindent
-A pure random predictor will result in an \ac{AUC} of $0.5$ and a perfect
-predictor a value of~$1$.  The \ac{AUC} can be thought of as the probability
+A purely random predictor will result in an \ac{AUC} of $0.5$ and a perfect
+predictor a value of $1$.  The \ac{AUC} can be thought of as the probability
 that a predictor will be able to accurately distinguish between a failure-prone
 state and a non-failure-prone state, over the entire operating range of the
 predictor.
 
-The results of the experiments conducted in this research will report all of
-the above described measures of performance in the next section.
+The results of the experiments conducted in this research report all of the
+above described measures of performance in the next section.
 
 \section{Results} \label{results}
 The experiments designed in Chapter~\ref{chapter3} were executed in a virtual
@@ -148,24 +147,26 @@ selected using cross-validation on a subset of the failures generated.
 Finally, each model was evaluated using a held-out test set.  The results of
 this evaluation for each fault load are reported here.
 
-The rest of this chapter is organized by the different fault loads that were
-used to generate the corresponding failure data: fault injection,
-under-resourced \ac{CPU}, under-resourced memory, and heap space corruption.
-In each sub-section, the results after training a machine learning model on
-failure data generated using that type of fault are detailed.
+The rest of this chapter is organized first by the target system, then by the
+different fault loads that were used to generate failure data on the
+corresponding target.  In each sub-section, the results after training a
+machine learning model on failure data generated using that type of fault are
+detailed.  Finally, this chapter is concluded with a summary of these results.
 
-\subsection{Fault Injection}
-This fault-load was quite effective at creating a failure, but unfortunately,
-each failure observed occurred immediately after introducing the fault.
-Because there was no delay between injection and failure, there did not exist
-any indicators of failure.  Consequently, machine learning cannot help in this
+\subsection{\ac{MS} \ac{DC}}
+\subsubsection{Fault Injection}
+This fault load was effective at creating a failure, but unfortunately, each
+failure observed occurred immediately after introducing the fault.  Because
+there was no delay between injection and failure, there did not exist any
+indicators of failure.  Consequently, machine learning cannot help in this
 situation.  According to Russinovich, et al.~\cite{russinovich2009} the
-\emph{lsass.exe} process is at the top of the structured exception handling
-stack and does not actually handle any exceptions.  When faced with an
-exception, the process exits and the system reboots.
+\emph{lsass.exe} process, as well as other critical system processes, are at
+the top of the structured exception handling stack and do not handle
+exceptions.  When faced with exceptions, the processes exit and the system
+reboots.
 
-\subsection{Under-Resourced \ac{CPU}}
-This fault-load never resulted in a failure.  To test this fault-load, the
+\subsubsection{Under-Resourced \ac{CPU}}
+This fault load never resulted in failure.  To test this fault load, the
 virtual domain controllers resources were reduced.  The \ac{CPU} went from a
 dual-core to a single virtual CPU, and the memory was reduced from $2$ Gb to
 $512$ Mb.  This reduction was well beneath the recommended
@@ -180,7 +181,7 @@ application to slowly consume all \ac{CPU} time.  Much like the previous test,
 this test never resulted in failure.  Consequently, the learning was not
 attempted for fault load.
 
-\subsection{Under-Resourced Memory}
+\subsubsection{Under-Resourced Memory}
 The under-resourced memory fault load was the first that created observable
 indicators of failure with any lead time.  This fault load produced the best
 performing predictors and the largest sliding time window for prediction of
@@ -214,12 +215,12 @@ Figure~\ref{fig:memLeakPreUpdateSVMPerf} respectively.
 \figMemLeakPreUpdateSVMPerf
 \tabMemLeakPreUpdateSVMConfusionMatrix
 
-After the software update, the same model was used on a generated failure.  The
-old model did not accurately classify a single failure prone time window.  A
-new model was then trained with the newly generated failure data.
-Unfortunately, after this software update, with all other things held constant,
-the weighted SVM model was unable to achieve the same level of performance as
-before.
+After the software update, the same model was used on a new set of generated
+failures.  The old model did not accurately classify a single failure prone
+time window.  A new model was then trained with the newly generated failure
+data.  Unfortunately, after this software update, with all other things held
+constant, the weighted SVM model was unable to achieve the same level of
+performance as before.
 
 \subsubsection{Boosted Decision Trees}
 For this prediction model, the \emph{gbm} package was used to train a boosted
@@ -239,8 +240,8 @@ Table~\ref{tab:memLeakPreUpdateBoostingConfusionMatrix}.
 \figMemLeakPreUpdateBoostingPerf
 \tabMemLeakPreUpdateBoostingConfusionMatrix
 
-After the software update, the same prediction model was used on a generated
-failure.  A list of updates that were applied are shown in
+After the software update, the same prediction model was used new set of
+generated failures.  A list of updates that were applied are shown in
 Appendix~\ref{app:updates}.  The precision/recall and \ac{ROC} curves on data
 generated after the software update using the old model are shown in
 Figure~\ref{fig:memLeakPostUpdateSameBoostedModel}.  The confusion matrix at
@@ -259,28 +260,80 @@ Table~\ref{tab:memLeakPostUpdateBoostingConfusionMatrix}.
 \figMemLeakPostUpdateBoostingPerf
 \tabMemLeakPostUpdateBoostingConfusionMatrix
 
-\subsection{Heap Space Corruption}
+\subsubsection{Heap Space Corruption}
 Just as with fault injection, this fault load was able to produce failures, but
 these failures were not preceded by any indicators.  To increase realism in
-this fault load, the focus of the corruption was on the user database.  The user
-database is incrementally cached as authentication requests are
+this fault load, the focus of the corruption was on the user database.  The
+user database is incrementally cached as authentication requests are
 received~\cite{russinovich2009}.  To test this fault load, the \ac{AFP}
 execution phase was run as normal.  After the workload generator reached a
 steady state, a single user in the database on disk was corrupted followed
 immediately by the same user being corrupted in process memory.  If the disk
-was not corrupted along with memory, the process would treated the
-corruption as a cache miss, and re-cached the user from disk.  When both were
-corrupted simultaneously, the process crashed and forced system reboot the very
-next time that user requested authentication.  Unfortunately, exactly as with
-fault injection, there were no preceding indicators of failure and thus
-training a prediction model was unsuccessful.
+was not corrupted along with memory, the process would treated the corruption
+as a cache miss, and re-cached the user from disk.  When both were corrupted
+simultaneously, the process crashed and forced system reboot the very next time
+that user requested authentication.  Unfortunately, exactly as with fault
+injection, there were no preceding indicators of failure and thus training a
+prediction model was unsuccessful.
+
+\subsection{Web Server}
+To validate the approach and implementation of the \ac{AFP} framework in this
+experiment, it was also tested against an Apache web server.  The underlying
+system change in this experiment was simulated by upgrading Apache from version
+$2.2.31 x64$ to version $2.4.20 x64$.  Results for the web server were almost
+identical to those for the \ac{DC} for each fault load.  The only predictable
+failure was in the case of the memory leak.  The following sub-sections outline
+specific results after testing each fault load.
+
+\subsubsection{Fault Injection}
+In the case of the web server, each library loaded by the Apache server process
+\emph{httpd.exe} was targeted for fault injection.  In every case, faults were
+injected until failure occurred.  Much like the \ac{DC}, for each failure
+observed, no preceding indications of failure were visible in the log messages.
+
+\subsubsection{Under-Resourced CPU}
+Much like with the \ac{DC}, both methods of creating this situation resulted in
+no failure.  The client machines did experience delayed responses, but the
+server continued to run.
+
+\subsubsection{Under-Resourced Memory}
+As with the \ac{DC}, this was the only fault load that could be used to predict
+failure given only reported errors.  However, machine learning was not
+necessary given the low number of log messages produced.  Since Apache stores
+access requests in a separate file, they were essentially pre-filtered.  Apache
+also by default, stores error messages in an external log.  There were no
+messages reported in this file in any of the failure runs conducted.  The only
+indicators produced, were reported by Windows and recorded by the rsyslog
+server.  An average number of $15$ messages were reported during each round of
+the execution phase and the indicators of failure were easy to see.  In this
+case, simple rules could be used to predict failure in this process so a
+learning algorithm was not trained.  
+
+After the Apache software update was applied, the indicators of failure did not
+change and there were no additional messages reported in the separate error
+log.  For this reason, the same updates were applied to the operating system as
+was done for the \ac{DC} target.  After these updates, the indicators changed
+slightly but were still very few and could be used to write a few simple rules.
+
+These results do not diminish the utility of the \ac{AFP} framework.  Without
+the framework, the indicators would still be unknown until after a failure.
+Moreover, there would be no way to tell how long a set of rules would be
+effective after being written.
+
+\subsubsection{Heap Space Corruption}
+This fault load was tested against the Apache server by targeting the actual
+web page stored in memory.  Much like was done by the \ac{DC} with users, this
+was treated as a cache miss and the content was retrieved from disk.  Again, to
+simulate a disk failure, this file was made inaccessible.  The result was an
+immediate failure to serve the content.  As with the \ac{DC}, there were no
+preceding indications of failure.
 
 \subsection{Summary}
 In summary, the only fault load usable for training a statistical model to
 predict failure based only on reported errors was the memory leak.  As
-expected, the software update did drastically reduce the effectiveness of the
+expected, the software update did drastically reduce the effectiveness of a
 model trained with failure data before the software update.  The boosted
 decision tree was able to be re-trained after the software update, but the
 \ac{SVM} was not.  This suggests that both models should be used to ensure the
-\ac{AFP} is able to adapt to the underlying system changes and maintain at
-least one useful predictor.
+\ac{AFP} framework is able to adapt to the underlying system changes and
+maintain at least one useful predictor.

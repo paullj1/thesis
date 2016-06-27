@@ -240,7 +240,7 @@ fulp2008, murray2005, domeniconi2002, irrera2015}.
 \emph{Fujitsu Labs} has published several papers on an approach for predicting
 failure in a cloud-computing
 environment~\cite{sonoda2012,watanabe2012,watanabe2014}.  Watanabe, et
-al.~\cite{watanabe2014, watanabe2012} report on findings after applying a
+al.~\cite{watanabe2012, watanabe2014} report on findings after applying a
 Bayesian learning approach to detect patterns in similar log messages.  Their
 approach abstracts the log messages by breaking them down into single words and
 categorizing them based on the number of identical words between multiple
@@ -276,7 +276,7 @@ than false positives and had better results.
 \subsection{Industry Approaches to \ac{OFP}} \label{industry}
 Because hardware has become so easy to acquire, industry has sought to avoid
 the problem of software failure by implementing massive redundancy in their
-systems.  The work in~\cite{watanabe2014,irrera2015} attributes the problem
+systems.  The work in~\cite{irrera2015,watanabe2014} attributes the problem
 avoidance to the fact that until recently, implementing and maintaining a
 failure predictor was difficult.  As we decrease the length of the software
 development life cycle, software updates are being published with increasing
@@ -289,7 +289,7 @@ avoid the failure problem can be expensive and can add overhead and complexity
 making a system more difficult to manage.
 
 \subsection{\ac{AFP} Framework} \label{afp}
-The \ac{AFP} Framework by Irrera, et al.~\cite{irrera2015} shown in
+The \ac{AFP} framework by Irrera, et al.~\cite{irrera2015} shown in
 Figure~\ref{fig:AFP}, presents a new approach to maintaining the efficacy of
 failure predictors given underlying system changes.  The authors conducted a
 case study implementing the framework using virtualization and fault injection
@@ -302,10 +302,10 @@ al.~\cite{irrera2013,irrera2014} to generate failure data by injecting software
 faults using a tool based on \ac{G-SWFIT}~\cite{gswfit} in a virtual
 environment for comparing and automatically re-training predictors.  With the
 introduction of the framework, Irrera, et al.~\cite{irrera2015} report results
-of a case-study.  After implementing the \ac{AFP} using a web server and an
-\ac{SVM} predictor, they report that their findings demonstrate their framework
-is able to adapt to changes to an underlying system which would normally render
-a predictor unusable.
+of a case-study.  After implementing the \ac{AFP} framework using a web server
+and an \ac{SVM} predictor, they report that their findings demonstrate their
+framework is able to adapt to changes to an underlying system which would
+normally render a predictor unusable.
 
 In general, the use of simulated data is not well received by the community,
 however the authors in~\cite{irrera2010,irrera2014} report evidence supporting
@@ -319,10 +319,11 @@ injecting the types of faults that one can expect, each failure type is
 represented in the training data.
 
 Irrera, et al.~\cite{irrera2015} reported good results and concluded that the
-\ac{AFP} is an effective tool.  Unfortunately, the \ac{AFP} is not a universal
-solution and requires significant work to be implemented on a modern \ac{MS}
-Windows enterprise network.  Furthermore, the fault load previously explored
-does not completely represent all possible failures~\cite{kikuchi2014}.
+\ac{AFP} framework is an effective tool.  Unfortunately, the \ac{AFP} framework
+is not a universal solution and requires significant work to be implemented on
+a modern \ac{MS} Windows enterprise network.  Furthermore, the fault load
+previously explored does not completely represent all possible
+failures~\cite{kikuchi2014}.
 
 \section{Summary} \label{summary}
 This chapter covered the definitions, measures of performance, and approaches
