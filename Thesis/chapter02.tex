@@ -1,21 +1,29 @@
 \chapter{Overview of \ac{OFP}} \label{chapter2}
+Traditionally, failure is predicted using statistical information about past
+failures offline before a system is implemented.  Unfortunately, given the
+complexity of modern computer systems and the infinite number of ways in which
+they can be configured, this sort of offline analysis is not helpful.  \ac{OFP}
+is the act of evaluating a running system in real time to make a prediction
+about what the future state will be.
+
 This chapter reviews current research regarding \ac{OFP} and its many
 approaches to build a foundation for this research.  Further, the taxonomy of
 approaches developed by Salfner, et al.~\cite{salfnerSurvey}, is updated by
 classifying approaches since its publication and creating a new sub-category.
-
 The rest of this chapter is organized as follows.  In Section~\ref{background},
 a brief background on the topic of \ac{OFP} is given including definitions,
 terminology, and measures of performance used by the community.  In
 Section~\ref{approaches}, the approaches relevant to this research are
-presented followed by a brief summary in Section~\ref{summary}.
+presented.  This chapter then concludes with a brief summary.
 
 \section{Background} \label{background}
 In 2010, Salfner, et al.~\cite{salfnerSurvey} published a survey paper that
 provides a comprehensive summary of the state of the art on the topic of
 \ac{OFP}.  In addition to the review of the literature up to the point of
 publication, they provide a summary of definitions and measures of performance
-commonly used in the community for couching the \ac{OFP} discussion.
+commonly used in the community for couching the \ac{OFP} discussion.  The
+remainder of this section reviews those definitions to build a foundation for
+the rest of this work.
 
 \subsection{Definitions} \label{definitions}
 \subsubsection{\ac{PFM}} \label{pfm}
@@ -36,18 +44,18 @@ Figure~\ref{fig:proactiveFaultManagement}.  \ac{OFP} is the act of analyzing
 the running state of a system in order to predict failure in that system. Once
 failure has been predicted, a fault tolerant system must determine what will
 cause the failure.  This stage is called the \emph{diagnosis} stage or
-``root-cause analysis'' stage.  During the \emph{diagnosis} stage, the analysis
-must be conducted so that a system knows which remediation actions are
-possible.  After it is determined what will cause a failure, a fault tolerant
-system must schedule a remediation action that is either performed by an
-operator or done automatically.  This stage is known as the \emph{action
-scheduling} stage and normally takes as input the cost of performing an action,
-confidence in prediction, effectiveness/complexity of remedy action and makes a
-decision about what action to perform based on that input.  In some cases a
-remedy action can be so simple that even if the confidence in the prediction is
-low, the action can still be performed with little impact on the overall system
-and its users.  A thorough analysis of the trade-off between cost of avoidance
-and confidence in prediction and the associated benefits is described
+``root-cause analysis'' stage.  During the \emph{diagnosis} stage, analysis
+must be conducted to identify possible remediation actions.  After it is
+determined what will cause a failure, a fault tolerant system must schedule a
+remediation action that is either performed by an operator or done
+automatically.  This stage is known as the \emph{action scheduling} stage and
+normally takes as input the cost of performing an action, confidence in
+prediction, effectiveness/complexity of remedy action and makes a decision
+about what action to perform based on that input.  In some cases a remedy
+action can be so simple that even if the confidence in the prediction is low,
+the action can still be performed with little impact on the overall system and
+its users.  A thorough analysis of the trade-off between cost of avoidance and
+confidence in prediction and the associated benefits is described
 in~\cite{candea2004microreboot}.  Finally, in order to avoid failure, a system
 must execute the scheduled remediation action or let an operator know which
 actions can be taken in a stage called \emph{action execution}.
