@@ -1,0 +1,240 @@
+\documentclass[aspectratio=169]{beamer}
+ 
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{subfigure}
+\usepackage{multicol}
+
+% Beamer doesn't define this
+\newenvironment{figure*}%
+{\begin{figure}}
+{\end{figure}}
+
+\input{../Preamble/myFigures}
+\input{../Preamble/myTables}
+
+\graphicspath{ {../../Figures/} }
+ 
+\title{Distributed PowerShell Load Generator (D-PLG)}
+\author{Paul Jordan, Chip Van Patten, Bert Peterson, and Andrew Sellers}
+\institute{Air Force Institute of Technology \\
+Center for Cyberspace Research \\
+Wright-Patterson Air Force Base, Ohio, U.S.A }
+\date{SIMULTECH 2016 \\
+31 Jul - 2 Aug 2016}
+ 
+\begin{document}
+ 
+\frame{\titlepage}
+ 
+
+\begin{frame}
+  \frametitle{Overview}
+  \tableofcontents
+\end{frame}
+ 
+
+\section{Introduction} 
+\frame{
+  \frametitle{Abstract} 
+  \begin{itemize}
+  \item Failure in cloud infrastructure is common occurrence
+  \item Problem is often masked by the use of excessively redundant systems
+  \item Machine learning techniques have been studied to predict
+  failure~\cite{salfnerSurvey}
+  \item Unfortunately, this work has gone unused~\cite{irrera2015}
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Solution?} 
+  \begin{itemize}
+  \item Framework introduced to solve problem called Adaptive Failure
+  Prediction (AFP) Framework
+  \item Load a service $\Rightarrow$ Inject faults $\Rightarrow$ Record failure
+  \item How do we load a Microsoft Windows active directory domain?
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{D-PLG} 
+  \begin{itemize}
+  \item PowerShell script
+  \item Remote execution
+  \item Full-stack two-way dynamic authentication traffic
+  \item Full-stack simulated web browsing
+  \item Dynamic file sharing
+  \item \dots and so much more!
+  \end{itemize}
+}
+  
+\section{Related Work} 
+\frame{
+  \frametitle{Existing Tools} 
+  \begin{itemize}
+  \item Many software tools exist for generating network traffic\\
+    Three major categories~\cite{botta2012,zach2013}:
+    \begin{itemize}
+    \item Application-Level
+    \item Flow-Level
+    \item Packet-Level
+    \end{itemize}
+  \item Unfortunately, no existing tools generate full-stack dynamic traffic
+  which we need to generate real authentication traffic to sufficiently load a
+  domain controller
+  \end{itemize}
+}
+
+\section{D-PLG} 
+\subsection{Overview}
+\frame{
+  \frametitle{D-PLG}
+  \figDPLGConceptDiagram{0.5\textwidth}
+}
+
+\subsection{Modules}
+\frame{
+  \frametitle{Web Browsing}
+  \begin{itemize}
+  \item PowerShell cmdlet `Invoke-WebRequest'
+  \item Returns full DOM object
+  \item Allows us to simulate browsing
+  \end{itemize}
+} 
+\frame{
+  \frametitle{Remote Desktop Protocol}
+  \begin{itemize}
+  \item Custom PowerShell cmdlet `Connect-Mstsc'~\footnote{
+    \tiny{\url{https://gallery.technet.microsoft.com/scriptcenter/Connect-Mstsc-Open-RDP-2064b10b}}}
+  \item Hidden window so we don't interrupt users
+  \item Makes connection, sleeps for a few seconds and then disconnects
+  \item Plan to implement machine interaction
+  \end{itemize}
+} 
+\frame{
+  \frametitle{Server Message Block (SMB) File Sharing}
+  \begin{itemize}
+  \item PowerShell cmdlet `New-PSDrive'
+  \item Connects and authenticates to remote file share
+  \item Uploads 100 bytes of random ASCII data
+  \item Deletes created file and disconnects
+  \end{itemize}
+} 
+
+\frame{
+  \frametitle{Future Modules}
+  \begin{itemize}
+  \item PowerShell cmdlet `Send-MailMessage'
+  \item PowerShell cmdlet `Out-Printer'
+  \end{itemize}
+} 
+
+\section{Methodology}
+\frame{
+  \centering
+  \Huge Methodology
+}
+
+\subsection{Experiment Design}
+\frame{
+  \frametitle{Experiment}
+  \begin{itemize}
+  \item Two hypotheses:
+    \begin{enumerate}
+    \item We can sufficiently load the domain controller using our script
+    \item We can use D-PLG without the end-user noticing
+    \end{enumerate}
+  \item Two tests: each five, five minute rounds of execution
+  \item First test maximized traffic generated
+  \item Second test balanced traffic generation with client utilization
+  \item Capture all network traffic and performance/utilization metrics
+  \end{itemize}
+} 
+
+\subsection{Virtual Environment}
+\frame{
+  \frametitle{Virtual Environment}
+  \tabHypervisorOne
+  \tabHypervisorTwo
+} 
+
+\section{Experimental Results}
+\frame{
+  \centering
+  \Huge Results
+}
+\subsection{First Test}
+\frame{
+  \frametitle{Results}
+  \begin{itemize}
+  \item First test was successful
+  \item Able to sufficiently load domain controller based on Microsoft's
+  community recommendations (15,000 clients authentication requests over five
+  minutes).
+  \end{itemize}
+}
+\frame{
+  \frametitle{Results}
+  \figAuthDCPPS{0.5\textwidth}
+} 
+
+\frame{
+  \frametitle{Load on Domain Controller}
+  \figAuthDCMetrics{0.5\textwidth}
+}
+
+\subsection{Second Test}
+\frame{
+  \frametitle{Results}
+  \begin{itemize}
+  \item Not quite as successful as first
+  \item Client machines were undersized compared to standard desktop computers
+  in enterprise environment
+  \item Result was that while they produced a sufficient amount of traffic,
+  they would have been a little slow to use
+  \item Solution:  Use more powerful client machines, or use during idle down
+  times
+  \end{itemize}
+}
+\frame{
+  \frametitle{Results}
+  \figDPLGAllModsClientMetrics{0.5\textwidth}
+}
+
+\section{Conclusion}
+\frame{
+  \frametitle{Future Work}
+  \begin{itemize}
+  \item Build-out tool
+  \item Add new functionality like e-mail and printing support
+  \item Give users more control over type of load generated
+  \item Increase stochasticity to better simulate user behavior
+  \end{itemize}
+} 
+
+\frame{
+  \frametitle{Conclusion}
+  \begin{itemize}
+  \item Based on the results of our first test, D-PLG will meet our needs to
+  implement AFP against a domain controller
+  \item We believe our results demonstrate D-PLG's applicability to other
+  problems that require dynamic traffic between unbounded network components
+  \end{itemize}
+} 
+
+\frame{
+  \frametitle{Summary}
+  \tableofcontents
+} 
+
+\frame{
+  \centering
+  \Huge Questions?
+} 
+
+\frame[allowframebreaks]{
+  \bibliography{../Back/references}
+  \bibliographystyle{plain}
+} 
+ 
+\end{document}

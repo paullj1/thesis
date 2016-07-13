@@ -243,7 +243,7 @@
 
 \newcommand{\figAuthDCPPS}[1]{\begin{figure}[ht!]
  \begin{center}
-  \includegraphics[width=#1]{authDCPPS}
+  \includegraphics[width=#1]{DPLG/authDCPPS}
   \caption[Domain Controller Packets per Second]{How many packets per second
   were sent or received by the domain controller across all five rounds of the
   first test.  In each test, we captured approximately 1.8 million packets.}
@@ -254,7 +254,7 @@
 
 \newcommand{\figAuthClientPPS}[1]{\begin{figure}[ht!]
  \begin{center}
-  \includegraphics[width=#1]{authClientPPS}
+  \includegraphics[width=#1]{DPLG/authClientPPS}
   \caption[Client Packets per Second]{How many packets per second were sent or
   received by one of the clients across all five rounds of the first test.}
   \label{fig:authClientPPS}
@@ -264,7 +264,7 @@
 
 \newcommand{\figAuthDCMetrics}[1]{\begin{figure}[ht!]
  \begin{center}
-  \includegraphics[width=#1]{authDCMetrics}
+  \includegraphics[width=#1]{DPLG/authDCMetrics}
   \caption[Test 1:  Domain Controller Performance]{Domain controller CPU and
   memory utilization during the first test.}
   \label{fig:authDCMetrics}
@@ -373,4 +373,21 @@
   application fails.}
   \label{fig:memLeakPostUpdateBoostingPerf}
 \end{figure*}
+}
+
+\newcommand{\figDPLGConceptDiagram}[1]{\begin{figure}[ht!]
+  \centering 
+  \includegraphics[width=#1]{DPLG/dplgConceptDiagram}
+  \caption[Concept Diagram]{How each type of traffic that is generated is
+  routed.  Log events are offloaded to logging service for further analysis.}
+  \label{fig:conceptDiagram} 
+  \end{figure}
+}
+
+\newcommand{\figDPLGAllModsClientMetrics}[1]{\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=#1]{DPLG/allModsClientMetrics}
+  \caption[Test 2:  Client Metrics]{Client CPU and memory utilization during
+  the second test.} \label{fig:allModsClientMetrics}
+  \end{figure}
 }
