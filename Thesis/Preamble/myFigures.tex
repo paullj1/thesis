@@ -34,8 +34,8 @@
 \newcommand{\figonlinePrediction}[1]{\begin{figure}[H]
  \begin{center}
     \includegraphics[width=#1]{onlinePrediction}
-     \caption[Online Failure Prediction~\cite{salfnerSurvey}]{The timeline for
-     OFP~\cite{salfnerSurvey}.}
+     \caption[\ac{OFP}~\cite{salfnerSurvey}]{The timeline for
+     \ac{OFP}~\cite{salfnerSurvey}.}
      \label{fig:onlinePrediction}
  \end{center}
 \end{figure}
@@ -56,8 +56,8 @@
 \newcommand{\figROC}[1]{\begin{figure}[H]
  \begin{center}
     \includegraphics[width=#1]{ROC}
-     \caption[Sample ROC Plots~\cite{salfnerSurvey}]{ROC plots of perfect,
-     average, and random predictors~\cite{salfnerSurvey}.}
+     \caption[Sample \ac{ROC} Plots~\cite{salfnerSurvey}]{\ac{ROC} plots of
+     perfect, average, and random predictors~\cite{salfnerSurvey}.}
      \label{fig:ROC}
  \end{center}
 \end{figure}
@@ -89,8 +89,8 @@
 \newcommand{\figAFP}[1]{\begin{figure}[H]
  \begin{center}
     \includegraphics[width=#1]{AFP}
-     \caption[AFP Framework Implementation~\cite{irrera2015}]{How the AFP
-     framework is implemented~\cite{irrera2015}.}
+     \caption[\ac{AFP} Framework Implementation~\cite{irrera2015}]{How the
+     \ac{AFP} framework is implemented~\cite{irrera2015}.}
      \label{fig:AFP}
  \end{center}
 \end{figure}
@@ -153,8 +153,9 @@
          \end{tikzpicture}
        }
      \end{overpic}
-     \caption[Annotated AFP Framework~\cite{irrera2015}]{The AFP framework
-     implementation~\cite{irrera2015} with modified components highlighted.}
+     \caption[Annotated \ac{AFP} Framework~\cite{irrera2015}]{The \ac{AFP}
+     framework implementation~\cite{irrera2015} with modified components
+     highlighted.}
      \label{fig:annotatedAFP}
  \end{center}
 \end{figure}
@@ -214,8 +215,9 @@
          \end{tikzpicture}
        }
      \end{overpic}
-     \caption[Annotated AFP Framework~\cite{irrera2015}]{The AFP framework
-     implementation~\cite{irrera2015} with modified components highlighted.}
+     \caption[Annotated \ac{AFP} Framework~\cite{irrera2015}]{The \ac{AFP}
+     framework implementation~\cite{irrera2015} with modified components
+     highlighted.}
      \label{fig:annotatedAFP}
  \end{center}
 \end{figure}
@@ -224,8 +226,8 @@
 \newcommand{\figTrainingPhase}[1]{\begin{figure}[H]
  \begin{center}
   \includegraphics[width=#1]{TrainingPhase}
-  \caption[AFP Training Phase~\cite{irrera2015}]{The flow of the major steps
-    involved in the AFP framework training phase~\cite{irrera2015}.}
+  \caption[\ac{AFP} Training Phase~\cite{irrera2015}]{The flow of the major
+  steps involved in the \ac{AFP} framework training phase~\cite{irrera2015}.}
   \label{fig:TrainingPhase}
  \end{center}
 \end{figure}
@@ -234,8 +236,9 @@
 \newcommand{\figExecutionPhase}[1]{\begin{figure}[!ht]
   \begin{center}
     \includegraphics[width=#1]{ExecutionPhase}
-    \caption[AFP Execution Phase~\cite{irrera2015}]{The flow of the major steps
-    involved in the AFP framework execution phase~\cite{irrera2015}.}
+    \caption[\ac{AFP} Execution Phase~\cite{irrera2015}]{The flow of the major
+    steps involved in the \ac{AFP} framework execution
+    phase~\cite{irrera2015}.}
     \label{fig:ExecutionPhase}
   \end{center}
 \end{figure}
@@ -275,7 +278,7 @@
 \newcommand{\figOFPTaxonomy}[1]{\begin{figure}[ht!]
  \begin{center}
   \includegraphics[width=#1]{OFPTaxonomy}
-  \caption[Taxonomy of OFP Approaches]{Taxonomy of approaches to online
+  \caption[Taxonomy of \ac{OFP} Approaches]{Taxonomy of approaches to online
   failure prediction~\cite{salfnerSurvey}.  The two categories into which this
   research falls are highlighted.}
   \label{fig:OFPTaxonomy}
@@ -286,7 +289,8 @@
 \newcommand{\figMemLeakROC}[1]{\begin{figure}[ht!]
  \begin{center}
   \includegraphics[width=#1]{MemLeakROC}
-  \caption[SVM Memory Leak ROC Curve]{SVM memory leak test data ROC curve.}
+  \caption[\ac{SVM} Memory Leak \ac{ROC} Curve]{\ac{SVM} memory leak test data
+  \ac{ROC} curve.}
   \label{fig:memLeakROC}
  \end{center}
 \end{figure}
@@ -295,9 +299,9 @@
 \newcommand{\figMemLeakCompare}[1]{\begin{figure}[ht!]
  \begin{center}
   \includegraphics[width=#1]{MemLeakCompare}
-  \caption[SVM Memory Leak Performance Comparison]{Number of observations in a
-  given thirty second time window where `1' represents a window during which
-  failure occurred and `0' represents a window during which no failure
+  \caption[\ac{SVM} Memory Leak Performance Comparison]{Number of observations
+  in a given thirty second time window where `1' represents a window during
+  which failure occurred and `0' represents a window during which no failure
   occurred.}
   \label{fig:memLeakCompare}
  \end{center}
@@ -311,12 +315,13 @@
   \subfigure[Precision/Recall Curve.]{
     \includegraphics[width=0.45\textwidth]{results/pre-update/memleak/svm-prc}
   }
-  \subfigure[Receiver Operating Characteristic (ROC) Curve (AUC = 0.8664).]{
+  \subfigure[\ac{ROC} Curve (AUC = 0.8664).]{
     \includegraphics[width=0.45\textwidth]{results/pre-update/memleak/svm-roc}
   }
-  \caption[Pre-Update, Memory Leak SVM Performance]{Test data performance of
-  the SVM prediction method on failure data obtained by consuming all available
-  memory until target application fails.} \label{fig:memLeakPreUpdateSVMPerf}
+  \caption[Pre-Update, Memory Leak \ac{SVM} Performance]{Test data performance
+  of the \ac{SVM} prediction method on failure data obtained by consuming all
+  available memory until target application fails.}
+  \label{fig:memLeakPreUpdateSVMPerf}
 \end{figure*}
 }
 
@@ -331,7 +336,7 @@
   \subfigure[Precision/Recall Curve.]{
     \includegraphics[width=0.45\textwidth]{results/pre-update/memleak/boosting-prc}
   }
-  \subfigure[Receiver Operating Characteristic (ROC) Curve (AUC = 0.9984).]{
+  \subfigure[\ac{ROC} Curve (AUC = 0.9984).]{
     \includegraphics[width=0.45\textwidth]{results/pre-update/memleak/boosting-roc}
   }
   \caption[Pre-Update, Memory Leak Boosting Performance]{Test data performance
@@ -347,7 +352,7 @@
   \subfigure[Precision/Recall Curve.]{
     \includegraphics[width=0.45\textwidth]{results/post-update/memleak/boost-samemodel-prc}
   }
-  \subfigure[Receiver Operating Characteristic (ROC) Curve (AUC = 0.4854).]{
+  \subfigure[\ac{ROC} Curve (AUC = 0.4854).]{
     \includegraphics[width=0.45\textwidth]{results/post-update/memleak/boost-samemodel-roc}
   }
   \caption[Post-Update, Memory Leak Using Old Model Performance]{Performance of
@@ -364,7 +369,7 @@
   \subfigure[Precision/Recall Curve.]{
     \includegraphics[width=0.45\textwidth]{results/post-update/memleak/boost-prc}
   }
-  \subfigure[Receiver Operating Characteristic (ROC) Curve (AUC = 0.9801).]{
+  \subfigure[\ac{ROC} Curve (AUC = 0.9801).]{
     \includegraphics[width=0.45\textwidth]{results/post-update/memleak/boost-roc}
   }
   \caption[Post-Update, Memory Leak Using New Model Performance]{Performance of
