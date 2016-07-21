@@ -1,0 +1,89 @@
+\section{Conclusion and Future Work} \label{chapter5}
+This chapter outlines several lines of future work based on the outcomes of
+this research.  The future work is then followed by the conclusions drawn from
+this work and a discussion of their impact.
+
+\subsection{Future Work}
+Several lines of research following this work are presented in this section.
+First and foremost, in order to put this technique into use on production
+systems, the proof of concept \ac{W-SWFIT} application must be completed.
+Furthermore, while automation was a consideration while conducting this
+research, it was not implemented.  To be effective in a production environment,
+the entire \ac{AFP} process must be automated.
+
+One especially relevant and interesting line of effort that should follow this
+work is to better identify when the underlying system has changed enough to
+require retraining.  While the process is automated, it will unlikely be
+necessary after every software update.  In order to avoid unnecessary use of
+resources, this process could be explored.
+
+As was demonstrated with the boosted decision trees, other statistical
+classifiers could be explored.  The \ac{AFP} framework is not limited to a
+single predictor~\cite{irrera2015}.  A series of prediction models can be used
+to vote on the state of a system, the output being the majority.  In addition
+to exploring other statistical learning models, additional states (or classes)
+could be explored.  For example, instead of a failure state, a classification
+model could be used to predict when a system would be idle to know when best to
+install software updates.  Further, a classification model may be able to
+automate the classification and prediction of when a target was under a
+malicious attack in a method similar to the \ac{AFP} framework.
+
+An additional area of exploration should be to combine the newly developed
+fault loads and reported error methodology to the monitoring approach used by
+Irrera, et al.~\cite{irrera2015} using the \emph{Logman} tool to collect
+additional system information to train a predictor.  While it has been reported
+that these features do not perform well on their own~\cite{salfnerSurvey}, when
+used in conjunction with reported errors or log messages, results could
+improve.  Unfortunately, while tools for dealing with increased volume and
+velocity have improved recently~\cite{meng2016}, the use of more data like this
+in enterprise systems may not be possible given storage, geographic, and
+processing constraints.
+
+Finally, the integration of actual failure data with the \ac{AFP} framework
+should be explored.  Bootstrapping could be used to better integrate actual
+failure data into the training phase. 
+
+\subsection{Conclusion}
+This research explored the use of the \ac{AFP} framework with additional fault
+loads to predict failure using reported errors in the \ac{MS} \ac{DC}s.  It has
+been shown that it is possible to predict failure in modern \ac{MS} enterprise
+authentication architecture given a representative fault load.  Unfortunately,
+at the time of writing, two out of the three fault loads introduced in this
+research were not successful in generating useful failure data.  Additionally,
+unmodified fault injection as was used in the original \ac{AFP} framework
+implementation, does not induce failure in \ac{MS} \ac{DC}s that can be used to
+train a statistical learning model using reported errors.  These new fault
+loads are not useless however.  As was demonstrated with the \ac{SVM}
+predictor, the underlying system changes can introduce or eliminate an
+applications vulnerability to certain types of faults.  For this reason, if the
+\ac{AFP} framework is implemented on \ac{MS} \ac{DC}s, all fault loads should
+be used in the execution and training phases.
+
+In addition to the new fault loads introduced in this work, a load generator
+has also been presented:  \ac{D-PLG}, capable of sufficiently simulating peak
+usage of a \ac{MS} enterprise \ac{DC}.  Additional uses for \ac{D-PLG} outside
+of use in the \ac{AFP} framework include capacity planning/sizing, network
+security testing and auditing, and software testing.  This research also
+introduced \ac{W-SWFIT} which can be used to perform fault injection for a
+variety of additional uses like software testing and auditing.
+
+The impact of this research should not be over estimated.  As mentioned, a
+major limitation of this technique is that it is not able to predict malicious
+acts or \emph{Act of God} events.  Furthermore, the data generated are still
+simulated data and as such, may not completely capture all possible failure
+events.  The \ac{AFP} framework as presented here will however provide more
+reliable predictions than are currently available today.
+
+In conclusion, the modified \ac{AFP} framework as presented here can be used to
+effectively predict failures that might occur in a production environment and
+is capable of adapting to underlying system changes using only reported errors.
+For these reasons, it is recommended that if the \ac{AFP} framework is to be
+implemented as laid out in this research, all fault loads should be integrated
+to maximize the frameworks ability to adapt to these changes.  To improve the
+efficacy of a predictor trained using this generated data, real failure data
+and additional predictors can easily be integrated if available.  Finally, real
+failure data is difficult to obtain given how rare failure is in modern
+systems.  Unfortunately, even after it is obtained, it can rapidly become
+deprecated by underlying system changes.  Using the \ac{AFP} to generate
+simulated failure data is the next best thing to having real data and provides
+more useful predictions than are available with no failure data.
