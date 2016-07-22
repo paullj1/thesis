@@ -28,20 +28,18 @@ install software updates.  Further, a classification model may be able to
 automate the classification and prediction of when a target was under a
 malicious attack in a method similar to the \ac{AFP} framework.
 
-An additional area of exploration should be to combine the newly developed
-fault loads and reported error methodology to the monitoring approach used by
-Irrera, et al.~\cite{irrera2015} using the \emph{Logman} tool to collect
-additional system information to train a predictor.  While it has been reported
-that these features do not perform well on their own~\cite{salfnerSurvey}, when
-used in conjunction with reported errors or log messages, results could
-improve.  Unfortunately, while tools for dealing with increased volume and
-velocity have improved recently~\cite{meng2016}, the use of more data like this
-in enterprise systems may not be possible given storage, geographic, and
-processing constraints.
+An additional area of exploration should be to better identify how fault
+injection actually affects the underlying system.  This research has shown that
+in some cases, it can be extremely difficult to identify areas that will create
+realistic failure conditions with any preceding indicators.  Even when
+constrained, a single library can have hundreds of injection points.
+Furthermore, in some cases, even when all injection points are tested, none may
+lead to a realistic failure.  For this reason, the additional fault loads play
+an integral role.
 
 Finally, the integration of actual failure data with the \ac{AFP} framework
 should be explored.  Bootstrapping could be used to better integrate actual
-failure data into the training phase. 
+failure data into the training phase if it is observed. 
 
 \section{Conclusion}
 This research explored the use of the \ac{AFP} framework with additional fault
@@ -49,15 +47,20 @@ loads to predict failure using reported errors in the \ac{MS} \ac{DC}s.  It has
 been shown that it is possible to predict failure in modern \ac{MS} enterprise
 authentication architecture given a representative fault load.  Unfortunately,
 at the time of writing, two out of the three fault loads introduced in this
-research were not successful in generating useful failure data.  Additionally,
-unmodified fault injection as was used in the original \ac{AFP} framework
-implementation, does not induce failure in \ac{MS} \ac{DC}s that can be used to
-train a statistical learning model using reported errors.  These new fault
+research were not successful in generating useful failure data.  The new fault
 loads are not useless however.  As was demonstrated with the \ac{SVM}
 predictor, the underlying system changes can introduce or eliminate an
 applications vulnerability to certain types of faults.  For this reason, if the
 \ac{AFP} framework is implemented on \ac{MS} \ac{DC}s, all fault loads should
 be used in the execution and training phases.
+
+Perhaps more interestingly, fault injection as was used in the original
+\ac{AFP} framework implementation, had two outcomes: no failure occurred, or
+failure occurred immediately.  In the controlled virtual environment, failure
+was predictable using polled system health information, but perhaps the
+indicators used to predict the failure were not actual errors but the fault
+injection tool itself consuming resources.  Clearly more work must be done to
+validate using fault injection alone in the \ac{AFP} framework.
 
 In addition to the new fault loads introduced in this work, a load generator
 has also been presented:  \ac{D-PLG}, capable of sufficiently simulating peak
@@ -79,11 +82,12 @@ effectively predict failures that might occur in a production environment and
 is capable of adapting to underlying system changes using only reported errors.
 For these reasons, it is recommended that if the \ac{AFP} framework is to be
 implemented as laid out in this research, all fault loads should be integrated
-to maximize the frameworks ability to adapt to these changes.  To improve the
+to maximize the frameworks ability to adapt to system changes.  To improve the
 efficacy of a predictor trained using this generated data, real failure data
 and additional predictors can easily be integrated if available.  Finally, real
 failure data is difficult to obtain given how rare failure is in modern
 systems.  Unfortunately, even after it is obtained, it can rapidly become
-deprecated by underlying system changes.  Using the \ac{AFP} to generate
-simulated failure data is the next best thing to having real data and provides
-more useful predictions than are available with no failure data.
+deprecated by underlying system changes.  Using the \ac{AFP} with the fault
+loads introduced in this work to generate simulated failure data is the next
+best thing to having real data and provides more useful predictions than are
+available with no failure data.
