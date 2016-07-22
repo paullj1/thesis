@@ -1,0 +1,187 @@
+\section{Introduction} \label{chapter1}
+As dependency upon computers grows, so too do the associated risks.  Computer
+systems are all around us.  Some of these systems play insignificant
+roles in our lives while others are responsible for sustaining our lives.
+Unfortunately, the software that controls these systems is written by humans
+and consequently subject to human error.  As a result, these systems are prone
+to failure, and in some cases that failure could have catastrophic
+consequences.  Every day, critical infrastructure and Air Force mission systems
+depend on the reliability of computer systems.  As a result, being able to
+predict pending failure in computer systems can offer tremendous, and
+potentially life-saving applications in today's technologically advanced world.
+While actually being able to accurately predict failure has unfortunately not
+been proven possible, there has been work over the past several decades
+attempting to make educated predictions about the failure of machines through
+the use of machine learning algorithms~\cite{salfnerSurvey}.  Unfortunately,
+much of this work has gone unused.  
+
+Failure has been defined as the result of a software fault or
+error~\cite{salfnerSurvey}.  There are a number of ways to reduce the number of
+errors produced by a piece of software, but the software development life-cycle
+is shrinking and less time and effort are being devoted to reducing errors
+before deployment~\cite{schmidt2016}.  This leaves real-time error prevention
+or handling.  In recent years, it seems the recommended solution to this
+problem is to make massively redundant systems that can withstand
+failure~\cite{bauer2012}.  As hardware becomes more affordable, this is an
+effective approach in many ways, but ultimately is still not cost efficient.
+In some cases, funds may not be available to achieve this sort of redundancy.
+Consequently, this research focuses on a small piece of the general field of
+reliable computing: \ac{OFP}.  \ac{OFP} is the act of attempting to predict
+when failures are likely so that they can be avoided.  Chapter~\ref{chapter2}
+outlines the recent work done in this field, much of which is not done in
+production environments due to the complex and manual task of training a
+prediction model.  If the underlying system changes, the efficacy of a
+prediction model can be drastically reduced until it is retrained.
+Furthermore, training requires access to labelled training data.  Since failure
+is such a rare event, access to this type of training data may not be possible.  
+
+Irrera, et al.~\cite{irrera2015} presented a framework in 2015 to automate the
+process of dynamically generating failure data and using it to train a
+predictor after an underlying system change.  This framework is called the
+\ac{AFP} framework and this research explores an implementation of it.  More
+specifically, this research presents results after implementing a modernized
+\ac{AFP} framework using a \ac{MS} Windows Server \ac{DC} that is capable of
+generating more diverse and specific failure data for training.  Successive
+software updates are then applied until the model selected becomes useless, the
+framework is then allowed to re-train a new more effective predictor.  Finally,
+the iplementation is validated by running the same experiment on a web server.
+
+\subsection{Problem Statement}
+According to the operational community, predicting and alerting on impending
+network service failures currently uses thresholds and rules on discrete items
+in enterprise system logs.  For example, if the \ac{CPU} and memory usage on a
+device exceeds 90\%, then an alert may be issued.  This approach works, but
+only for certain types of failures and in order to minimize the false
+positives, it only makes recommendations when the system has already entered a
+degraded performance mode.  To maintain network resilience, the operational
+organizations responsible for communications support desperately need some
+means of gaining accuracy and lead-time before a service failure occurs.  
+
+To increase that lead time and make more accurate predictions, this research
+explores predicting failure by analyzing data reported by a target system.
+Preceding a service failure event, multiple indicators from disparate sources,
+perhaps over a long period of time, may appear in system logs.  The log entries
+of interest are also quite rare compared with normal operations.  Because of
+these constraints, identifying failure indicators can be nearly impossible for
+humans to perform.  Further, in most cases, restoring service is more important
+than identifying the indicators that may or may not have existed.  
+
+Failure prediction can be approached in several ways. For example, the simplest
+approach is to use everyday statistical analysis to determine the mean time
+between failures of specific components. The analysis of all components making
+up a system can be aggregated to make predictions about that system using a set
+of statistics-based or business-relevant rules.  Unfortunately, the complexity
+of modern architectures has outpaced such off-line statistical-based analysis.
+\ac{OFP} differs from other means of failure prediction in that it focuses on
+classifying the current running state of a machine as either failure prone or
+not, or in such a way that it describes the confidence in how failure prone a
+system is at present~\cite{salfnerSurvey}.
+
+In recent years much of the work in \ac{OFP} has gone unused due to the
+dramatic decrease in cost and complexity involved in building hardware-based
+redundant systems~\cite{irrera2015}.  Furthermore, in most cases \ac{OFP}
+implements machine learning algorithms that require manual re-training after
+underlying system changes.  More troubling is that system changes are becoming
+more frequent as the software development life cycle moves toward a more
+continuous integration model.  To help solve these challenges, Irrera, et
+al.~\cite{irrera2015} introduced a framework that uses simulated faults to
+automatically re-train a prediction algorithm to make implementing \ac{OFP}
+approaches easier.  This work extends that framework to capture developments
+since its writing and generalize it so it works for a broader class of devices
+by exploring and developing the fault load.  Specifically, this work explores
+additional and more realistic types of faults, modernizes the fault
+injection tool by translating it from the IA32 architecture to the x86-64
+architecture, and explores the use of reported errors or log messages instead
+of system health information.
+
+\subsection{Hypothesis}
+An implementation of the \ac{AFP} framework with a more representative fault
+load for the \ac{MS} Windows enterprise infrastructure using data in log
+messages will lead to accurate failure prediction with better lead time than is
+available today without any prediction model.  This hypothesis is tested by
+implementing the \ac{AFP} framework in a scaled virtual environment and
+evaluating its performance after successive software updates.  To validate the
+approach, the same \ac{AFP} framework implementation is evaluated against an
+Apache web server.  Prior to this research, the faults produced and
+consequently predicted by the \ac{AFP} framework were the result of first-order
+software faults.  This research evaluates the performance of the \ac{AFP}
+framework when second and third order faults are introduced.  Additionally, the
+implementation of the \ac{AFP} framework was not possible on modern \ac{MS}
+Windows infrastructure because the fault injection tool used, had not been
+written for the x86-64 architecture, and was incapable of injecting faults in
+protected system processes.  Finally, the initial case study of the \ac{AFP}
+framework used system health information to train the prediction model.  As is
+pointed out by Salfner, et al.~\cite{salfnerSurvey}, this sort of prediction
+may have difficulty distinguishing between normal operations and actual errors
+which may evolve into failure.  This work explores the use of reported errors
+to train the model instead to overcome this shortcoming.  It is expected that
+this modification will allow for more accurate predictions.
+
+\subsection{Research Goals} 
+A goal of this research is to develop a machine learning based failure
+prediction model to predict failures in enterprise network services.  This
+research should demonstrate the efficacy of the \ac{AFP} framework and proposed
+extensions when used on the \ac{MS} Windows enterprise architecture.  A
+long-term goal of this research is to drive the improvement of the \ac{AFP}
+framework and increase its adoption and resulting cost savings.  In the
+near-term, the increased representativeness of the faults generated should lead
+to better predictions and increased availability in enterprise services.
+Finally, the translation of the IA32 \ac{G-SWFIT} tool to the x86-64
+architecture should enable the same advantages of software fault injection for
+32-bit systems on 64-bit systems~\cite{gswfit}.
+
+\subsection{Impact of Research}
+Every day, many of the Air Force's critical missions depend on computer
+infrastructure.  An essential piece of this infrastructure is the
+authentication mechanisms that protect  sensitive information.  Unfortunately,
+the software at the core of this infrastructure is written and maintained by
+humans and thus susceptible human error.  This research will enable the Air
+Force and many others that use the \ac{MS} Enterprise Infrastructure to
+accurately predict pending service outages thereby providing lead-time in order
+to avoid those outages.  The result is cost savings in personnel and equipment.
+Further advantages are difficult to quantify such as a decreased risk of
+mission failure due to network service outage.
+
+\subsection{Assumptions and Limitations}
+This research assumes indicators of failure are present and available with
+enough lead-time to accurately make decisions and take mitigation action should
+failure be predicted based on these indicators.  Furthermore, it has not been
+proven possible to accurately predict future events without a priori knowledge.
+This research presents a method of predicting failure, but this method is
+completely useless at predicting \emph{act of God} events.  Finally, this
+method is capable of predicting system failure based on underlying software
+faults and not indicators about malicious attacks against the target system.
+
+\subsection{Results}
+This research shows that when used in conjunction with the modernized \ac{AFP}
+framework the additional fault loads enable the generation of failure data that
+can be used to train predictors to alert on pending failure with better
+precision and recall than is currently available today.  Furthermore, without
+this modernization, the use of the \ac{AFP} framework would not have been
+possible on modern \ac{MS} Windows operating systems.  The results of this work
+demonstrate the efficacy of the approach by showing that these new fault loads
+and modernized framework work on both the \ac{MS} \ac{DC} as well as a \ac{MS}
+web server.
+
+This research also shows that after an underlying system change, this
+method of predicting failure is capable of automatically training a more
+effective prediction algorithm so that this technique can be implemented on an
+Air Force network with little to no impact on manpower.  Consequently, it is
+expected that this research will inform decision makers and allow them to
+implement this technique in a production environment.
+
+\subsection{Summary}
+This work outlines a technique that is effective in predicting failure in
+modern \ac{MS} Windows systems that can adapt to underlying system changes.
+The remainder of this document will outline exactly how this modernization and
+the additional fault loads were implemented and tested.  The impact of this
+work is that it could readily be adapted and implemented in many enterprise
+system architectures with little manpower burden.  Specifically, in the Air
+Force, it could most effectively be implemented and used by the \ac{CSCS}
+weapon system employed at the 561st and 83d \ac{NOS} and their associated
+detachments to reduce the number of network service outages, increasing uptime,
+leading to improved mission effectiveness in both the support and operational
+domains.  Finally, this technique is general enough to be employed outside of
+the Air Force to increase mission effectiveness across the \ac{DOD}.  External
+to the \ac{DOD}, this research further generalizes an approach that could be
+used to help increase availability of nearly any computer system.
