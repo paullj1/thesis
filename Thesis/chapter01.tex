@@ -1,13 +1,13 @@
 \chapter{Introduction} \label{chapter1}
 As dependency upon computers grows, so too do the associated risks.  Computer
-systems are all around us.  Some of these computer systems play insignificant
+systems are all around us.  Some of these systems play insignificant
 roles in our lives while others are responsible for sustaining our lives.
 Unfortunately, the software that controls these systems is written by humans
 and consequently subject to human error.  As a result, these systems are prone
-to failure which in many cases is insignificant, but in others, could have
-severe consequences.  Every day, critical infrastructure and Air Force mission
-systems depend on the reliability of computer systems.  As a result, being able
-to predict pending failure in computer systems can offer tremendous, and
+to failure, and in some cases that failure could have catastrophic
+consequences.  Every day, critical infrastructure and Air Force mission systems
+depend on the reliability of computer systems.  As a result, being able to
+predict pending failure in computer systems can offer tremendous, and
 potentially life-saving applications in today's technologically advanced world.
 While actually being able to accurately predict failure has unfortunately not
 been proven possible, there has been work over the past several decades
@@ -83,17 +83,19 @@ redundant systems~\cite{irrera2015}.  Furthermore, in most cases \ac{OFP}
 implements machine learning algorithms that require manual re-training after
 underlying system changes.  More troubling is that system changes are becoming
 more frequent as the software development life cycle moves toward a more
-continuous integration model.  To help solve these challenges, the framework
-presented in~\cite{irrera2015} uses simulated faults to automatically re-train
-a prediction algorithm to make implementing \ac{OFP} approaches easier.  This
-work extends that framework to capture developments since its writing and
-generalize it so it works for a broader class of devices by exploring and
-developing the fault load.  Specifically, this work explores additional and
-more realistic types of faults, and modernizes the fault injection tool by
-translating it from the IA32 architecture to the x86-64 architecture.
+continuous integration model.  To help solve these challenges, Irrera, et
+al.~\cite{irrera2015} introduced a framework that uses simulated faults to
+automatically re-train a prediction algorithm to make implementing \ac{OFP}
+approaches easier.  This work extends that framework to capture developments
+since its writing and generalize it so it works for a broader class of devices
+by exploring and developing the fault load.  Specifically, this work explores
+additional and more realistic types of faults, modernizes the fault
+injection tool by translating it from the IA32 architecture to the x86-64
+architecture, and explores the use of reported errors or log messages instead
+of system health information.
 
 \section{Hypothesis}
-The implementation of an \ac{AFP} framework with a more representative fault
+An implementation of the \ac{AFP} framework with a more representative fault
 load for the \ac{MS} Windows enterprise infrastructure using data in log
 messages will lead to accurate failure prediction with better lead time than is
 available today without any prediction model.  This hypothesis is tested by
@@ -107,7 +109,13 @@ framework when second and third order faults are introduced.  Additionally, the
 implementation of the \ac{AFP} framework was not possible on modern \ac{MS}
 Windows infrastructure because the fault injection tool used, had not been
 written for the x86-64 architecture, and was incapable of injecting faults in
-protected system processes.
+protected system processes.  Finally, the initial case study of the \ac{AFP}
+framework used system health information to train the prediction model.  As is
+pointed out by Salfner, et al.~\cite{salfnerSurvey}, this sort of prediction
+may have difficulty distinguishing between normal operations and actual errors
+which may evolve into failure.  This work explores the use of reported errors
+to train the model instead to overcome this shortcoming.  It is expected that
+this modification will allow for more accurate predictions.
 
 \section{Research Goals} 
 A goal of this research is to develop a machine learning based failure

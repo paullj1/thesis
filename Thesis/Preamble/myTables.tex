@@ -1,21 +1,21 @@
 
 \newcommand{\tabFaults}{
-\begin{table}[htbp]
+\begin{table}[!ht]
   \centering
   \caption[Fault Operators Injected~\cite{gswfit}]{Fault operators used for
   fault injection~\cite{gswfit}.}\label{tab:faults}
-\begin{tabular}{ | c | l | c | } 
+\begin{tabulary}{\textwidth}{ | c | l | C | } 
 \hline
   \textbf{Type}  & \textbf{Description}  & \textbf{\ac{ODC} Classes}  \\ \hline \hline
-  MIFS  & Missing "If (cond) \{ statement(s) \}"  & Algorithm  \\ \hline
-  MFC  & Missing function call  & Algorithm  \\ \hline
-  MLAC  & Missing "AND EXPR" in expression used as branch & Checking  \\ \hline
-  MLPA  & Missing small and localized part of the algorithm  & Algorithm  \\ \hline
-  WVAV  & Wrong value assigned to a value  & Assignment  \\ \hline
-  MVI  & Missing variable initialization  & Assignment  \\ \hline
-  MVAV  & Missing variable assignment using a value  & Assignment  \\ \hline
-  WPFV  & Wrong variable used in parameter of function call  & Interface  \\ \hline
-\end{tabular}
+  MIFS & Missing "If (cond) \{ statement(s) \}"            & Algorithm  \\ \hline
+  MFC  & Missing function call                             & Algorithm  \\ \hline
+  MLAC & Missing "AND EXPR" in expression used as branch   & Checking   \\ \hline
+  MLPA & Missing small and localized part of the algorithm & Algorithm  \\ \hline
+  WVAV & Wrong value assigned to a value                   & Assignment \\ \hline
+  MVI  & Missing variable initialization                   & Assignment \\ \hline
+  MVAV & Missing variable assignment using a value         & Assignment \\ \hline
+  WPFV & Wrong variable used in parameter of function call & Interface  \\ \hline
+\end{tabulary}
 \end{table}
 }
 
@@ -30,8 +30,8 @@
   \multicolumn{2}{|c|}{\textbf{Module Entry Point}}& 
   \multicolumn{2}{c|}{\textbf{Module Exit Point}} \\ \hline
 
-  \textbf{Instruction Sequence} & \textbf{Explanation} &
-  \textbf{Instruction Sequence} & \textbf{Explanation} \\ \hline \hline
+  \textbf{Instruction} & \textbf{Explanation} &
+  \textbf{Instruction} & \textbf{Explanation} \\ \hline \hline
 
   push ebp & stack frame & move esp,ebp & stack frame \\ \hline
   mov ebp, esp & setup & pop ebp & cleanup \\ \hline
@@ -51,8 +51,8 @@
   \multicolumn{2}{|c|}{\textbf{Module Entry Point}}& 
   \multicolumn{2}{c|}{\textbf{Module Exit Point}} \\ \hline
 
-  \textbf{Instruction Sequence} & \textbf{Explanation} & 
-  \textbf{Instruction Sequence} & \textbf{Explanation} \\ \hline \hline
+  \textbf{Instruction} & \textbf{Explanation} & 
+  \textbf{Instruction} & \textbf{Explanation} \\ \hline \hline
 
   push rbp & stack frame & add rsp, \emph{immed} & stack frame \\ \hline
   sub rsp, \emph{immed} &  & pop rbp & cleanup \\ \hline
@@ -261,14 +261,16 @@
 \begin{table}[!ht] \centering
   \caption[Microsoft Log Message IDs]{Microsoft log message IDs\protect
   \footnotemark.} \label{tab:messageIDs}
-  \begin{tabular}{ l | l }
-    ID   & Message                                                \\ \hline
-    4624 & An account was successfully logged on.                 \\
-    4634 & An account was logged off.                             \\
-    4672 & Special privileges assigned to new logon.              \\
-    4769 & A Kerberos service ticket was requested.               \\
-    4770 & A Kerberos service ticket was renewed.                 \\
+  \begin{tabular}{ | l | l | }
+  \hline
+    ID   & Message                                                \\ \hline\hline
+    4624 & An account was successfully logged on.                 \\ \hline
+    4634 & An account was logged off.                             \\ \hline
+    4672 & Special privileges assigned to new logon.              \\ \hline
+    4769 & A Kerberos service ticket was requested.               \\ \hline
+    4770 & A Kerberos service ticket was renewed.                 \\ \hline
     4776 & The computer attempted to validate the credentials for an account. \\ 
+  \hline
   \end{tabular}
 \end{table}
 }
