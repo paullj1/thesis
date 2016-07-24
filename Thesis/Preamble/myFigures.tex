@@ -21,7 +21,7 @@
 % figure label fig:labSetup.
 % 
 
-\newcommand{\figproactiveFaultManagement}[1]{\begin{figure}[H]
+\newcommand{\figproactiveFaultManagement}[1]{\begin{figure}[t]
  \begin{center}
     \includegraphics[width=#1]{proactiveFaultManagement}
      \caption[Proactive Fault Management~\cite{salfnerSurvey}]{The stages of
@@ -31,7 +31,7 @@
 \end{figure}
 }
 
-\newcommand{\figonlinePrediction}[1]{\begin{figure}[H]
+\newcommand{\figonlinePrediction}[1]{\begin{figure}[t]
  \begin{center}
     \includegraphics[width=#1]{onlinePrediction}
      \caption[\ac{OFP}~\cite{salfnerSurvey}]{The timeline for
@@ -41,7 +41,7 @@
 \end{figure}
 }
 
-\newcommand{\figfailureFlowDiagram}[1]{\begin{figure}[H]
+\newcommand{\figfailureFlowDiagram}[1]{\begin{figure}[t]
  \begin{center}
     \includegraphics[width=#1]{failureFlowDiagram}
      \caption[Failure Flow Diagram~\cite{salfnerSurvey}]{How faults and errors
@@ -53,7 +53,7 @@
 \end{figure}
 }
 
-\newcommand{\figROC}[1]{\begin{figure}[H]
+\newcommand{\figROC}[1]{\begin{figure}[t]
  \begin{center}
     \includegraphics[width=#1]{ROC}
      \caption[Sample \ac{ROC} Plots~\cite{salfnerSurvey}]{\ac{ROC} plots of
@@ -63,7 +63,7 @@
 \end{figure}
 }
 
-\newcommand{\figprecisionRecallCurve}[1]{\begin{figure}[H]
+\newcommand{\figprecisionRecallCurve}[1]{\begin{figure}[t]
  \begin{center}
     \includegraphics[width=#1]{precisionRecallCurve}
      \caption[Sample Precision/Recall Curves~\cite{salfnerSurvey}]{Sample
@@ -75,7 +75,7 @@
 \end{figure}
 }
 
-\newcommand{\figpatternRecognition}[1]{\begin{figure}[H]
+\newcommand{\figpatternRecognition}[1]{\begin{figure}[t]
  \begin{center}
     \includegraphics[width=#1]{patternRecognition}
      \caption[Pattern recognition in reported errors~\cite{salfnerSurvey}]{How
@@ -86,7 +86,7 @@
 \end{figure}
 }
 
-\newcommand{\figAFP}[1]{\begin{figure}[H]
+\newcommand{\figAFP}[1]{\begin{figure}[t]
  \begin{center}
     \includegraphics[width=#1]{AFP}
      \caption[\ac{AFP} Framework Implementation~\cite{irrera2015}]{How the
@@ -99,7 +99,7 @@
 \definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
 \definecolor{armygreen}{rgb}{0.29, 0.33, 0.13}
 
-\newcommand{\figannotatedAFPcolor}{\begin{figure}[ht!]
+\newcommand{\figannotatedAFPcolor}{\begin{figure}[t]
  \begin{center}
      \begin{overpic}[width=5in,scale=.25]{annotatedAFPcolor}
        \put(8,0){
@@ -161,7 +161,7 @@
 \end{figure}
 }
 
-\newcommand{\figannotatedAFP}{\begin{figure}[ht!]
+\newcommand{\figannotatedAFP}{\begin{figure}[t]
  \begin{center}
      \begin{overpic}[width=5in,scale=.25]{annotatedAFP}
        \put(8,0){
@@ -223,7 +223,7 @@
 \end{figure}
 }
 
-\newcommand{\figTrainingPhase}[1]{\begin{figure}[H]
+\newcommand{\figTrainingPhase}[1]{\begin{figure}[t]
  \begin{center}
   \includegraphics[width=#1]{TrainingPhase}
   \caption[\ac{AFP} Training Phase~\cite{irrera2015}]{The flow of the major
@@ -233,7 +233,7 @@
 \end{figure}
 }
 
-\newcommand{\figExecutionPhase}[1]{\begin{figure}[!ht]
+\newcommand{\figExecutionPhase}[1]{\begin{figure}[t]
   \begin{center}
     \includegraphics[width=#1]{ExecutionPhase}
     \caption[\ac{AFP} Execution Phase~\cite{irrera2015}]{The flow of the major
@@ -244,7 +244,19 @@
 \end{figure}
 }
 
-\newcommand{\figAuthDCPPS}[1]{\begin{figure}[ht!]
+
+\newcommand{\figExecutionPhaseHoriz}[1]{\begin{figure}[t]
+  \begin{center}
+    \includegraphics[width=#1]{ExecutionPhaseHoriz}
+    \caption[\ac{AFP} Execution Phase~\cite{irrera2015}]{The flow of the major
+    steps involved in the \ac{AFP} framework execution
+    phase~\cite{irrera2015}.}
+    \label{fig:ExecutionPhaseHoriz}
+  \end{center}
+\end{figure}
+}
+
+\newcommand{\figAuthDCPPS}[1]{\begin{figure}[t]
  \begin{center}
   \includegraphics[width=#1]{DPLG/authDCPPS}
   \caption[Domain Controller Packets per Second]{How many packets per second
@@ -255,7 +267,7 @@
 \end{figure}
 }
 
-\newcommand{\figAuthClientPPS}[1]{\begin{figure}[ht!]
+\newcommand{\figAuthClientPPS}[1]{\begin{figure}[t]
  \begin{center}
   \includegraphics[width=#1]{DPLG/authClientPPS}
   \caption[Client Packets per Second]{How many packets per second were sent or
@@ -265,7 +277,7 @@
 \end{figure}
 }
 
-\newcommand{\figAuthDCMetrics}[1]{\begin{figure}[ht!]
+\newcommand{\figAuthDCMetrics}[1]{\begin{figure}[t]
  \begin{center}
   \includegraphics[width=#1]{DPLG/authDCMetrics}
   \caption[Test 1:  Domain Controller Performance]{Domain controller CPU and
@@ -275,7 +287,7 @@
 \end{figure}
 }
 
-\newcommand{\figOFPTaxonomy}[1]{\begin{figure}[ht!]
+\newcommand{\figOFPTaxonomy}[1]{\begin{figure}[t]
  \begin{center}
   \includegraphics[width=#1]{OFPTaxonomy}
   \caption[Taxonomy of \ac{OFP} Approaches]{Taxonomy of approaches to online
@@ -286,7 +298,7 @@
 \end{figure}
 }
 
-\newcommand{\figMemLeakROC}[1]{\begin{figure}[ht!]
+\newcommand{\figMemLeakROC}[1]{\begin{figure}[t]
  \begin{center}
   \includegraphics[width=#1]{MemLeakROC}
   \caption[\ac{SVM} Memory Leak \ac{ROC} Curve]{\ac{SVM} memory leak test data
@@ -296,7 +308,7 @@
 \end{figure}
 }
 
-\newcommand{\figMemLeakCompare}[1]{\begin{figure}[ht!]
+\newcommand{\figMemLeakCompare}[1]{\begin{figure}[t]
  \begin{center}
   \includegraphics[width=#1]{MemLeakCompare}
   \caption[\ac{SVM} Memory Leak Performance Comparison]{Number of observations
@@ -310,7 +322,7 @@
 
 %%%%   SMV   %%%%
 % Pre-Update
-\newcommand{\figMemLeakPreUpdateSVMPerf}{\begin{figure*}[ht!]
+\newcommand{\figMemLeakPreUpdateSVMPerf}{\begin{figure*}[t]
   \centering
   \subfigure[Precision/Recall Curve.]{
     \includegraphics[width=0.45\textwidth]{results/pre-update/memleak/svm-prc}
@@ -331,7 +343,7 @@
 
 %%%%   BOOSTING   %%%%
 % Pre-Update
-\newcommand{\figMemLeakPreUpdateBoostingPerf}{\begin{figure*}[ht!]
+\newcommand{\figMemLeakPreUpdateBoostingPerf}{\begin{figure*}[t]
   \centering
   \subfigure[Precision/Recall Curve.]{
     \includegraphics[width=0.45\textwidth]{results/pre-update/memleak/boosting-prc}
@@ -347,7 +359,7 @@
 }
 
 % Post-Update (old model)
-\newcommand{\figMemLeakPostUpdateSameBoostedModel}{\begin{figure*}[ht!]
+\newcommand{\figMemLeakPostUpdateSameBoostedModel}{\begin{figure*}[t]
   \centering
   \subfigure[Precision/Recall Curve.]{
     \includegraphics[width=0.45\textwidth]{results/post-update/memleak/boost-samemodel-prc}
@@ -364,7 +376,7 @@
 }
 
 % Post-Update New Model
-\newcommand{\figMemLeakPostUpdateBoostingPerf}{\begin{figure*}[ht!]
+\newcommand{\figMemLeakPostUpdateBoostingPerf}{\begin{figure*}[t]
   \centering
   \subfigure[Precision/Recall Curve.]{
     \includegraphics[width=0.45\textwidth]{results/post-update/memleak/boost-prc}
@@ -380,7 +392,7 @@
 \end{figure*}
 }
 
-\newcommand{\figDPLGConceptDiagram}[1]{\begin{figure}[ht!]
+\newcommand{\figDPLGConceptDiagram}[1]{\begin{figure}[t]
   \centering 
   \includegraphics[width=#1]{DPLG/dplgConceptDiagram}
   \caption[Concept Diagram]{How each type of traffic that is generated is
@@ -389,7 +401,7 @@
   \end{figure}
 }
 
-\newcommand{\figDPLGAllModsClientMetrics}[1]{\begin{figure}[ht!]
+\newcommand{\figDPLGAllModsClientMetrics}[1]{\begin{figure}[t]
   \centering
   \includegraphics[width=#1]{DPLG/allModsClientMetrics}
   \caption[Test 2:  Client Metrics]{Client CPU and memory utilization during

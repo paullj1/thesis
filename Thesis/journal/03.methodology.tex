@@ -2,14 +2,14 @@
 The purpose of the \ac{AFP} framework is to automate the generation of
 realistic labelled failure data for the purposes of automatically training a
 failure prediction algorithm.  The framework breaks down into modules so that
-it can be more easily adapted for different applications.  This chapter
+it can be more easily adapted for different applications.  This section
 presents three topics.  The first describes the process that the framework
 executes in order to generate the labelled training data and train a failure
 prediction algorithm.  The second describes each module of the extended
 \ac{AFP} framework.  The final section details extensions to the \ac{AFP}
 framework explored by this research.
 
-This chapter outlines the implementation and extensions to the \ac{AFP}
+This section outlines the implementation and extensions to the \ac{AFP}
 framework~\cite{irrera2015} as well as an experiment that was conducted to
 validate those extensions and further generalize the framework.  The \ac{AFP}
 framework was originally tested on a single system running an operating system
@@ -68,11 +68,12 @@ framework.  Each module of the implementation for this work is detailed in
 Section~\ref{sec:implementation} and is therefore not discussed further here.  
 
 \subsubsection{Execution Phase}
-A general outline of this phase is shown in Figure~\ref{fig:ExecutionPhase}.
-This phase is divided into three major steps: data collection and failure
-prediction, event checking, and training/update as described in this section.
+A general outline of this phase is shown in
+Figure~\ref{fig:ExecutionPhaseHoriz}.  This phase is divided into three major
+steps: data collection and failure prediction, event checking, and
+training/update as described in this section.
 
-\figExecutionPhase{2.5in}
+\figExecutionPhaseHoriz{0.8\textwidth}
 
 \paragraph{Data Collection and Failure Prediction}
 In this phase, the system has a working predictor providing input to some sort
@@ -103,7 +104,7 @@ data generation \& collection, dataset building, predictor training, and
 analysis.  The general flow is shown in Figure~\ref{fig:TrainingPhase}.  Each
 phase is outlined in the following sub-sections.
 
-\figTrainingPhase{4in}
+\figTrainingPhase{0.8\textwidth}
 
 \paragraph{Target Replication}
 During this phase a virtual clone of the target is made.  After the clone is
@@ -567,7 +568,7 @@ This section outlines the extensions to the \ac{AFP} framework explored by this
 research.  Given that fault injection isn't always considered
 representative~\cite{kikuchi2014}, the next three sub-sections outline three
 addition fault loads explored.  Next, an outline of the changes in how data was
-collected from the target is presented.  Finally, this chapter concludes with a 
+collected from the target is presented.  Finally, this section concludes with a 
 brief summary of these extensions.
 
 \subsubsection{Under-Resourced \ac{CPU}} \label{sec:extUnderResourcedCPU}
