@@ -1,7 +1,6 @@
 
 \newcommand{\tabFaults}{
-\begin{table}[t]
-  \centering
+\begin{table} \centering
   \caption[Fault Operators Injected~\cite{gswfit}]{Fault operators used for
   fault injection~\cite{gswfit}.}\label{tab:faults}
 \begin{tabulary}{\textwidth}{ | c | l | C | } 
@@ -20,8 +19,7 @@
 }
 
 \newcommand{\tabTranslationThirtyTwo}{
-\begin{table}[t]
-  \centering
+\begin{table} \centering
   \caption[Funtion Entry/Exit Patterns (IA32)~\cite{gswfit}]{Function
   entry/exit patterns in IA32 bytecode~\cite{gswfit}.}
   \label{tab:translationThirtyTwo}
@@ -41,8 +39,7 @@
 }
 
 \newcommand{\tabTranslationSixtyFour}{
-\begin{table}[t]
-  \centering
+\begin{table} \centering
   \caption[Funtion Entry/Exit Patterns (x86-64)~\cite{gswfit}]{Function
   entry/exit patterns in x86-64 bytecode~\cite{gswfit}.}
   \label{tab:translationSixtyFour}
@@ -62,8 +59,7 @@
 }
 
 \newcommand{\tabHypervisorOne}{
-\begin{table}[t]
-  \centering
+\begin{table} \centering
   \caption[Hypervisor 1 (Sandbox/Target)]{Hypervisor 1 configuration
   (sandbox/target).} \label{tab:hyp1}
   \begin{tabular}{ | c | l | l | c | l |}
@@ -79,8 +75,7 @@
 
 
 \newcommand{\tabHypervisorTwo}{
-\begin{table}[t]
-  \centering
+\begin{table} \centering
   \caption[Hypervisor 2 (Controller)]{Hypervisor 2 configuration (controller).}
   \label{tab:hyp2}
   \begin{tabular}{ | c | l | l | c | l |}
@@ -94,7 +89,7 @@
 }
 
 \newcommand{\tabMessage}{
-\begin{table}[t] \centering
+\begin{table} \centering
   \caption[Example MSWinEventLog Authentication Message]{Typical authentication
   message sent as keys that correspond to the values as designated in the
   \emph{Snare} protocol for MSWinEventLog used by the SolarWinds syslog agent.}
@@ -121,7 +116,7 @@
 }
 
 \newcommand{\tabSlidingWindow}{
-\begin{table}[t] \centering
+\begin{table} \centering
   \caption[Sample Data Window Translation]{Sample message data window after
   translation.} \label{tab:window}
   \begin{tabular}{ | l | l | }
@@ -140,7 +135,7 @@
 }
 
 \newcommand{\tabMemLeakPreUpdateSVMStats}{
-\begin{table}[t] \centering
+\begin{table} \centering
   \caption[Pre-Update, Memory Leak, \ac{SVM} Statistics]{Classification
   statistics on test data created before software updates.}
   \label{tab:memLeakPreUpdateSVMStats}
@@ -161,8 +156,7 @@
 %%%%   SVM   %%%%
 % Pre-Update
 \newcommand{\tabMemLeakPreUpdateSVMConfusionMatrix}{
-  \begin{table}[t]
-    \centering
+  \begin{table} \centering
     \caption[Pre-Update, Memory Leak, \ac{SVM} Confusion Matrix]{Confusion matrix
     on test data created before software updates on threshold with highest
     F-Measure (0.8739) using \ac{SVM}.}
@@ -183,8 +177,7 @@
 %%%%   BOOSTING   %%%%
 % Pre-Update
 \newcommand{\tabMemLeakPreUpdateBoostingConfusionMatrix}{
-  \begin{table}[t]
-    \centering
+  \begin{table} \centering
     \caption[Pre-Update, Memory Leak, Boosting Confusion Matrix]{Confusion
     matrix on test data created before software updates on threshold with
     highest F-Measure (0.9917) using boosting.}
@@ -200,8 +193,7 @@
 
 % Post-Update (old model)
 \newcommand{\tabMemLeakPostUpdateBoostingSameModelConfusionMatrix}{
-  \begin{table}[t]
-    \centering
+  \begin{table} \centering
     \caption[Post-Update, Memory Leak, Same Model, Confusion
     Matrix]{Post-update failure data confusion matrix on threshold with
     highest F-Measure (0.4691) using model trained on failure data generated
@@ -218,8 +210,7 @@
 
 % Post-Update New Model
 \newcommand{\tabMemLeakPostUpdateBoostingConfusionMatrix}{
-  \begin{table}[t]
-    \centering
+  \begin{table} \centering
     \caption[Post-Update, Memory Leak, New Model, Confusion
     Matrix]{Post-update failure data confusion matrix on threshold with
     highest F-Measure (0.9355) using model trained on failure data generated
@@ -236,8 +227,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\tabModelSelection}{
-\begin{table*}[t]
-  \centering
+\begin{table*} \centering
   \caption[\ac{SVM} Cross-Validation Results]{Cross-validation runs on training
   data for model selection and resulting classification accuracy.}
   \label{tab:model:selection}
@@ -258,7 +248,7 @@
 
 
 \newcommand{\tabMessageIDs}{
-\begin{table}[t] \centering
+\begin{table} \centering
   \caption[Microsoft Log Message IDs]{Microsoft log message IDs\protect
   \footnotemark.} \label{tab:messageIDs}
   \begin{tabular}{ | l | l | }

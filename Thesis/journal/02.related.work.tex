@@ -39,7 +39,7 @@ Figure~\ref{fig:proactiveFaultManagement}.  \ac{OFP} is the act of analyzing
 the running state of a system in order to predict failure in that system. Once
 failure has been predicted, a fault tolerant system must determine what will
 cause the failure.  This stage is called the \emph{diagnosis} stage or
-``root-cause analysis'' stage.  During the \emph{diagnosis} stage, analysis
+`root-cause analysis' stage.  During the \emph{diagnosis} stage, analysis
 must be conducted to identify possible remediation actions.  After it is
 determined what will cause a failure, a fault tolerant system must schedule a
 remediation action that is either performed by an operator or done
@@ -89,8 +89,7 @@ categorized by how they are detected also shown in
 Figure~\ref{fig:failureFlowDiagram}.  \citet{salfnerSurvey} introduce a
 taxonomy of \ac{OFP} approaches and classify failure prediction approaches by
 the stage at which a fault is detected as it evolves into a failure: auditing,
-reporting, monitoring, and tracking.  Testing is left out because it does not
-help detect faults in an online sense.  
+reporting, monitoring, and tracking.
 
 \figonlinePrediction{0.8\textwidth}
 
@@ -121,13 +120,10 @@ within an acceptable bound depending on application, to achieve the best
 possible performance.
 
 \subsection{\ac{AFP} Framework} \label{afp}
-The \ac{AFP} framework by Irrera, et al.~\cite{irrera2015} shown in
-Figure~\ref{fig:AFP}, presents a new approach to maintaining the efficacy of
-failure predictors given underlying system changes.  The authors conducted a
-case study implementing the framework using virtualization and fault injection
-on a web server.  
-
-\figAFP{0.8\textwidth}
+The \ac{AFP} framework by \citet{irrera2015} presents a new approach to
+maintaining the efficacy of failure predictors given underlying system changes.
+The authors conducted a case study implementing the framework using
+virtualization and fault injection on a web server.  
 
 The framework built upon past work by~\citet{irrera2013,irrera2014} to generate
 failure data by injecting software faults using a tool based on
