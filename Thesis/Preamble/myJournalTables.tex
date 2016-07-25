@@ -1,0 +1,254 @@
+
+\newcommand{\tabFaults}{
+\begin{table} \centering
+  \tbl{Fault operators used for fault
+  injection~\citep{gswfit}.\label{tab:faults}}{%
+\begin{tabulary}{\textwidth}{ | c | l | C | } 
+\hline
+  \textbf{Type}  & \textbf{Description}  & \textbf{\ac{ODC} Classes}  \\ \hline \hline
+  MIFS & Missing ``If (cond) \{ statement(s) \}''          & Algorithm  \\ \hline
+  MFC  & Missing function call                             & Algorithm  \\ \hline
+  MLAC & Missing ``AND EXPR'' in expression used as branch & Checking   \\ \hline
+  MLPA & Missing small and localized part of the algorithm & Algorithm  \\ \hline
+  WVAV & Wrong value assigned to a value                   & Assignment \\ \hline
+  MVI  & Missing variable initialization                   & Assignment \\ \hline
+  MVAV & Missing variable assignment using a value         & Assignment \\ \hline
+  WPFV & Wrong variable used in parameter of function call & Interface  \\ \hline
+\end{tabulary}}
+\end{table}
+}
+
+\newcommand{\tabTranslationThirtyTwo}{
+\begin{table} \centering
+  \tbl{Function entry/exit patterns in IA32 bytecode~\citep{gswfit}.
+  \label{tab:translationThirtyTwo}}{%
+\begin{tabular}{ | l | l | l | l | }
+\hline
+  \multicolumn{2}{|c|}{\textbf{Module Entry Point}}& 
+  \multicolumn{2}{c|}{\textbf{Module Exit Point}} \\ \hline
+
+  \textbf{Instruction} & \textbf{Explanation} &
+  \textbf{Instruction} & \textbf{Explanation} \\ \hline \hline
+
+  push ebp & stack frame & move esp,ebp & stack frame \\ \hline
+  mov ebp, esp & setup & pop ebp & cleanup \\ \hline
+  sub esp, \emph{immed} &  & ret &  \\ \hline
+\end{tabular}}
+\end{table}
+}
+
+\newcommand{\tabTranslationSixtyFour}{
+\begin{table} \centering
+  \tbl{Function entry/exit patterns in x86-64 bytecode~\citep{gswfit}.
+  \label{tab:translationSixtyFour}}{%
+\begin{tabular}{ | l | l | l | l | }
+\hline
+  \multicolumn{2}{|c|}{\textbf{Module Entry Point}}& 
+  \multicolumn{2}{c|}{\textbf{Module Exit Point}} \\ \hline
+
+  \textbf{Instruction} & \textbf{Explanation} & 
+  \textbf{Instruction} & \textbf{Explanation} \\ \hline \hline
+
+  push rbp & stack frame & add rsp, \emph{immed} & stack frame \\ \hline
+  sub rsp, \emph{immed} &  & pop rbp & cleanup \\ \hline
+  mov rbp, rdx & setup & ret &  \\ \hline
+\end{tabular}}
+\end{table}
+}
+
+\newcommand{\tabHypervisorOne}{
+\begin{table} \centering
+  \tbl{Hypervisor 1 configuration (sandbox/target).\label{tab:hyp1}}{%
+  \begin{tabular}{ | c | l | l | c | l |}
+    \hline
+    Qty. & Role   & Operating System    & CPU / Mem. \\ \hline\hline
+    1    & DC     & Win. Server 2008 R2 & 2 / 2 GB   \\ \hline
+    1    & Web    & Win. Server 2008 R2 & 2 / 2 GB   \\ \hline
+    5    & Client & Win. 7              & 1 / 512 MB \\ 
+    \hline
+  \end{tabular}}
+\end{table}
+}
+
+
+\newcommand{\tabHypervisorTwo}{
+\begin{table} \centering
+  \tbl{Hypervisor 2 configuration (controller).\label{tab:hyp2}}{%
+  \begin{tabular}{ | c | l | l | c | l |}
+    \hline
+    Qty. & Role & Operating System    & CPU / Mem. \\ \hline\hline
+    1    & RDP  & Win. Server 2008 R2 & 1 / 4 GB   \\ \hline
+    1    & Log  & Ubuntu 14.04 LTS    & 1 / 1 GB   \\ 
+    \hline
+  \end{tabular}}
+\end{table}
+}
+
+\newcommand{\tabMessage}{
+\begin{table} \centering
+  \tbl{Typical authentication message sent as keys that correspond to the
+  values as designated in the \emph{Snare} protocol for MSWinEventLog used by
+  the SolarWinds syslog agent.\label{tab:message}}{%
+  \begin{tabular}{ | l | l | }
+    \hline
+      Key                 & Value                               \\ \hline\hline
+      HostName            & dc.afnet.com                        \\ \hline
+      Criticality         & 5                                   \\ \hline
+      EventLogSource      & Security                            \\ \hline
+      Counter             & 3                                   \\ \hline
+      SubmitTime          & Sun May 08 14:31:50 2016            \\ \hline
+      EventID             & 4672                                \\ \hline
+      SourceName          & Microsoft-Windows-Security-Auditing \\ \hline
+      UserName            & N/A                                 \\ \hline
+      SIDType             & Audit Success                       \\ \hline
+      EventLogType        & dc.afnet.com                        \\ \hline
+      ComputerName        & 12548                               \\ \hline
+      CategoryString      & Special privileges assigned to\dots \\ \hline
+      ExtendedDataString  & Security ID:  S-1-5-21-2379403\dots \\ 
+    \hline
+  \end{tabular}}
+\end{table}
+}
+
+\newcommand{\tabSlidingWindow}{
+\begin{table} \centering
+  \tbl{Sample message data window after translation.\label{tab:window}}{
+  \begin{tabular}{ | l | l | }
+    \hline
+      Predictor                   & Value \\ \hline\hline
+      FailureWindow               & 0     \\ \hline
+      NumObservations             & 2     \\ \hline
+      Criticality: 6              & 2     \\ \hline
+      Criticality: 2              & 0     \\ \hline
+      Criticality: 4              & 0     \\ \hline
+      EventLogSource: Application & 1     \\ \hline
+      EventLogSource: System      & 1     \\ 
+    \hline
+  \end{tabular}}
+\end{table}
+}
+
+\newcommand{\tabMemLeakPreUpdateSVMStats}{
+\begin{table} \centering
+  \tbl{Classification statistics on test data created before software
+  updates.\label{tab:memLeakPreUpdateSVMStats}}{%
+  \begin{tabular}{ | l | l | }
+    \hline
+      Statistic           & Value  \\ \hline\hline
+      True Positive Rate  & 0.8525 \\ \hline
+      False Positive Rate & 0.0098 \\ \hline
+      Accuracy            & 0.9777 \\ \hline
+      Precision           & 0.8966 \\ \hline
+      Recall              & 0.8525 \\ \hline
+      F-Measure           & 0.8739 \\
+    \hline
+  \end{tabular}}
+\end{table}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%   SVM   %%%%
+% Pre-Update
+\newcommand{\tabMemLeakPreUpdateSVMConfusionMatrix}{
+  \begin{table} \centering
+    \tbl{Confusion matrix on test data created before software updates on
+    threshold with highest F-Measure (0.8739) using
+    \ac{SVM}.\label{tab:memLeakPreUpdateSVMConfusionMatrix}}{%
+    \begin{tabular}{llll}
+                                                               &                                       & \multicolumn{2}{c}{\textbf{Actual}}                                        \\ \cline{3-4} 
+                                                               & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{\textbf{Fail}} & \multicolumn{1}{l|}{\textbf{No-Fail}} \\ \cline{2-4} 
+      \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Predicted}}} & \multicolumn{1}{l|}{\textbf{Fail}}    & \multicolumn{1}{l|}{52}            & \multicolumn{1}{l|}{6}                \\ \cline{2-4} 
+      \multicolumn{1}{c|}{}                                    & \multicolumn{1}{l|}{\textbf{No-Fail}} & \multicolumn{1}{l|}{9}             & \multicolumn{1}{l|}{607}              \\ \cline{2-4} 
+    \end{tabular}}
+  \end{table}
+}
+
+% Post-Update (old model)
+
+% Post-Update New Model
+
+%%%%   BOOSTING   %%%%
+% Pre-Update
+\newcommand{\tabMemLeakPreUpdateBoostingConfusionMatrix}{
+  \begin{table} \centering
+    \tbl{Confusion matrix on test data created before software updates on
+    threshold with highest F-Measure (0.9917) using boosting.
+    \label{tab:memLeakPreUpdateBoostingConfusionMatrix}}{%
+    \begin{tabular}{llll}
+                                                               &                                       & \multicolumn{2}{c}{\textbf{Actual}}                                        \\ \cline{3-4} 
+                                                               & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{\textbf{Fail}} & \multicolumn{1}{l|}{\textbf{No-Fail}} \\ \cline{2-4} 
+      \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Predicted}}} & \multicolumn{1}{l|}{\textbf{Fail}}    & \multicolumn{1}{l|}{60}            & \multicolumn{1}{l|}{0}                \\ \cline{2-4} 
+      \multicolumn{1}{c|}{}                                    & \multicolumn{1}{l|}{\textbf{No-Fail}} & \multicolumn{1}{l|}{1}             & \multicolumn{1}{l|}{412}              \\ \cline{2-4} 
+    \end{tabular}}
+  \end{table}
+}
+
+% Post-Update (old model)
+\newcommand{\tabMemLeakPostUpdateBoostingSameModelConfusionMatrix}{
+  \begin{table} \centering
+    \tbl{Post-update failure data confusion matrix on threshold with
+    highest F-Measure (0.4691) using model trained on failure data generated
+    before software update.
+    \label{tab:memLeakPostUpdateBoostingSameModelConfusionMatrix}}{
+    \begin{tabular}{llll}
+                                                               &                                       & \multicolumn{2}{c}{\textbf{Actual}}                                        \\ \cline{3-4} 
+                                                               & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{\textbf{Fail}} & \multicolumn{1}{l|}{\textbf{No-Fail}} \\ \cline{2-4} 
+      \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Predicted}}} & \multicolumn{1}{l|}{\textbf{Fail}}    & \multicolumn{1}{l|}{19}            & \multicolumn{1}{l|}{1}                \\ \cline{2-4} 
+      \multicolumn{1}{c|}{}                                    & \multicolumn{1}{l|}{\textbf{No-Fail}} & \multicolumn{1}{l|}{42}            & \multicolumn{1}{l|}{222}              \\ \cline{2-4} 
+    \end{tabular}}
+  \end{table}
+}
+
+% Post-Update New Model
+\newcommand{\tabMemLeakPostUpdateBoostingConfusionMatrix}{
+  \begin{table} \centering
+    \tbl{Post-update failure data confusion matrix on threshold with
+    highest F-Measure (0.9355) using model trained on failure data generated
+    after software update.
+    \label{tab:memLeakPostUpdateBoostingConfusionMatrix}}{%
+    \begin{tabular}{llll}
+                                                               &                                       & \multicolumn{2}{c}{\textbf{Actual}}                                        \\ \cline{3-4} 
+                                                               & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{\textbf{Fail}} & \multicolumn{1}{l|}{\textbf{No-Fail}} \\ \cline{2-4} 
+      \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Predicted}}} & \multicolumn{1}{l|}{\textbf{Fail}}    & \multicolumn{1}{l|}{58}            & \multicolumn{1}{l|}{5}                \\ \cline{2-4} 
+      \multicolumn{1}{c|}{}                                    & \multicolumn{1}{l|}{\textbf{No-Fail}} & \multicolumn{1}{l|}{3}             & \multicolumn{1}{l|}{218}              \\ \cline{2-4} 
+    \end{tabular}}
+  \end{table}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\tabModelSelection}{
+\begin{table*} \centering
+  \tbl{Cross-validation runs on training data for model selection and
+  resulting classification accuracy. \label{tab:model:selection}}{%
+  \begin{tabular}{cllllllllllll}
+    \multicolumn{1}{l}{}                       & \multicolumn{12}{c}{{\ul \textbf{Amount of Training Data}}}                                                                                                                                                                                         \\ \cline{2-13} 
+    \multicolumn{1}{l|}{{\ul \textbf{Window}}} & \multicolumn{4}{c}{One Failure}                                             & \multicolumn{4}{c}{Two Failures}                                                & \multicolumn{4}{c|}{Four Failures}                                              \\ \cline{2-13} 
+    \multicolumn{1}{c|}{\multirow{2}{*}{30s}}  & \textbf{Linear:}  & 0.0557 & \textbf{Poly:}   & \multicolumn{1}{l|}{0.0523} & \textbf{Linear:}  & 0.0756 & \textbf{Poly:}   & \multicolumn{1}{l|}{0.0659} & \textbf{Linear:}  & 0.0733 & \textbf{Poly:}   & \multicolumn{1}{l|}{0.0547} \\
+    \multicolumn{1}{c|}{}                      & \textbf{Sigmoid:} & 0.0626 & \textbf{Radial:} & \multicolumn{1}{l|}{0.0459} & \textbf{Sigmoid:} & 0.0591 & \textbf{Radial:} & \multicolumn{1}{l|}{0.0438} & \textbf{Sigmoid:} & 0.0794 & \textbf{Radial:} & \multicolumn{1}{l|}{0.0542} \\ \cline{2-13} 
+    \multicolumn{1}{c|}{\multirow{2}{*}{60s}}  & \textbf{Linear:}  & 0.0628 & \textbf{Poly:}   & \multicolumn{1}{l|}{0.0662} & \textbf{Linear:}  & 0.0779 & \textbf{Poly:}   & \multicolumn{1}{l|}{0.064}  & \textbf{Linear:}  & 0.0791 & \textbf{Poly:}   & \multicolumn{1}{l|}{0.0779} \\
+    \multicolumn{1}{c|}{}                      & \textbf{Sigmoid:} & 0.1084 & \textbf{Radial:} & \multicolumn{1}{l|}{0.0487} & \textbf{Sigmoid:} & 0.1328 & \textbf{Radial:} & \multicolumn{1}{l|}{0.071}  & \textbf{Sigmoid:} & 0.2159 & \textbf{Radial:} & \multicolumn{1}{l|}{0.0797} \\ \cline{2-13} 
+    \multicolumn{1}{c|}{\multirow{2}{*}{90s}}  & \textbf{Linear:}  & 0.1272 & \textbf{Poly:}   & \multicolumn{1}{l|}{0.0897} & \textbf{Linear:}  & 0.1131 & \textbf{Poly:}   & \multicolumn{1}{l|}{0.0732} & \textbf{Linear:}  & 0.0826 & \textbf{Poly:}   & \multicolumn{1}{l|}{0.0543} \\
+    \multicolumn{1}{c|}{}                      & \textbf{Sigmoid:} & 0.1792 & \textbf{Radial:} & \multicolumn{1}{l|}{0.0779} & \textbf{Sigmoid:} & 0.2684 & \textbf{Radial:} & \multicolumn{1}{l|}{0.0757} & \textbf{Sigmoid:} & 0.2404 & \textbf{Radial:} & \multicolumn{1}{l|}{0.0552} \\ \cline{2-13} 
+    \multicolumn{1}{c|}{\multirow{2}{*}{120s}} & \textbf{Linear:}  & 0.132  & \textbf{Poly:}   & \multicolumn{1}{l|}{0.104}  & \textbf{Linear:}  & 0.1452 & \textbf{Poly:}   & \multicolumn{1}{l|}{0.0785} & \textbf{Linear:}  & 0.0998 & \textbf{Poly:}   & \multicolumn{1}{l|}{0.0705} \\
+    \multicolumn{1}{c|}{}                      & \textbf{Sigmoid:} & 0.204  & \textbf{Radial:} & \multicolumn{1}{l|}{0.104}  & \textbf{Sigmoid:} & 0.2864 & \textbf{Radial:} & \multicolumn{1}{l|}{0.0585} & \textbf{Sigmoid:} & 0.3056 & \textbf{Radial:} & \multicolumn{1}{l|}{0.0792} \\ \cline{2-13} 
+  \end{tabular}}
+\end{table*}
+}
+
+
+\newcommand{\tabMessageIDs}{
+\begin{table} \centering
+  \tbl{Microsoft log message IDs\protect \footnotemark.
+  \label{tab:messageIDs}}{%
+  \begin{tabular}{ | l | l | }
+  \hline
+    ID   & Message                                                \\ \hline\hline
+    4624 & An account was successfully logged on.                 \\ \hline
+    4634 & An account was logged off.                             \\ \hline
+    4672 & Special privileges assigned to new logon.              \\ \hline
+    4769 & A Kerberos service ticket was requested.               \\ \hline
+    4770 & A Kerberos service ticket was renewed.                 \\ \hline
+    4776 & The computer attempted to validate the credentials for an account. \\ 
+  \hline
+  \end{tabular}}
+\end{table}
+}
