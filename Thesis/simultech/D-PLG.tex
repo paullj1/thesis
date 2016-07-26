@@ -15,17 +15,22 @@
 
 \graphicspath{ {../../Figures/} }
  
-\title{Distributed PowerShell Load Generator (D-PLG)}
-\author{Paul Jordan, Chip Van Patten, Bert Peterson, and Andrew Sellers}
+\title{Distributed PowerShell Load Generator (D-PLG)\footnotemark}
+\author{Paul Jordan, Donald Van Patten, Gilbert Peterson, and Andrew Sellers}
 \institute{Air Force Institute of Technology \\
 Center for Cyberspace Research \\
 Wright-Patterson Air Force Base, Ohio, U.S.A }
 \date{SIMULTECH 2016 \\
 31 Jul - 2 Aug 2016}
- 
+
 \begin{document}
  
-\frame{\titlepage}
+\frame{
+  \titlepage
+  \footnotetext{The views expressed herein are solely those of the authors and
+  do not reflect the official policy or position of the U.S. Air Force, the
+  Department of Defense, or the U.S.  Government.}
+}
  
 
 \begin{frame}
@@ -57,7 +62,7 @@ Wright-Patterson Air Force Base, Ohio, U.S.A }
 }
 
 \frame{
-  \frametitle{D-PLG} 
+  \frametitle{Distributed PowersShell Load Generator (D-PLG)} 
   \begin{itemize}
   \item PowerShell script
   \item Remote execution
@@ -85,7 +90,7 @@ Wright-Patterson Air Force Base, Ohio, U.S.A }
   \end{itemize}
 }
 
-\section{D-PLG} 
+\section{Distributed PowersShell Load Generator (D-PLG)} 
 \subsection{Overview}
 \frame{
   \frametitle{D-PLG}
@@ -163,29 +168,25 @@ Wright-Patterson Air Force Base, Ohio, U.S.A }
   \centering
   \Huge Results
 }
+
 \subsection{First Test}
 \frame{
-  \frametitle{Results}
+  \frametitle{Can we sufficiently load the domain controller?}
+  \figAuthDCMetrics{0.5\textwidth}
   \begin{itemize}
-  \item First test was successful
   \item Able to sufficiently load domain controller based on Microsoft's
-  community recommendations (15,000 clients authentication requests over five
-  minutes).
+  community recommendations (40\% CPU utilization during peak use).
   \end{itemize}
 }
-\frame{
-  \frametitle{Results}
-  \figAuthDCPPS{0.5\textwidth}
-} 
 
 \frame{
-  \frametitle{Load on Domain Controller}
-  \figAuthDCMetrics{0.5\textwidth}
+  \frametitle{Packets Recieved by Domain Controller}
+  \figAuthDCPPS{0.5\textwidth}
 }
 
 \subsection{Second Test}
 \frame{
-  \frametitle{Results}
+  \frametitle{Can we use D-PLG without the end-user noticing?}
   \begin{itemize}
   \item Not quite as successful as first
   \item Client machines were undersized compared to standard desktop computers
@@ -232,9 +233,17 @@ Wright-Patterson Air Force Base, Ohio, U.S.A }
   \Huge Questions?
 } 
 
+\frame{
+  \frametitle{Acknowledgments}
+  This research was sponsored by the U.S. National Security Agency, National
+  Information Assurance Education and Training Program (Alice Shafer and Glenn
+  Ellisonn, Program Managers).
+} 
+
 \frame[allowframebreaks]{
   \bibliography{../Back/references}
   \bibliographystyle{plain}
 } 
+
  
 \end{document}
