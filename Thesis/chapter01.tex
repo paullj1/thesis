@@ -55,7 +55,8 @@ only for certain types of failures and in order to minimize the false
 positives, it only makes recommendations when the system has already entered a
 degraded performance mode.  To maintain network resilience, the operational
 organizations responsible for communications support desperately need some
-means of gaining accuracy and lead-time before a service failure occurs.  
+means of gaining prediction accuracy and lead-time before a service failure
+occurs.  
 
 To increase that lead time and make more accurate predictions, this research
 explores predicting failure by analyzing data reported by a target system.
@@ -102,20 +103,27 @@ available today without any prediction model.  This hypothesis is tested by
 implementing the \ac{AFP} framework in a scaled virtual environment and
 evaluating its performance after successive software updates.  To validate the
 approach, the same \ac{AFP} framework implementation is evaluated against an
-Apache web server.  Prior to this research, the faults produced and
-consequently predicted by the \ac{AFP} framework were the result of first-order
-software faults.  This research evaluates the performance of the \ac{AFP}
-framework when second and third order faults are introduced.  Additionally, the
-implementation of the \ac{AFP} framework was not possible on modern \ac{MS}
-Windows infrastructure because the fault injection tool used, had not been
-written for the x86-64 architecture, and was incapable of injecting faults in
-protected system processes.  Finally, the initial case study of the \ac{AFP}
-framework used system health information to train the prediction model.  As is
-pointed out by Salfner, et al.~\cite{salfnerSurvey}, this sort of prediction
-may have difficulty distinguishing between normal operations and actual errors
-which may evolve into failure.  This work explores the use of reported errors
-to train the model instead to overcome this shortcoming.  It is expected that
-this modification will allow for more accurate predictions.
+Apache web server.
+
+Specifically, additional fault loads are explored because in modern versions of
+the Windows operating system, there are hundreds of thousands of possible fault
+injection points.  Finding one that will be activated in a realistic way can be
+difficult.  Prior to this research, the faults produced and consequently
+predicted by the \ac{AFP} framework were difficult to find and also the result
+of first-order faults.  This research evaluates the performance of the \ac{AFP}
+framework when targeted second and third order faults are introduced.
+Additionally, the implementation of the \ac{AFP} framework was not possible on
+modern \ac{MS} Windows infrastructure because the fault injection tool used,
+had not been written for the x86-64 architecture, and was incapable of
+injecting faults in protected system processes.  
+
+Finally, the initial case study of the \ac{AFP} framework used system health
+information to train the prediction model.  As is pointed out by Salfner, et
+al.~\cite{salfnerSurvey}, this sort of prediction may have difficulty
+distinguishing between normal operations and actual errors which may evolve
+into failure.  This work explores the use of reported errors to train the model
+instead to overcome this shortcoming.  It is expected that this modification
+will allow for more accurate predictions.
 
 \section{Research Goals} 
 A goal of this research is to develop a machine learning based failure

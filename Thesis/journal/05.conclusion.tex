@@ -28,13 +28,20 @@ applications vulnerability to certain types of faults.  For this reason, if the
 \ac{AFP} framework is implemented on \ac{MS} \ac{DC}s, all fault loads should
 be used in the execution and training phases.
 
-Perhaps more interestingly, fault injection, as was used in the original
+Perhaps most interestingly, fault injection as was used in the original
 \ac{AFP} framework implementation, had two outcomes: no failure occurred, or
 failure occurred immediately.  In the controlled virtual environment, failure
 was predictable using polled system health information, but perhaps the
 indicators used to predict the failure were not actual errors but the fault
-injection tool itself consuming resources.  Clearly more work must be done to
-validate using fault injection alone in the \ac{AFP} framework.
+injection tool itself injecting faults.  Since during the golden runs, the
+fault injection tool never wrote to another processes memory, it is possible
+that a predictor could identify these operations if system health statistics
+are used as features instead of reported errors.  Furthermore, even only using
+the Operator for Missing Function Call (OMFC), there were still thousands of
+injection points in the Windows Server 2008 operating system.  Identifying the
+handful that may activate in a realistic way without crashing the target
+service immediately is not trivial.  Clearly more work must be done to validate
+using fault injection alone in the \ac{AFP} framework.
 
 In conclusion, the modified \ac{AFP} framework as presented here can be used to
 effectively predict failures that might occur in a production environment and

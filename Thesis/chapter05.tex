@@ -47,20 +47,28 @@ loads to predict failure using reported errors in the \ac{MS} \ac{DC}s.  It has
 been shown that it is possible to predict failure in modern \ac{MS} enterprise
 authentication architecture given a representative fault load.  Unfortunately,
 at the time of writing, two out of the three fault loads introduced in this
-research were not successful in generating useful failure data.  The new fault
-loads are not useless however.  As was demonstrated with the \ac{SVM}
-predictor, the underlying system changes can introduce or eliminate an
-applications vulnerability to certain types of faults.  For this reason, if the
-\ac{AFP} framework is implemented on \ac{MS} \ac{DC}s, all fault loads should
-be used in the execution and training phases.
+research did not create failure conditions that could be predicted due to the
+fact that there were no preceding indicators of failure.  This was a stated
+limitation of the research.  However, the new fault loads are not useless.  As
+was demonstrated with the \ac{SVM} predictor, the underlying system changes can
+introduce or eliminate an applications vulnerability to certain types of
+faults.  For this reason, if the \ac{AFP} framework is implemented on \ac{MS}
+\ac{DC}s, all fault loads should be used in the execution and training phases.
 
-Perhaps more interestingly, fault injection as was used in the original
+Perhaps most interestingly, fault injection as was used in the original
 \ac{AFP} framework implementation, had two outcomes: no failure occurred, or
 failure occurred immediately.  In the controlled virtual environment, failure
 was predictable using polled system health information, but perhaps the
 indicators used to predict the failure were not actual errors but the fault
-injection tool itself consuming resources.  Clearly more work must be done to
-validate using fault injection alone in the \ac{AFP} framework.
+injection tool itself injecting faults.  Since during the golden runs, the
+fault injection tool never wrote to another processes memory, it is possible
+that a predictor trained using system health information would associate these
+operations with failure.  Furthermore, even only using the Operator for Missing
+Function Call (OMFC), there were still thousands of injection points in the
+Windows Server 2008 operating system.  Identifying the handful that may
+activate in a realistic way without crashing the target service immediately is
+not trivial.  Clearly more work must be done to validate using fault injection
+alone in the \ac{AFP} framework.
 
 In addition to the new fault loads introduced in this work, a load generator
 has also been presented:  \ac{D-PLG}, capable of sufficiently simulating peak

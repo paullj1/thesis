@@ -122,7 +122,9 @@ target.  After monitoring has begun, the workload is started.  Once the
 workload has entered a steady state, the fault load is started.  Finally, when
 failure occurs, monitoring stops, the workload stops, and the system is
 rebooted for the next run.  To generate golden data (or data with no failures
-present to aid training), the first run omits the fault injection step.
+present to aid training), the first run prevents the fault injection tool from
+actually injecting faults.  The golden runs help establish a baseline that
+includes the execution of the fault injection tool.
 
 The most critical part of this process is labelling the data when failure
 occurs.  For the purposes of this experiment, failure was defined by the log
