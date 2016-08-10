@@ -1,9 +1,20 @@
 \chapter{Experimental Results and Analysis} \label{chapter4}
-This chapter reports results after conducting the experiments laid out in
-Chapter~\ref{chapter3}.  First, common reporting techniques and measures of
-performance are reviewed.  These measures and reporting techniques are then
-used to report the results of the experiments conducted.  The chapter concludes
-with a short summary.
+To test the extended \ac{AFP} framework laid out in Chapter~\ref{chapter3},
+failure data was generated before a series of major software updates using
+software fault injection, under-resourced \ac{CPU}, under-resourced memory, and
+heap space corruption, on two Windows Server 2008 machines: the \ac{DC}, and
+the Apache web server.  The failure data was used to train two statistical
+prediction models: an \ac{SVM} classifier, and a boosted decision tree.
+Following the software updates, more failure data was generated and the old
+statistical models were used to predict failure in the new data.  Finally, new
+statistical models were trained using the new data.  To compare each fault load
+both before and after the software updates, performance was measured using the
+\ac{AUC} and F-Measure.
+
+In this chapter, common reporting techniques and measures of performance are
+reviewed.  These measures and reporting techniques are then used to report the
+results of the experiments conducted.  The chapter concludes with a short
+summary.
 
 \section{Performance Measures} \label{metrics}
 This section reviews the performance measures used in this chapter to
@@ -220,7 +231,7 @@ failures.  The old model did not accurately classify a single failure prone
 time window.  A new model was then trained with the newly generated failure
 data.  Unfortunately, after this software update, with all other things held
 constant, the weighted SVM model was unable to achieve the same level of
-performance as before.
+performance as before resulting in a maximum F-Measure of $0.4380$.
 
 \subsubsection{Boosted Decision Trees}
 For this prediction model, the \emph{gbm} package was used to train a boosted

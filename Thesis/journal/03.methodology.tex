@@ -1,196 +1,20 @@
-\section{Methodology} \label{chapter3}
-The purpose of the \ac{AFP} framework is to automate the generation of
-realistic labelled failure data for the purposes of automatically training a
-failure prediction algorithm.  The framework breaks down into modules so that
-it can be more easily adapted for different applications.  This section
-presents three topics.  The first describes the process that the framework
-executes in order to generate the labelled training data and train a failure
-prediction algorithm.  The second describes each module of the extended
-\ac{AFP} framework.  The final section details extensions to the \ac{AFP}
-framework explored by this research.
+\section{Extended \acrfull{AFP}} \label{chapter3}
+The extended \ac{AFP} framework is an automated framework for generating
+realistic failure data for the purpose of training statistical failure
+prediction models.  To do this requires representative fault loads, a workload
+generator, and a modern fault injection tool.  Figure~\ref{fig:highlightedAFP}
+shows the original \ac{AFP} architecture with the modules updated in this work
+highlighted.
 
-This section outlines the implementation and extensions to the \ac{AFP}
-framework \citep{irrera2015} as well as an experiment that was conducted to
-validate those extensions and further generalize the framework.  The \ac{AFP}
-framework was originally tested on a single system running an operating system
-that has been deprecated.  Consequently, the results from the case study
-conducted using the \ac{AFP} framework are limited in utility and require
-generalization to be useful to the general community.
+This section outlines the implementation and extensions to the original
+\ac{AFP} framework \citep{irrera2015}.  The \ac{AFP} framework was originally
+tested on a single system running Windows XP, which has been deprecated.
+Consequently, the extended \ac{AFP} framework presented has been updated to run
+on the Windows Server 2008 operating system and tested against the \ac{DC}
+services and an Apache web server.
 
-\subsection{Failure Data Generation} \label{sec:generation}
-This work extends the \ac{AFP} framework \citep{irrera2015} by presenting
-results after conducting another case study with an \ac{MS} Windows Server
-acting as an \ac{AD} service with a more representative fault load as well as a
-new implementation of the \ac{G-SWFIT} technique for the x86-64 architecture.
-
-The case study was done using three new types of faults: third-party memory
-leak, third-party \ac{CPU} overuse, and process memory corruption.  For
-completeness, the standard \ac{G-SWFIT} technique was also used.  Another
-important modification was made in the actual data collected.  The original
-case study used status and machine state information polled every second.
-\citet{salfnerSurvey} points out that this technique does not properly
-distinguish between underlying errors and normal workload.  In this study,
-reported errors are used instead.
-
-Finally, findings are reported after implementing this framework using two
-different statistical machine learning techniques on reported errors (log
-messages): boosted decision trees and the weighted \ac{SVM}.  The weighted
-\ac{SVM} was used because of it performs well on imbalanced data and it is
-popular in the \ac{OFP} community \citep{salfnerSurvey}.  The boosted decision
-tree was used because it is non-parametric, capable of classification, and
-particularly suited for imbalanced data.  In both cases, feature reduction was
-performed as is done by \citet{fulp2008}, on a sliding time window as is done
-by \citet{irrera2013a,vaarandi2002}.
-
-This section outlines the step-by-step procedure by which the extended \ac{AFP}
-framework was evaluated to show how effective it is when used on Windows Server
-deployments.  This is done by dividing the steps taken in the experiment into
-the three major phases as defined by \citet{irrera2015}: preparation phase,
-execution phase, and training phase.
-
-\subsubsection{Preparation Phase}
-In this phase the \ac{AFP} framework is prepared to run for the first time as
-described by \citet{irrera2015}.  The \ac{CRISP-DM} \citep{crispdm} should be
-applied to this situation when evaluating how to best apply the \ac{AFP} for a
-particular target.  For the purposes of this research, the focus was on the
-\ac{MS} Windows Directory Services and predicting failure in those services.
-To demonstrate the efficacy of the \ac{AFP}, a predictor was evaluated before
-and after a significant software update.  As a result, the most critical
-preparation made in evaluating this framework was to hold back all software
-updates on the target system prior to the first run of the execution phase.
-The performance of various prediction techniques was evaluated both before and
-after the Windows Update application was allowed to run.
-
-\subsubsection{Execution Phase}
-A general outline of this phase is shown in
-Figure~\ref{fig:ExecutionPhaseHoriz}.  This phase is divided into three major
-steps: data collection and failure prediction, event checking, and
-training/update as described in this section.
-
-\figExecutionPhaseHoriz{0.6\textwidth}
-
-\paragraph{Data Collection and Failure Prediction}
-In this phase, the system has a working predictor providing input to some sort
-of decision system.  The system in this phase makes failure predictions about
-the current state based on the last run of the training phase.  The output of
-this process in this experiment was a warning message indicating a predicted
-failure.
-
-\paragraph{Event Checking}
-Concurrent with the data collection and failure prediction sub-phase, the
-\ac{AFP} framework continuously monitors events that may alter the underlying
-system.  The output of each episode of this phase is a binary decision to
-either begin the training phase, or not.  For this experiment, these events
-were software updates and the training phase was manually triggered upon
-completion of these updates.
-
-\paragraph{Failure Predictor (Re-)Training and Update}
-The purpose of this sub-phase is to initiate the training phase and compare its
-results (a new predictor) with the currently employed predictor.  Should the
-new predictor perform better, the old predictor is replaced by the new.  In
-this experiment, this phase was accomplished manually.
-
-\subsubsection{Training Phase}
-The training phase is broken down into five major steps:  target replication,
-data generation \& collection, dataset building, predictor training, and
-analysis.  The general flow is shown in Figure~\ref{fig:TrainingPhase}.  Each
-phase is outlined in the following sub-sections.
-
-\figTrainingPhase{0.5\textwidth}
-
-\paragraph{Target Replication}
-During this phase a virtual clone of the target is made.  After the clone is
-made, the fault injection and monitoring software is installed.  In this
-experiment, the monitoring tool was the same as was already installed on the
-production system so the extra step of installing the monitoring software was
-unnecessary.
-
-\paragraph{Data Generation \& Collection}
-The purpose of this phase is to generate the data to train a new prediction
-algorithm.  As a result, this sub-phase must be executed several times to
-generate statistically meaningful datasets.  In this phase, the controller
-triggers the cloned target startup.  Once startup is complete and the system
-enters an idle state, the monitoring tool begins collecting data from the
-target.  After monitoring has begun, the workload is started.  Once the
-workload has entered a steady state, the fault load is started.  Finally, when
-failure occurs, monitoring stops, the workload stops, and the system is
-rebooted for the next run.  To generate golden data (or data with no failures
-present to aid training), the first run omits the fault injection step.
-
-The most critical part of this process is labelling the data when failure
-occurs.  For the purposes of this experiment, failure was defined by the log
-message ID $4625$: An account failed to log
-on\footnote{\url{https://support.microsoft.com/en-us/kb/977519}}.  When this
-occurred in conjunction with known valid credentials on an enabled account, the
-preceding data window defined for the experiment was labelled as failure prone.
-Additionally, the workload generator used in this research reported when
-authentication failed and transmitted a syslog message to the controller.  
-
-\paragraph{Dataset Building} \label{sec:dataset.building}
-In this phase, the raw syslog messages are formatted and encoded to train the
-prediction model.  The purpose of this phase is to prepare the raw messages to
-be used as numeric inputs for the training phase.  During execution, event
-messages were stored in a flat file on the Ubuntu machine by the syslog server
-daemon in the
-\emph{Snare}\footnote{\url{http://wiki.rsyslog.com/index.php/Snare\_and\_rsyslog}}
-MSWinEventLog format.  The first element in each message is the time-stamp and
-host name of the sender prepended by the syslog server daemon: \emph{May 8
-14:31:52 dc.afnet.com}.  The remainder of the message contains tab delimited
-values where the keys (and consequent features) are shown in
-Table~\ref{tab:message}.  Of these features, Criticality, EventLogSource,
-EventID, SourceName, and CategoryString were selected for further encoding.
-
-\tabMessage
-
-The raw messages were then encoded.  First, the events were filtered by EventID
-as is done by \citet{fulp2008} to reduce the noise generated by successful
-login attempts.  Log messages with IDs shown in Table~\ref{tab:messageIDs} were
-filtered from the input.  
-
-Next, to encode the time dimension and reduce the sequential message ordering
-dependency, a sliding time window was created by counting each unique entry for
-each feature within the data window ($\Delta t_d$) as is done by
-\citet{vaarandi2002}.  During this stage, the number of messages that were
-reported in the data window were also recorded and used as a feature.
-
-Finally, each time window preceding the failure within $\Delta t$ was labelled
-as failure prone as is done by \citet{irrera2015}.  This encoding enables the
-use of classification algorithms in the training phase.  An example of the
-final encoding is shown in Table~\ref{tab:window}.
-
-\tabMessageIDs % Keep these together (footnote)
-\footnotetext{\url{https://support.microsoft.com/en-us/kb/977519}}
-\tabSlidingWindow
-
-\paragraph{Predictor Training} \label{sec:predictor.training}
-The purpose of this phase is to use the data generated by the forced failure of
-the virtual clone to train a machine learning algorithm to classify a system as
-failure prone or not.  
-
-In this experiment, the execution phase was run $k$ times.  During this phase,
-each of the $k$ datasets produced by the $k$ runs of the execution phase (each
-containing a single failure), were used to train a statistical classification
-model.  Each dataset was an $n \times p$ matrix where $n$ was the number of
-sliding time windows and $p$ was the number of predictors present in the output
-of the dataset building phase.  These $k$ datasets were used to conduct a $k -
-1$-fold cross validation training and evaluation process where the first $k -
-2$ datasets were used to train the statistical model.  The remaining set was
-used to validate the trained model.  The data was then rotated and the process
-was repeated $k - 1$ times.  Parameters for the classification model were
-selected based on the output of this cross validation.  Finally, statistics and
-performance on the final model's performance on the held out data set were
-recorded.
-
-\paragraph{Analysis}
-During this phase, the precision, recall, f-measure, and area under the
-\ac{ROC} curve are computed using the figures measured in the previous phase so
-that the new predictor can be compared against the old.  If a new predictor
-outperforms the old, the old is replaced with the new.  Upon completion of this
-phase, control flow returns to the \emph{Event Checking} phase.  In this phase,
-this analysis was done manually.
-
-\subsection{Implementation of the \ac{AFP}} \label{sec:implementation}
-\subsubsection{\ac{AFP} Framework Implementation}
+\subsection{The Base \acrfull{AFP}} \label{sec:implementation}
+\subsubsection{\acrfull{AFP} Framework Implementation}
 This experiment replicated the experiment by \citet{irrera2015} with the
 following modifications.  Most importantly, since the focus of this research is
 on reported errors, log messages were used to train the predictor as is done in
@@ -200,17 +24,15 @@ using fault injection to induce failure, three additional fault loads were
 explored.  In addition to using the \ac{SVM} model, boosted decision trees were
 evaluated.  Finally, in addition to the Apache web-server, the primary target
 was the \ac{MS} Windows Server running \ac{AD} Domain Services.  The purpose of
-Apache web server was to validate the approach and additional fault loads.  The
-original \ac{AFP} architecture is shown in Figure~\ref{fig:annotatedAFP} with
-the parts that were modified in this work highlighted.  
+Apache web server was to validate the approach and additional fault loads.
 
-\subsubsection{\ac{AFP} Modules}
+\subsubsection{\acrfull{AFP} Modules}
 \citet{irrera2015} outline multiple modules into which they have broken the
 \ac{AFP} framework for organizational purposes.  This research does not modify
 these modules, instead, it takes a more granular approach and presents a
 modified architecture and details each element of that architecture.
 
-\figannotatedAFP
+\figHighlightedAFP{0.8\textwidth}
 
 The following sections detail the virtual environment in which this
 architecture was constructed.  For reference, this virtual environment was
@@ -346,16 +168,15 @@ As mentioned, this work, introduces new fault loads.  These new loads are
 discussed in Section~\ref{sec:extensions}.
 
 \paragraph{Monitoring} \label{sec:sandboxMonitoringTool} 
-The purpose of this module is to capture some evidence or indication of pending
-failure at the target host level so that it may be used to train a statistical
-prediction model.  In this experiment, syslog was used and while it is a
-recognized standard, syslog messages are not produced natively in Windows.
-Fortunately, several forwarding agents are available to translate and forward
-native Windows log messages to a syslog server.  For this experiment, the
-\emph{Solar Winds} syslog forwarding tool was used because of its popularity in
-the security community and existing presence on many enterprise networks.  The
-tool is a lightweight application that simply forwards Windows events to a
-syslog server.
+The purpose of this module is to capture indicators of pending failure at the
+target host level so that it may be used to train a statistical prediction
+model.  In this experiment, syslog was used and while it is a recognized
+standard, syslog messages are not produced natively in Windows.  Fortunately,
+several forwarding agents are available to translate and forward native Windows
+log messages to a syslog server.  For this experiment, the \emph{Solar Winds}
+syslog forwarding tool was used because of its popularity in the security
+community and existing presence on many enterprise networks.  The tool is a
+lightweight application that simply forwards Windows events to a syslog server.
 
 \paragraph{Sandbox Workload}  \label{sec:sandboxWorkload} 
 The purpose of this module is to create realistic work for the target
@@ -379,13 +200,12 @@ after cloning.
 
 \setcounter{secnumdepth}{3}
 
-\subsection{Extensions to the \ac{AFP}} \label{sec:extensions}
+\subsection{Fault Load Generators} \label{sec:extensions}
 This section outlines the extensions to the \ac{AFP} framework explored by this
 research.  Given that fault injection isn't always considered representative
 \citep{kikuchi2014}, the next three sub-sections outline three addition fault
-loads explored.  Next, an outline of the changes in how data was collected from
-the target is presented.  Finally, this section concludes with a brief summary
-of these extensions.
+loads explored.  Finally, an outline of the changes in how data was collected
+from the target is presented.
 
 \subsubsection{Under-Resourced \ac{CPU}} \label{sec:extUnderResourcedCPU}
 A \ac{CPU} may become under-resourced in a few ways.  The organization
@@ -414,13 +234,12 @@ the target \ac{VM} was reduced.  Second, a third-party application with an
 intentional memory leak was run on the target system.
 
 \subsubsection{Heap Space Corruption} \label{sec:extHeapSpaceCorrupt}
-Finally, heap-space corruption can happen in a production environment in a few
-ways.  First, in the Windows operating system, device drivers share critical
-kernel mode libraries and have elevated permissions \citep{russinovich2009}.
-If a hardware device driver developer inadvertently writes to an area of memory
-not allocated for his software, say by forgetting to dereference a pointer,
-Windows may not warn him.  Consequently, he may corrupt the memory of another
-process.
+Heap-space corruption can happen in a production environment in a few ways.
+First, in the Windows operating system, device drivers share critical kernel
+mode libraries and have elevated permissions \citep{russinovich2009}.  If a
+hardware device driver developer inadvertently writes to an area of memory not
+allocated for his software, say by forgetting to dereference a pointer, Windows
+may not warn him.  Consequently, he may corrupt the memory of another process.
 
 In this experiment, the focus of this fault load was on the user database.
 First, users that had been cached by the \ac{DC} process were corrupted.  Next,
@@ -440,9 +259,3 @@ and a memory leak situation.  According to \citet{russinovich2009}, the \ac{MS}
 \ac{DC} will use as much memory as is available to cache user credentials.
 This consumption of all available memory may appear very similar to a memory
 leak if system information is all that is being recorded.
-
-\subsubsection{Summary} \label{sec:extSum}
-In summary, by adding these additional faults and considering reported errors
-when generating failure data used to train a prediction algorithm, the
-resulting algorithm will be able to predict a wider range of realistic
-failures.  

@@ -1,20 +1,12 @@
-\section{Overview of \ac{OFP}} \label{chapter2}
-Traditionally, failure is predicted using statistical information about past
-failures offline before a system is implemented.  Unfortunately, given the
-complexity of modern computer systems and the infinite number of ways in which
-they can be configured, this sort of offline analysis is not helpful.  \ac{OFP}
-is the act of evaluating a running system in real time to make a prediction
-about what the future state will be.
+\section{Overview of \acrfull{OFP}} \label{chapter2}
+\ac{OFP} is the act of evaluating a running system in real time to make a
+prediction about whether a failure in a future state is
+imminent~\citep{salfnerSurvey}.  Traditionally, failure is predicted using
+statistical information about past failures offline before a system is fielded.
+Unfortunately, given the complexity of modern computer systems and the infinite
+number of ways in which they can be configured, this sort of offline analysis
+is not helpful.
 
-This section reviews current research regarding \ac{OFP} and its many
-approaches to build a foundation for this research.  The rest of
-this section is organized as follows.  In Section~\ref{background}, a brief
-background on the topic of \ac{OFP} is given including definitions,
-terminology, and measures of performance used by the community.  This
-overview is then followed by a brief description of the \ac{AFP} framework.
-This section then concludes with a brief summary.
-
-\subsection{Background} \label{background}
 \citet{salfnerSurvey} published a survey paper that provides a comprehensive
 summary of the state of the art on the topic of \ac{OFP}.  In addition to the
 review of the literature up to the point of publication, they provide a summary
@@ -22,74 +14,15 @@ of definitions and measures of performance commonly used in the community for
 couching the \ac{OFP} discussion.  The remainder of this section reviews those
 definitions to build a foundation for the rest of this work.
 
-\subsubsection{\ac{PFM}} \label{pfm}
+\subsection{\acrfull{PFM}} \label{pfm}
 \citet{salfnerSurvey} define \ac{PFM} as the process by which faults are
-handled in a proactive way, analogous with \emph{fault tolerance} and basically
+handled in a proactive way, analogous with \emph{fault tolerance} and
 consisting of four steps: \ac{OFP}, diagnosis, action scheduling, and action
-execution as shown in Figure~\ref{fig:proactiveFaultManagement}.  The final
-three stages of \ac{PFM} define how much lead time is required to avoid a
-failure when predicted during \ac{OFP}.  \emph{Lead time} is defined as the
-time between when failure is predicted and when that failure will occur.  Lead
-time is one of the most critical elements of a failure prediction approach.
-
-\figproactiveFaultManagement{0.8\textwidth}
-
-\ac{OFP} is defined as the first step in \ac{PFM} shown in
-Figure~\ref{fig:proactiveFaultManagement}.  \ac{OFP} is the act of analyzing
-the running state of a system in order to predict failure in that system. Once
-failure has been predicted, a fault tolerant system must determine what will
-cause the failure.  This stage is called the \emph{diagnosis} stage or
-`root-cause analysis' stage.  During the \emph{diagnosis} stage, analysis
-must be conducted to identify possible remediation actions.  After it is
-determined what will cause a failure, a fault tolerant system must schedule a
-remediation action that is either performed by an operator or done
-automatically.  This stage is known as the \emph{action scheduling} stage and
-normally takes as input the cost of performing an action, confidence in
-prediction, effectiveness/complexity of remedy action and makes a decision
-about what action to perform based on that input.  Finally, in order to avoid
-failure, a system must execute the scheduled remediation action or let an
-operator know which actions can be taken in a stage called \emph{action
-execution}.
-
-\paragraph{Faults, Errors, Symptoms, and Failures}
-This research uses the definitions defined by \citet{avivzienis2004basic} as
-interpreted and extended by \citet{salfnerSurvey} for the following terms:
-failure; error (detected versus undetected); fault; and symptom.
-
-\emph{Failure} is an event that occurs when the delivered service deviates from
-correct service.  In other words, things can go wrong internally; as long as
-the output of a system is what is expected, failure has not occurred.  
-
-An \emph{error} is the part of the total state of the system that may lead to
-its subsequent service failure.  \emph{Errors} are characterized as the point
-when things go wrong.  Fault tolerant systems can handle errors without
-necessarily evolving into failure.  There are two kinds of errors.  First, a
-\emph{detected error} is an error that is reported to a logging service.  In
-other words, if it can be seen in a log then it is a detected error.  Second,
-\emph{undetected errors} are errors that have not been identified by an error
-detector.  Undetected errors are things like memory leaks.  The error exists,
-but as long as there is usable memory, it is not likely to be reported to a
-logging service.  Once the system runs out of usable memory, undetected errors
-will likely appear in logs and become a detected errors.  A \emph{fault} is the
-hypothesized root cause of an error.  Faults can remain dormant for some time
-before manifesting themselves and causing an incorrect system state.  In the
-memory leak example, the missing \emph{free} statement in the source code would
-be the fault.  
-
-A \emph{symptom} is an out-of-norm behavior of a system's parameters caused by
-errors, whether detected or undetected.  In the memory leak example, a possible
-symptom of the error might be delayed response times due to sluggish
-performance of the overall system.
-
-\figfailureFlowDiagram{0.8\textwidth}
-
-Figure~\ref{fig:failureFlowDiagram} illustrates how a software fault can evolve
-into a failure.  Faults, errors, symptoms, and failures can be further
-categorized by how they are detected also shown in
-Figure~\ref{fig:failureFlowDiagram}.  \citet{salfnerSurvey} introduce a
-taxonomy of \ac{OFP} approaches and classify failure prediction approaches by
-the stage at which a fault is detected as it evolves into a failure: auditing,
-reporting, monitoring, and tracking.
+execution.  The final three stages of \ac{PFM} define how much lead time is
+required to avoid a failure when predicted during \ac{OFP}.  \emph{Lead time}
+is defined as the time between when failure is predicted and when that failure
+will occur.  Lead time is one of the most critical elements of a failure
+prediction approach.
 
 \figonlinePrediction{0.8\textwidth}
 
@@ -100,8 +33,8 @@ follows:
 	\item{Present Time: $t$}
   \item{Lead Time: $\Delta t_{l}$, is the total time at which a predictor makes
   an assessment about the current state.}
-  \item{Data Window: $\Delta t_{d}$, represents the time from which data is
-  used for a predictor uses to make its assessment.}
+  \item{Data Window: $\Delta t_{d}$, represents the time window of data used
+  for a predictor to make its assessment.}
   \item{Minimal Warning Time: $\Delta t_{w}$, is the amount of time required to
   avoid a failure if one is predicted.}
   \item{Prediction Period: $\Delta t_{p}$, is the time for which a prediction
@@ -110,29 +43,38 @@ follows:
   this happens, the usefulness of a predictor is diminished.}
 \end{itemize}
 
-As the above parameters are adjusted, predictors can become more or less
-useful.  For example, it is clear that as a predictor looks further into the
-future potentially increasing \emph{lead time}, confidence in its prediction is
-likely to be reduced.  On the other hand, if \emph{lead time} is too small,
-there will likely not be enough time to effectively take remediation action.
-In general, \ac{OFP} approaches seek to find a balance between the parameters,
-within an acceptable bound depending on application, to achieve the best
-possible performance.
+\subsection{Faults, Errors, Symptoms, and Failures}
+This research uses the definitions defined by \citet{avivzienis2004basic} as
+interpreted and extended by \citet{salfnerSurvey} for the following terms:
+failure; error (detected versus undetected); fault; and symptom.
 
-\subsection{\ac{AFP} Framework} \label{afp}
+\emph{Failure} is an event that occurs when the delivered service deviates from
+correct service.  In other words, things can go wrong internally; as long as
+the output of a system is what is expected, failure has not occurred.  An
+\emph{error} is the part of the total state of the system that may lead to its
+subsequent service failure.  \emph{Errors} are characterized as the point when
+things go wrong.  Fault tolerant systems can handle errors without necessarily
+evolving into failure.  There are two kinds of errors.  First, a \emph{detected
+error} is an error that is reported to a logging service.  Second,
+\emph{undetected errors} are errors that have not been identified by an error
+detector.  Undetected errors are things like memory leaks.  Finally, a
+\emph{fault} is the hypothesized root cause of an error.  Faults can remain
+dormant for some time before manifesting themselves and causing an incorrect
+system state.  In the memory leak example, the missing \emph{free} statement in
+the source code would be the fault.  
+
+\subsection{\acrfull{AFP} Framework} \label{afp}
 The \ac{AFP} framework by \citet{irrera2015} presents a new approach to
 maintaining the efficacy of failure predictors given underlying system changes.
 The authors conducted a case study implementing the framework using
 virtualization and fault injection on a web server.  
 
-The framework built upon past work by~\citet{irrera2013,irrera2014} to generate
-failure data by injecting software faults using a tool based on
-\ac{G-SWFIT}~\citep{gswfit} in a virtual environment for comparing and
-automatically re-training predictors.  With the introduction of the framework,
-\citet{irrera2015} report results of a case-study.  After implementing the
-\ac{AFP} framework using a web server and an \ac{SVM} predictor, they report
-that their findings demonstrate their framework is able to adapt to changes to
-an underlying system which would normally render a predictor unusable.
+The framework generates failure data by injecting software faults using a tool
+based on \ac{G-SWFIT}~\citep{gswfit} in a virtual environment for comparing and
+automatically re-training predictors.  After implementing the \ac{AFP}
+framework using a web server and an \ac{SVM} predictor, they report that their
+findings demonstrate the framework is able to adapt to changes to an underlying
+system which would normally render a predictor unusable.
 
 In general, the use of simulated data is not well received by the community,
 however \citet{irrera2010,irrera2014} report evidence supporting the claim that
@@ -142,22 +84,9 @@ in general rare events, real failure data is often not available.  Moreover,
 the literature shows that even if there is a certain type of failure in
 training data and a predictor can detect and predict that type of error
 accurately, it will still miss failures not present in the training data.  By
-injecting the types of faults that one can expect, each failure type is
+injecting faults, there is an increased likelihood potential failure types are
 represented in the training data.
 
 \citet{irrera2015} reported good results and concluded that the \ac{AFP}
-framework is an effective tool.  Unfortunately, the \ac{AFP} framework is not a
-universal solution and requires significant work to be implemented on a modern
-\ac{MS} Windows enterprise network.  Furthermore, the fault load previously
-explored does not completely represent all possible
-failures~\citep{kikuchi2014}.
-
-\subsection{Summary} \label{summary}
-This section covered the definitions, measures of performance, and the \ac{AFP}
-framework.  There has been a tremendous amount of research surrounding the
-topic of \ac{OFP} and many prediction approaches have been presented.
-Unfortunately, these approaches do not appear on modern operational systems and
-failures are still relatively prevalent.  \citet{irrera2015} have sought to
-make predictors more adaptive to the changes in underlying systems in an effort
-to make implementing existing failure predictors easier.  In this work, we
-extend the \ac{AFP} framework and further generalize the approach.  
+framework is an effective tool.  Unfortunately, the fault load used does not
+completely represent all possible failures~\citep{kikuchi2014}.

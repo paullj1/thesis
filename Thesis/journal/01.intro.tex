@@ -1,46 +1,45 @@
 \section{Introduction} \label{chapter1}
-As dependency upon computers grows, so too do the associated risks.  Computer
-systems are all around us.  Some of these systems play insignificant
+Computer systems are all around us.  Some of these systems play insignificant
 roles in our lives while others are responsible for sustaining our lives.
 Unfortunately, the software that controls these systems is written by humans
 and consequently subject to human error.  As a result, these systems are prone
-to failure with potentially catastrophic consequences.  Every day, critical
-infrastructure and enterprise services depend on the reliability of computer
-systems.  Being able to predict pending failure in those systems can offer
-tremendous, and potentially life-saving applications in today's technologically
-advanced world.  While actually being able to accurately predict failure has
-unfortunately not been proven possible, there has been work over the past
-several decades attempting to make educated predictions about the failure of
-machines through the use of machine learning algorithms~\citep{salfnerSurvey}.
-Unfortunately, much of this work has gone unused~\citep{irrera2015}.  
+to failure with potentially catastrophic consequences.  
 
-Failure has been defined as the result of a software fault or
-error~\citep{salfnerSurvey}.  There are a number of ways to reduce the number of
-errors produced by a piece of software, but the software development life-cycle
-is shrinking and less time and effort are being devoted to reducing errors
-before deployment~\citep{schmidt2016}.  This leaves real-time error prevention
-or handling.  In recent years, it seems the recommended solution to this
-problem is to make massively redundant systems that can withstand
-failure~\citep{bauer2012}.  As hardware becomes more affordable, this is an
-effective approach in many ways, but ultimately is still not cost efficient.
-In some cases, funds may not be available to achieve this sort of redundancy.
-Consequently, this research focuses on a small piece of the general field of
-reliable computing: \ac{OFP}.  \ac{OFP} is the act of attempting to predict
-when failures are likely so that they can be avoided.  \citet{salfnerSurvey}
-outlines the recent work done in this field, much of which is not done in
-production environments due to the complex and manual task of training a
-prediction model.  If the underlying system changes, the efficacy of a
-prediction model can be drastically reduced until it is retrained.
-Furthermore, training requires access to labelled training data.  Since failure
-is such a rare event, access to this type of training data may not be possible.  
+Being able to predict pending failure in those systems can offer tremendous,
+and potentially life-saving applications.  While being able to accurately
+predict failure has unfortunately not been proven possible, there has been work
+over the past several decades attempting to make predictions about the failure
+of machines through the use of machine learning
+algorithms~\citep{salfnerSurvey}.  Unfortunately, much of this work has gone
+unused~\citep{irrera2015}.  
 
-\citet{irrera2015} presented the \ac{AFP} framework and case study to automate
-the process of dynamically generating failure data and using it to train a
-predictor after an underlying system change.  Unfortunately, the \ac{AFP}
-framework required substantial changes and modernizations to be used on modern
-enterprise systems.  Furthermore, the types of failures simulated within the
-framework were not completely representative of real
-failures~\citep{kikuchi2014}.  This research explores a modernized
-implementation of the \ac{AFP} framework with a more representative fault load
-on a \ac{MS} Windows Server \ac{DC}.  This implementation is then validated by
-running the same experiments on the Apache web server.
+In this case, failure is defined as the result of a software fault or
+error~\citep{salfnerSurvey}.  There are a number of ways to reduce the number
+of errors produced by a piece of software, but the software development
+life-cycle is shrinking and less time and effort are being devoted to reducing
+errors before deployment~\citep{schmidt2016}.  This leaves real-time error
+prevention or handling.  In recent years, it seems the recommended solution to
+this problem is to make massively redundant systems that can withstand
+failure~\citep{bauer2012}.  This is an effective approach in many ways, but not
+when funds are limited or system redundancy is limited by the enterprise
+design.  Consequently, this research focuses on an area of reliable computing
+called \ac{OFP}.  \ac{OFP} is the act of attempting to predict when failures
+are likely so that they can be avoided~\citep{salfnerSurvey}.  
+
+Due to the complex and manual task of training a prediction model, and since
+failure is such a rare event, access to training data is limited.
+\citet{irrera2015} presented the \ac{AFP} framework that automates the process
+of dynamically generating failure data and using it to train a predictor after
+an underlying system change.  Unfortunately, the types of failures simulated
+within the framework were not completely representative of real
+failures~\citep{kikuchi2014}.
+
+This research presents an \ac{AFP} framework with a more representative fault
+load including focused software fault injection, third party memory leaks,
+third party \ac{CPU} over-utilization, and heap-space corruption.  The
+implementation is then validated on a \ac{MS} Windows Server \ac{DC}, and on an
+Apache web server.  Results identified that on the Windows Server 2008
+operating system, software fault injection could not create a realistic failure
+condition where more targetted fault loads could.  Furthermore, these failures
+were identifiable by \ac{SVM} and boosted decision tree statistical learning
+models with an average area under the \ac{ROC} curve of $0.98$.

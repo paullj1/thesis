@@ -1,10 +1,12 @@
 \section{Conclusion and Future Work} \label{chapter5}
-Several lines of research following this work are presented in this section.
-One particularly interesting line of effort that could follow this work is to
-better identify when the underlying target system has changed enough to require
-retraining.  While the \ac{AFP} process is automated, it will unlikely be
-necessary after every software update.  In order to avoid unnecessary use of
-resources, this process could be explored.
+The presented \ac{AFP} framework extends the current \ac{AFP} framework with
+additional fault loads, can be used to effectively predict failures that might
+occur in a production environment, and is capable of adapting to underlying
+system changes using only reported errors.  As was demonstrated with the
+\ac{SVM} predictor, the underlying system changes can introduce or eliminate an
+applications vulnerability to certain types of faults.  For this reason, if the
+extended \ac{AFP} framework is implemented on \ac{MS} Windows 2008, all fault
+loads should be used in the execution and training phases.
 
 An additional area of exploration should be to better identify how fault
 injection actually affects the underlying system.  This research has shown that
@@ -14,43 +16,3 @@ constrained, a single library can have hundreds of injection points.
 Furthermore, in some cases, even when all injection points are tested, none may
 lead to a realistic failure.  For this reason, the additional fault loads play
 an integral role.
-
-\subsection{Conclusion}
-This research explored the use of the \ac{AFP} framework with additional fault
-loads to predict failure using reported errors in the \ac{MS} \ac{DC}s.  It has
-been shown that it is possible to predict failure in modern \ac{MS} enterprise
-authentication architecture given a representative fault load.  Unfortunately,
-at the time of writing, two out of the three fault loads introduced in this
-research were not successful in generating useful failure data.  The new fault
-loads are not useless however.  As was demonstrated with the \ac{SVM}
-predictor, the underlying system changes can introduce or eliminate an
-applications vulnerability to certain types of faults.  For this reason, if the
-\ac{AFP} framework is implemented on \ac{MS} \ac{DC}s, all fault loads should
-be used in the execution and training phases.
-
-Perhaps most interestingly, fault injection as was used in the original
-\ac{AFP} framework implementation, had two outcomes: no failure occurred, or
-failure occurred immediately.  In the controlled virtual environment, failure
-was predictable using polled system health information, but perhaps the
-indicators used to predict the failure were not actual errors but the fault
-injection tool itself injecting faults.  Since during the golden runs, the
-fault injection tool never wrote to another processes memory, it is possible
-that a predictor could identify these operations if system health statistics
-are used as features instead of reported errors.  Furthermore, even only using
-the Operator for Missing Function Call (OMFC), there were still thousands of
-injection points in the Windows Server 2008 operating system.  Identifying the
-handful that may activate in a realistic way without crashing the target
-service immediately is not trivial.  Clearly more work must be done to validate
-using fault injection alone in the \ac{AFP} framework.
-
-In conclusion, the modified \ac{AFP} framework as presented here can be used to
-effectively predict failures that might occur in a production environment and
-is capable of adapting to underlying system changes using only reported errors.
-To improve the efficacy of a predictor trained using this generated data, real
-failure data and additional predictors can easily be integrated if available.
-Finally, real failure data is difficult to obtain given how rare failure is in
-modern systems.  Unfortunately, even after it is obtained, it can rapidly
-become deprecated by underlying system changes.  Using the \ac{AFP} with the
-fault loads introduced in this work to generate simulated failure data is the
-next best thing to having real data and provides more useful predictions than
-are available with no failure data.
