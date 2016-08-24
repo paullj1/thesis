@@ -81,6 +81,11 @@
 }
 
 \section{Related Work} 
+\frame{
+  \centering
+  \vspace{1cm} \Huge Related Work
+}
+
 \frame{ \frametitle{\ac{PFM}}
   \figproactiveFaultManagement{0.6\textwidth}
   \begin{itemize}
@@ -103,10 +108,10 @@
   \vspace*{-0.5cm}
   \begin{itemize}
     \item{Present Time: $t$}
-    \item{Lead Time: $\Delta t_{l}$, is the total time at which a predictor
-    makes an assessment about the current state.}
     \item{Data Window: $\Delta t_{d}$, represents the time window of data used
     for a predictor to make its assessment.}
+    \item{Lead Time: $\Delta t_{l}$, represents the time between when failure is
+    predicted and when that failure will occur.}
     \item{Minimal Warning Time: $\Delta t_{w}$, is the amount of time required
     to avoid a failure if one is predicted.}
     \item{Prediction Period: $\Delta t_{p}$, is the time for which a prediction
@@ -140,12 +145,18 @@
 }
 
 \section{Methodology} 
-\frame{ \frametitle{\acrfull{AFP} Implemenation}
+\frame{
+  \centering
+  \vspace{1cm} \Huge Methodology
+}
+
+\frame{ \frametitle{\acrfull{AFP} Implementation}
+  \vspace*{-0.5cm}
   \tabHypervisorOne
   \tabHypervisorTwo
 }
 
-\frame{ \frametitle{\acrfull{AFP} Implemenation}
+\frame{ \frametitle{\acrfull{AFP} Implementation}
   \begin{itemize}
   \item Workload Generator: \ac{D-PLG} with five client machines
   \item Fault-Load Generator:
@@ -161,6 +172,11 @@
 }
 
 \section{Experimental Results} 
+\frame{
+  \centering
+  \vspace{1cm} \Huge Experimental Results
+}
+
 \frame{ \frametitle{Results}
   \begin{itemize}
   \item{Four fault loads tested on a Windows \ac{DC} and an Apache web server:}
@@ -241,6 +257,7 @@
 }
 
 \frame[shrink]{ \frametitle{\acrfull{SVM} Performance}
+  \vspace*{-0.5cm}
   \figMemLeakPreUpdateSVMPerf
   \vspace*{-0.5cm}
   \begin{itemize}
@@ -272,6 +289,11 @@
 }
 
 \section{Conclusions \& Future Work} 
+\frame{
+  \centering
+  \vspace{1cm} \Huge Conclusions \& Future Work
+}
+
 \frame{ \frametitle{Conclusions}
   \begin{itemize}
   \item Extended \ac{AFP} presented can predict realistic failure in production

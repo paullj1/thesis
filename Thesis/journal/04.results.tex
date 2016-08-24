@@ -1,22 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% For Section 4:
-% 1 paragraph should be what the experiment is: what is tested and how do you
-% measure success (we test the new AFP on Windows Server X DC, and Apache...
-% We compare the number of faults found ... or accuracy of identifying faults
-% ... between each fault induction method and their combinations.)
-% 
-% This would be where a very abbreviated version of 3.1 would go, with 1
-% paragraph on calculating the measures and the learning algorithms and their
-% settings.
-% 
-% You need to group the results for example for the memory faults you have a
-% ROC for SVM and a ROC for DT. These should be on the same graph so that they
-% can be visually compared.
-% 
-% In fact for all the results on a server you want 1 graph. I.e. for the DC,
-% one ROC diagram with all four of the fault methods and the two algorithms.
-% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Experimental Results and Analysis} \label{chapter4}
 To test the extended \ac{AFP} framework, failure data was generated before a
 series of major software updates using software fault injection,
@@ -32,9 +13,9 @@ updates, performance was measured using the \ac{AUC} and F-Measure.
 In general, the \ac{AFP} framework works by virtually cloning the target
 production system after it has determined that system has changed.  In this
 case, this determination is made after several important software updates.  The
-framework then generates realistic work for the cloned service to do, which
-accelerates the activation of an injected fault.  When the cloned system is
-sufficiently loaded, faults are injected until failure occurs.  Once failure
+framework then generates realistic work for the cloned service to perform,
+which accelerates the activation of an injected fault.  When the cloned system
+is sufficiently loaded, faults are injected until failure occurs.  Once failure
 has occurred, the recorded data is used to train a statistical learning model.
 The new model then replaces the existing model if it performs better.
 
@@ -57,14 +38,14 @@ Table~\ref{tab:messageIDs} were filtered from the input.
 
 Next, to encode the time dimension and reduce the sequential message ordering
 dependency, a sliding time window was created by counting each unique entry for
-each feature within the data window ($\Delta t_d$) \citep{vaarandi2002}.
-During this stage, the number of messages that were reported in the data window
-were also recorded and used as a feature.
+each feature within the data window ($\mathrm{\Delta t_d}$)
+\citep{vaarandi2002}.  During this stage, the number of messages that were
+reported in the data window were also recorded and used as a feature.
 
-Finally, each time window preceding the failure within $\Delta t$ was labelled
-as failure prone \citep{irrera2015}.  This encoding enables the use of
-classification algorithms in the training phase.  An example of the final
-encoding is shown in Table~\ref{tab:window}.
+Finally, each time window preceding the failure within $\mathrm{\Delta t_l}$
+was labelled as failure prone \citep{irrera2015}.  This encoding enables the
+use of classification algorithms in the training phase.  An example of the
+final encoding is shown in Table~\ref{tab:window}.
 
 \tabMessageIDs % Keep these together (footnote)
 \footnotetext{\url{https://support.microsoft.com/en-us/kb/977519}}
@@ -80,42 +61,42 @@ test data.
 
 \subsection{\acrfull{MS} \acrfull{DC} Results}
 The \ac{MS} \ac{DC} was configured in the virtual environment to host a
-$30,000$ user database and perform \ac{DNS} and authentication for all
+30,000 user database and perform \ac{DNS} and authentication for all
 workstations.  The target of the fault injection was the \emph{lsass.exe}
 process, and specifically the \emph{ntdsa.dll} library.  This library is
 responsible for processing authentication requests and handles interaction with
 the user database.
 
 \paragraph{Fault Injection}
-This fault load was effective at creating a failure, but unfortunately, each
+Fault injection was effective at creating a failure, but unfortunately, each
 failure observed occurred immediately after introducing the fault.  Because
-there was no delay between injection and failure, there did not exist any
-indicators of failure.  Consequently, machine learning cannot help in this
-situation.  According to \citet{russinovich2009} the
-\emph{lsass.exe} process, as well as other critical system processes, are at
-the top of the structured exception handling stack and do not handle
+there was no delay between injection and failure ($\mathrm{\Delta t_l \approx
+0}$), there did not exist any indicators of failure.  Consequently, machine
+learning cannot help in this situation.  According to \citet{russinovich2009}
+the \emph{lsass.exe} process, as well as other critical system processes, are
+at the top of the structured exception handling stack and do not handle
 exceptions.  When faced with exceptions, the processes exit and the system
 reboots.
 
 \paragraph{Under-Resourced \ac{CPU}}
-While this fault load resulted in authentication requests that took longer,
-this fault never led to failure.  To test this fault load, the virtual domain
-controllers resources were reduced.  The \ac{CPU} went from a dual-core to a
-single virtual CPU, and the memory was reduced from $2$ Gb to $512$ Mb.  This
-reduction was well beneath the recommended capacity for a domain controller
-\citep{mak12}.  The workload generator was then allowed to run against this
-configuration for seven days.  For the duration of the test, the \ac{CPU} load
-was $100\%$, and physical memory was $90\%$ utilized on average.  While the
-service did experience reduced response time, failure did not occur.
+While this load resulted in authentication requests that took longer, this load
+never led to failure.  To test this load, the virtual domain controllers
+resources were reduced.  The \ac{CPU} went from a dual-core to a single virtual
+CPU, and the memory was reduced from $2$ Gb to $512$ Mb.  This reduction was
+well beneath the recommended capacity for a domain controller \citep{mak12}.
+The workload generator was then allowed to run against this configuration for
+seven days.  For the duration of the test, the \ac{CPU} load was $100\%$, and
+physical memory was $90\%$ utilized on average.  While the service did
+experience reduced response time, failure did not occur.
 
-Another test was conducted to test this fault load by allowing a third-party
+Another test was conducted to test this load by allowing a third-party
 application to slowly consume all \ac{CPU} time.  Much like the previous test,
 this test never resulted in failure.  Consequently, the learning was not
-attempted for fault load.
+attempted for this load.
 
 \paragraph{Under-Resourced Memory}
-The under-resourced memory fault load was the first that created observable
-indicators of failure with any lead time.  This fault load produced the best
+The under-resourced memory load was the first that created observable
+indicators of failure with any lead time.  This load produced the best
 performing predictors and the largest sliding time window for prediction of
 sixty seconds.  For this reason, this experiment explores the use of two
 machine learning models: the weighted \ac{SVM}, and boosted decision trees
@@ -195,29 +176,29 @@ test \ac{AUC} dropped to $0.4854$ but was retrained to achieve an \ac{AUC} of
 $0.9801$.
 
 \paragraph{Heap Space Corruption}
-Just as with fault injection, this fault load was able to produce failures, but
-these failures were not preceded by any indicators.  To increase realism in
-this fault load, the focus of the corruption was on the user database.  The
-user database is incrementally cached as authentication requests are
-received \citep{russinovich2009}.  To test this fault load, the \ac{AFP}
-execution phase was run as normal.  After the workload generator reached a
-steady state, a single user in the database on disk was corrupted followed
-immediately by the same user being corrupted in process memory.  If the disk
-was not corrupted along with memory, the process would treated the corruption
-as a cache miss, and re-cached the user from disk.  When both were corrupted
-simultaneously, the process crashed and forced system reboot the very next time
-that user requested authentication.  Unfortunately, exactly as with fault
-injection, there were no preceding indicators of failure and thus training a
-prediction model was unsuccessful.
+Just as with fault injection, heap space corruption was able to produce
+failures, but these failures were not preceded by any indicators.  To increase
+realism, the focus of the corruption was on the user database.  The user
+database is incrementally cached as authentication requests are received
+\citep{russinovich2009}.  To test this load, the \ac{AFP} execution phase was
+run as normal.  After the workload generator reached a steady state, a single
+user in the database on disk was corrupted followed immediately by the same
+user being corrupted in process memory.  If the disk was not corrupted along
+with memory, the process would treated the corruption as a cache miss, and
+re-cached the user from disk.  When both were corrupted simultaneously, the
+process crashed and forced system reboot the very next time that user requested
+authentication.  Unfortunately, exactly as with fault injection, there were no
+preceding indicators of failure and thus training a prediction model was
+unsuccessful.
 
 \subsubsection{Web Server}
 To validate the approach and implementation of the \ac{AFP} framework in this
 experiment, it was also tested against an Apache web server.  The underlying
 system change in this experiment was simulated by upgrading Apache from version
 \emph{2.2.31 x64} to version \emph{2.4.20 x64}.  Results for the web server
-were almost identical to those for the \ac{DC} for each fault load.  The only
+were almost identical to those for the \ac{DC} for each load.  The only
 predictable failure was in the case of the memory leak.  The following
-sub-sections outline specific results after testing each fault load.
+sub-sections outline specific results after testing each load.
 
 \paragraph{Fault Injection}
 In the case of the web server, each library loaded by the Apache server process
@@ -231,7 +212,7 @@ no failure.  The client machines did experience delayed responses, but the
 server continued to run.
 
 \paragraph{Under-Resourced Memory}
-As with the \ac{DC}, this was the only fault load that could be used to predict
+As with the \ac{DC}, this was the only load that could be used to predict
 failure given only reported errors.  However, machine learning was not
 necessary given the low number of log messages produced.  Since Apache stores
 access requests in a separate file, they were essentially pre-filtered.  Apache
@@ -255,35 +236,35 @@ Moreover, there would be no way to tell how long a set of rules would be
 effective after being written.
 
 \paragraph{Heap Space Corruption}
-This fault load was tested against the Apache server by targeting the actual
-web page stored in memory.  Much like was done by the \ac{DC} with users, this
-was treated as a cache miss and the content was retrieved from disk.  Again, to
-simulate a disk failure, this file was made inaccessible.  The result was an
-immediate failure to serve the content.  As with the \ac{DC}, there were no
-preceding indications of failure.
+Heap space corruption was tested against the Apache server by targeting the
+actual web page stored in memory.  Much like was done by the \ac{DC} with
+users, this was treated as a cache miss and the content was retrieved from
+disk.  Again, to simulate a disk failure, this file was made inaccessible.  The
+result was an immediate failure to serve the content.  As with the \ac{DC},
+there were no preceding indications of failure.
 
 \subsubsection{Summary}
-In summary, the only fault load usable for training a statistical model to
-predict failure based only on reported errors was the memory leak.  As
-expected, the software update did drastically reduce the effectiveness of a
-model trained with failure data before the software update.  The boosted
-decision tree was able to be re-trained after the software update, but the
-\ac{SVM} was not.  This suggests that both models should be used to ensure the
-\ac{AFP} framework is able to adapt to the underlying system changes and
-maintain at least one useful predictor.
+In summary, the memory leak was the only load usable for training a statistical
+model to predict failure based only on reported errors.  As expected, the
+software update did drastically reduce the effectiveness of a model trained
+with failure data before the software update.  The boosted decision tree was
+re-trainable after the software update whereas the \ac{SVM} was not.  This
+suggests that both models should be used to ensure the \ac{AFP} framework
+maintains at least one useful predictor and is adaptable to underlying system
+changes.
 
 Perhaps most interestingly, fault injection as was used in the original
-\ac{AFP} framework implementation, had two outcomes: no failure occurred, or
-failure occurred immediately.  In the controlled virtual environment, failure
-was predictable using polled system health information, but perhaps the
-indicators used to predict the failure were not actual errors but the fault
-injection tool itself injecting faults.  Since during the golden runs, the
-fault injection tool never wrote to another processes memory, it is possible
-that a predictor could identify these operations if system health statistics
-are used as features instead of reported errors.  Furthermore, even only using
-the Operator for Missing Function Call (OMFC), there were still thousands of
-injection points in the Windows Server 2008 operating system.  Identifying the
-handful that may activate in a realistic way without crashing the target
-service immediately is not trivial.  Clearly more work must be done to validate
-using fault injection alone in the \ac{AFP} framework.
+\ac{AFP} framework implementation, had two extreme outcomes: 1) no failure, or
+2) immediate failure.  In the controlled virtual environment, failure was
+predictable using polled system health information, but perhaps the indicators
+used to predict the failure were not actual errors but the fault injection tool
+itself injecting faults.  Since during the golden runs, the fault injection
+tool never wrote to another processes memory, it is possible that a predictor
+could identify these operations if system health statistics are used as
+features instead of reported errors.  Furthermore, even only using the Operator
+for Missing Function Call (OMFC), there were still thousands of injection
+points in the Windows Server 2008 operating system.  Identifying the handful
+that may activate in a realistic way without crashing the target service
+immediately is not trivial.  Clearly more work must be done to validate using
+fault injection alone in the \ac{AFP} framework.
 

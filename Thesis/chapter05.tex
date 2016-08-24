@@ -50,7 +50,7 @@ failure data into the training phase if it is observed.
 
 \section{Conclusion}
 This research explored the use of the \ac{AFP} framework with additional fault
-loads to predict failure using reported errors in the \ac{MS} \ac{DC}s.  It has
+loads to predict failure using reported errors in the \ac{MS} \ac{DC}.  It has
 been shown that it is possible to predict failure in modern \ac{MS} enterprise
 authentication architecture given a representative fault load.  Unfortunately,
 at the time of writing, two out of the three fault loads introduced in this
@@ -58,24 +58,27 @@ research did not create failure conditions that could be predicted due to the
 fact that there were no preceding indicators of failure.  This was a stated
 limitation of the research.  However, the new fault loads are not useless.  As
 was demonstrated with the \ac{SVM} predictor, the underlying system changes can
-introduce or eliminate an applications vulnerability to certain types of
+introduce or eliminate an application's vulnerability to certain types of
 faults.  For this reason, if the \ac{AFP} framework is implemented on \ac{MS}
 \ac{DC}s, all fault loads should be used in the execution and training phases.
 
-Perhaps most interestingly, fault injection as was used in the original
-\ac{AFP} framework implementation, had two outcomes: no failure occurred, or
+Perhaps most interestingly, fault injection, as was used in the original
+\ac{AFP} framework implementation, had two outcomes: no failure occurred or
 failure occurred immediately.  In the controlled virtual environment, failure
 was predictable using polled system health information, but perhaps the
 indicators used to predict the failure were not actual errors but the fault
 injection tool itself injecting faults.  Since during the golden runs, the
-fault injection tool never wrote to another processes memory, it is possible
+fault injection tool never wrote to another process' memory, it is possible
 that a predictor trained using system health information would associate these
 operations with failure.  Furthermore, even only using the Operator for Missing
 Function Call (OMFC), there were still thousands of injection points in the
 Windows Server 2008 operating system.  Identifying the handful that may
 activate in a realistic way without crashing the target service immediately is
-not trivial.  Clearly more work must be done to validate using fault injection
-alone in the \ac{AFP} framework.
+not trivial.  One potential solution to this problem is to implement some sort
+of taint engine as is being used in software testing.  Being able to more
+accurately identify where in the course of a programs execution a register will
+be accessed could lead to more accurate fault injection.  Clearly more work
+must be done to validate using fault injection alone in the \ac{AFP} framework.
 
 In addition to the new fault loads introduced in this work, a load generator
 has also been presented:  \ac{D-PLG}, capable of sufficiently simulating peak
@@ -85,12 +88,11 @@ security testing and auditing, and software testing.  This research also
 introduced \ac{W-SWFIT} which can be used to perform fault injection for a
 variety of additional uses like software testing and auditing.
 
-The impact of this research should not be over estimated.  As mentioned, a
-major limitation of this technique is that it is not able to predict malicious
-acts or \emph{Act of God} events.  Furthermore, the data generated are still
-simulated data and as such, may not completely capture all possible failure
-events.  The \ac{AFP} framework as presented here will however provide more
-reliable predictions than are currently available today.
+As mentioned, a limitation of this technique is that it is not able to predict
+malicious acts or \emph{Act of God} events.  Furthermore, the data generated
+are still simulated data and as such, may not completely capture all possible
+failure events.  The \ac{AFP} framework as presented here will however provide
+more reliable predictions than are currently available today.
 
 In conclusion, the modified \ac{AFP} framework as presented here can be used to
 effectively predict failures that might occur in a production environment and

@@ -3,9 +3,9 @@
 prediction about whether a failure in a future state is
 imminent~\citep{salfnerSurvey}.  Traditionally, failure is predicted using
 statistical information about past failures offline before a system is fielded.
-Unfortunately, given the complexity of modern computer systems and the infinite
-number of ways in which they can be configured, this sort of offline analysis
-is not helpful.
+Unfortunately, the complexity of modern computer systems and the infinite
+number of ways in which they can be configured, limits the usefulness of
+offline analysis.
 
 \citet{salfnerSurvey} published a survey paper that provides a comprehensive
 summary of the state of the art on the topic of \ac{OFP}.  In addition to the
@@ -30,17 +30,18 @@ Figure~\ref{fig:onlinePrediction} demonstrates the timeline associated with
 \ac{OFP}.  The parameters used by the community to define a predictor are as
 follows:
 \begin{itemize}
-	\item{Present Time: $t$}
-  \item{Lead Time: $\Delta t_{l}$, is the total time at which a predictor makes
-  an assessment about the current state.}
-  \item{Data Window: $\Delta t_{d}$, represents the time window of data used
-  for a predictor to make its assessment.}
-  \item{Minimal Warning Time: $\Delta t_{w}$, is the amount of time required to
-  avoid a failure if one is predicted.}
-  \item{Prediction Period: $\Delta t_{p}$, is the time for which a prediction
-  is valid.  As $\Delta t_{p} \rightarrow \infty$, the accuracy of the
-  predictor approaches 100\% because every system will eventually fail.  As
-  this happens, the usefulness of a predictor is diminished.}
+	\item{Present Time: $\mathrm{t}$}
+  \item{Data Window: $\mathrm{\Delta t_{d}}$, represents the time window of
+  data used for a predictor to make its assessment.}
+  \item{Lead Time: $\mathrm{\Delta t_{l}}$, represents the time between when
+  failure is predicted and when that failure will occur.}
+  \item{Minimal Warning Time: $\mathrm{\Delta t_{w}}$, is the amount of time
+  required to avoid a failure if one is predicted.}
+  \item{Prediction Period: $\mathrm{\Delta t_{p}}$, is the time for which a
+  prediction is valid.  As $\mathrm{\Delta t_{p} \rightarrow \infty}$, the
+  accuracy of the predictor approaches 100\% because every system will
+  eventually fail.  As this happens, the usefulness of a predictor is
+  diminished.}
 \end{itemize}
 
 \subsection{Faults, Errors, Symptoms, and Failures}
@@ -64,26 +65,24 @@ system state.  In the memory leak example, the missing \emph{free} statement in
 the source code would be the fault.  
 
 \subsection{\acrfull{AFP} Framework} \label{afp}
-The \ac{AFP} framework by \citet{irrera2015} presents a new approach to
-maintaining the efficacy of failure predictors given underlying system changes.
-The authors conducted a case study implementing the framework using
-virtualization and fault injection on a web server.  
+Since systems are frequently updated and failures are rare events, real failure
+data is often not available.  Moreover, the literature shows that even if there
+is a certain type of failure in training data and a predictor can detect and
+predict that type of error accurately, it will still miss failures not present
+in the training data.  The \ac{AFP} framework by \citet{irrera2015} presents an
+approach to maintain the efficacy of failure predictors given underlying system
+changes by repeatedly injecting faults.
 
 The framework generates failure data by injecting software faults using a tool
 based on \ac{G-SWFIT}~\citep{gswfit} in a virtual environment for comparing and
 automatically re-training predictors.  After implementing the \ac{AFP}
 framework using a web server and an \ac{SVM} predictor, they report that their
 findings demonstrate the framework is able to adapt to changes to an underlying
-system which would normally render a predictor unusable.
+system that would normally render a predictor unusable.
 
-In general, the use of simulated data is not well received by the community,
-however \citet{irrera2010,irrera2014} report evidence supporting the claim that
-simulated failure data is representative of real failure data.  Further, the
-authors suggest that since systems are so frequently updated and failures are
-in general rare events, real failure data is often not available.  Moreover,
-the literature shows that even if there is a certain type of failure in
-training data and a predictor can detect and predict that type of error
-accurately, it will still miss failures not present in the training data.  By
+In general, the use of simulated data is not well received by the community.
+However, \citet{irrera2010,irrera2014} report evidence supporting the claim
+that simulated failure data is representative of real failure data.  By
 injecting faults, there is an increased likelihood potential failure types are
 represented in the training data.
 

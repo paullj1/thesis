@@ -12,7 +12,14 @@
 }
 
 % Sets frame title to not overlap logo
-\setbeamertemplate{frametitle}{\vspace{5mm}\hspace{8mm}\usebeamerfont{frametitle}\insertframetitle}
+\setbeamertemplate{frametitle}{
+  \raisebox{-3mm}{
+    \hspace*{8mm}\parbox{85mm}{
+      \usebeamerfont{frametitle}\insertframetitle
+    }
+  }
+  \hfill \break \hfill \break
+}
 
 % Customizes Navigation Symbols
 \beamertemplatenavigationsymbolsempty

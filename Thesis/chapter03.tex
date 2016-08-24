@@ -39,9 +39,9 @@ messages): boosted decision trees and the weighted \ac{SVM}.  The weighted
 popular in the \ac{OFP} community~\cite{salfnerSurvey}.  The boosted decision
 tree was used because it is non-parametric, it is capable of classification,
 and it is particularly suited for imbalanced data.  In both cases, feature
-reduction was performed as is done by Fulp et al.~\cite{fulp2008}, on a sliding
-time window as is done by Irrera, et al.~\cite{irrera2013a} and
-Vaarandi~\cite{vaarandi2002}.
+reduction was performed using the approach by Fulp et al.~\cite{fulp2008}, of a
+restriction to a sliding time window.  Irrera, et al.~\cite{irrera2013a} and
+Vaarandi~\cite{vaarandi2002} follow a similar approach.
 
 This section outlines the step-by-step procedure by which the extended \ac{AFP}
 framework was evaluated to show how effective it is when used on Windows Server
@@ -170,10 +170,10 @@ each feature within the data window ($\Delta t_d$) as is done by
 Vaarandi~\cite{vaarandi2002}.  During this stage, the number of messages that
 were reported in the data window were also recorded and used as a feature.
 
-Finally, each time window preceding the failure within $\Delta t$ was labelled
-as failure prone as is done by Irrera, et al.~\cite{irrera2015}.  This encoding
-enables the use of classification algorithms in the training phase.  An example
-of the final encoding is shown in Table~\ref{tab:window}.
+Finally, each time window preceding the failure within $\Delta t_l$ was
+labelled as failure prone as is done by Irrera, et al.~\cite{irrera2015}.  This
+encoding enables the use of classification algorithms in the training phase.
+An example of the final encoding is shown in Table~\ref{tab:window}.
 
 \tabMessageIDs % Keep these together (footnote)
 \tabSlidingWindow
@@ -234,7 +234,7 @@ The following sections detail the virtual environment in which this
 architecture was constructed.  For reference, this virtual environment was
 hosted on two VMWare ESXi 5.5 hypervisors each with two 2.6 \ac{GHz} AMD
 Opteron 4180 (6 cores each) \ac{CPU}s and 64 \ac{GB} memory.  The
-specifications of the individual \ac{VM}s are shown in Tables~\ref{tab:hyp1},
+specifications of the individual \ac{VM}s are shown in Tables~\ref{tab:hyp1}
 and \ref{tab:hyp2}.
 
 \tabHypervisorOne
@@ -258,10 +258,10 @@ because a software update occurred, or predicting failure based on log messages
 and possibly other features produced by the production system.
 
 In the original case study, this module was implemented using an \ac{SVM}
-prediction model using the \emph{libsvm} software library.  In this experiment,
-the statistical models were trained on input built as described in
-Section~\ref{sec:dataset.building} using the popular statistical learning
-software suite \emph{R}.
+prediction model using the \emph{libsvm} software library~\cite{irrera2015}.
+In this experiment, the statistical models were trained on input built as
+described in Section~\ref{sec:dataset.building} using the popular statistical
+learning software suite \emph{R}.
 
 \subsubsection{Fault Injection} \label{sec:faultInjectionMgr}
 This module is responsible for managing the fault load used to create realistic
@@ -304,7 +304,7 @@ application is included in Appendix~\ref{app:resourceLeak}.  Finally, failure
 was recorded after corrupting heap space in memory (versus program memory as
 done by the \ac{G-SWFIT}).  This type of fault could be caused by privileged
 third party applications such as hardware drivers inadvertently writing to the
-target processes allocated memory.  Finally, for completeness, this experiment
+target process' allocated memory.  Finally, for completeness, this experiment
 uses a tool developed for this work that implements the \ac{G-SWFIT} technique.
 
 This work introduces an x86-64 implementation of \ac{G-SWFIT} called
@@ -328,8 +328,8 @@ translations that have been performed.  Further, as pointed out by Irrera, et
 al.~\cite{irrera2013a}, prior implementations of the \ac{G-SWFIT} were not
 capable of injecting faults into protected (kernel mode) processes.  Since the
 focus of this research is on a protected system process, this capability was
-critical, and as a result, \ac{W-SWFIT} was implemented in a way that made
-protected process injection possible.  
+critical, and as a result, \ac{W-SWFIT} made full use of the WinAPI in a way
+that made protected process injection possible.  
 
 \ac{G-SWFIT} works by scanning binary libraries already in memory for known
 patterns (or operators).  These operators are then mutated to match compiled
@@ -395,7 +395,7 @@ the \ac{DC} would also be loaded.  Unfortunately, this tool is no longer
 maintained and would not execute on the target
 machine\footnote{\url{https://social.technet.microsoft.com/Forums/windowsserver/en-US/2f8fa5cf-3714-4eb3-a895-c30e2b26862d/debug-assertion-failed-sockcorecpp-line-623}}.
 Further searches for tools that would sufficiently load the \ac{DC} did not
-produce any results which led to the development of \ac{D-PLG}.
+produce any results necessitating the development of \ac{D-PLG}.
 
 \ac{D-PLG} is a collection of remotely executed \ac{MS} PowerShell scripts
 managed by a central script designed to generate realistic traffic that will
@@ -413,16 +413,16 @@ actually processed.  Finally, the \ac{DNS} role can be stressed by sending the
 authentication requests using domain names without allowing local caching.
 
 By use of native cmdlets, \ac{D-PLG} is capable of generating four kinds of
-traffic designed to stress the following services: authentication, web, mail,
-file sharing, and \ac{MS} \ac{RDP}.  \ac{D-PLG} uses the \ac{MS} PowerShell
-environment to generate the traffic in an effort to make the traffic as real as
-possible.  After building the tool, an experiment was constructed and executed
-on a scale model of a production environment.  The scaled simulation network
-was built using the recommendations of the \ac{MS} community for sizing a
-\ac{DC}~\cite{mak12} and tested by running the tool on five client machines
-against the \ac{DC} for five rounds of five minutes.  The results of this test
-are shown in Figures~\ref{fig:authDCPPS}, \ref{fig:authClientPPS},
-\ref{fig:authDCMetrics}.
+traffic designed to stress the following services: authentication, web,
+\ac{DNS}, mail, file sharing, and \ac{MS} \ac{RDP}.  \ac{D-PLG} uses the
+\ac{MS} PowerShell environment to generate the traffic in an effort to make the
+traffic as real as possible.  After building the tool, an experiment was
+constructed and executed on a scale model of a production environment.  The
+scaled simulation network was built using the recommendations of the \ac{MS}
+community for sizing a \ac{DC}~\cite{mak12} and tested by running the tool on
+five client machines against the \ac{DC} for five rounds of five minutes.  The
+results of this test are shown in Figures~\ref{fig:authDCPPS},
+\ref{fig:authClientPPS}, \ref{fig:authDCMetrics}.
 
 \figAuthDCPPS{4in}
 \figAuthClientPPS{4in}
@@ -569,9 +569,9 @@ machine must be different from the hostname of the sandbox target machine.
 This section outlines the extensions to the \ac{AFP} framework explored by this
 research.  Given that fault injection isn't always considered
 representative~\cite{kikuchi2014}, the next three sub-sections outline three
-addition fault loads explored.  Next, an outline of the changes in how data was
-collected from the target is presented.  Finally, this chapter concludes with a 
-brief summary of these extensions.
+additional fault loads explored.  Next, an outline of the changes in how data
+was collected from the target is presented.  Finally, this chapter concludes
+with a brief summary of these extensions.
 
 \subsection{Under-Resourced \ac{CPU}} \label{sec:extUnderResourcedCPU}
 A \ac{CPU} may become under-resourced in a few ways.  The organization
@@ -589,7 +589,7 @@ Appendix~\ref{app:resourceLeak}.
 
 \subsection{Under-Resourced Memory} \label{sec:extUnderResourcedMem}
 Available memory can be limited in a few ways.  As with the under-resourced
-\ac{CPU}, the implementing organization may under estimate the amount of memory
+\ac{CPU}, the implementing organization may underestimate the amount of memory
 that will be needed by a server to handle the required demand.  Additionally, a
 third-party application could contain a memory leak.  In both cases, the target
 application may not have enough memory to accomplish the work it has been

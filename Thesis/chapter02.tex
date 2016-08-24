@@ -1,10 +1,10 @@
 \chapter{Overview of \ac{OFP}} \label{chapter2}
 Traditionally, failure is predicted using statistical information about past
 failures offline before a system is implemented.  Unfortunately, given the
-complexity of modern computer systems and the infinite number of ways in which
-they can be configured, this sort of offline analysis is not helpful.  \ac{OFP}
-is the act of evaluating a running system in real time to make a prediction
-about what the future state will be.
+complexity of modern computer systems and the nearly infinite number of ways in
+which they can be configured, this sort of offline analysis is not helpful.
+\ac{OFP} is the act of evaluating a running system in real time to make a
+prediction about what the future state will be.
 
 This chapter reviews current research regarding \ac{OFP} and its many
 approaches to build a foundation for this research.  Further, the taxonomy of
@@ -108,12 +108,12 @@ Figure~\ref{fig:onlinePrediction} demonstrates the timeline associated with
 follows:
 \begin{itemize}
 	\item{Present Time: $t$}
-  \item{Lead Time: $\Delta t_{l}$, is the total time at which a predictor makes
-  an assessment about the current state.}
-  \item{Data Window: $\Delta t_{d}$, represents the time from which data is
-  used for a predictor uses to make its assessment.}
+  \item{Data Window: $\Delta t_{d}$, represents the time window of data used
+  for a predictor to make its assessment.}
   \item{Minimal Warning Time: $\Delta t_{w}$, is the amount of time required to
   avoid a failure if one is predicted.}
+  \item{Lead Time: $\Delta t_{l}$, represents the time between when failure is
+  predicted and when that failure will occur.}
   \item{Prediction Period: $\Delta t_{p}$, is the time for which a prediction
   is valid.  As $\Delta t_{p} \rightarrow \infty$, the accuracy of the
   predictor approaches 100\% because every system will eventually fail.  As
@@ -123,11 +123,11 @@ follows:
 As the above parameters are adjusted, predictors can become more or less
 useful.  For example, it is clear that as a predictor looks further into the
 future potentially increasing \emph{lead time}, confidence in its prediction is
-likely to be reduced.  On the other hand, if \emph{lead time} is too small,
-there will likely not be enough time to effectively take remediation action.
-In general, \ac{OFP} approaches seek to find a balance between the parameters,
-within an acceptable bound depending on application, to achieve the best
-possible performance.
+likely to be reduced.  On the other hand, if \emph{lead time} is too small, or
+$\Delta t_l < \Delta t_w$, there will likely not be enough time to effectively
+take remediation action.  In general, \ac{OFP} approaches seek to find a
+balance between the parameters, within an acceptable bound depending on
+application, to achieve the best possible performance.
 
 \section{Approaches to \ac{OFP}} \label{approaches}
 \subsection{\ac{OFP} Taxonomy}
@@ -227,7 +227,7 @@ as well as its predecessor, does not scale well and does not adapt to changes
 to the underlying system without retraining.
 
 \subsubsection{Classifiers}
-Domeniconi, et al.~\cite{domeniconi2002} published a technique that used
+Domeniconi, et al.~\cite{domeniconi2002} published a technique that used a
 \ac{SVM} to classify the present state as either failure prone or not based on
 a window of error reports as an input vector.  As Salfner points out
 in~\cite{salfnerSurvey}, this \ac{SVM} approach would not be useful without
@@ -264,7 +264,7 @@ type that have occurred within a certain time window.  The authors claim that
 their approach solves three problems: 1)  The model is not dependent upon a
 certain lexicon used to report errors to handle different messages from
 different vendors; 2) The model does not take into account the order of
-messages necessarily so in a cloud environment where messages may arrive in
+messages so that in a distributed environment where messages may arrive in
 different orders, the model is still effective; and 3)  The model actively
 retrains itself so manual re-training does not need to occur after system
 updates.  The model was then tested in a cloud environment over a ninety day

@@ -24,7 +24,7 @@ compare and assess predictors and are taken from a survey of \ac{OFP} methods
 written by Salfner et al.~\cite{salfnerSurvey}.
 
 This research utilizes a technique called cross-validation in which a set of
-labelled training data are broken into three parts as follows:
+labelled data are broken into three parts as follows:
 \begin{enumerate}
 \item{Training Set:  A data set that allows a prediction model to establish and
 optimize its parameters}
@@ -46,9 +46,9 @@ Precision and recall are the most popular performance measures used when
 for comparing \ac{OFP} approaches.  The two are related and often times
 improving precision results in reduced recall.  Precision is the number of
 correctly identified failures over the number of all predicted failures.  In
-other words, it reports, out of the predictions of a failure-prone state that
-were made, how many were correct.  In general, the higher the precision the
-better the predictor.  Precision is expressed as:
+other words, it reports how many were correct out of all of the predictions of
+a failure-prone state that were made.  In general, higher precision indicates a
+better predictor.  Precision is expressed as:
 
 \[ Precision 
 	= \dfrac{TP}{TP + FP} \in [0,1]
@@ -231,7 +231,8 @@ failures.  The old model did not accurately classify a single failure prone
 time window.  A new model was then trained with the newly generated failure
 data.  Unfortunately, after this software update, with all other things held
 constant, the weighted SVM model was unable to achieve the same level of
-performance as before resulting in a maximum F-Measure of $0.4380$.
+performance as before resulting in a maximum F-Measure of $0.4380$ indicating
+the predicted underlying system changes.
 
 \subsubsection{Boosted Decision Trees}
 For this prediction model, the \emph{gbm} package was used to train a boosted
@@ -257,7 +258,7 @@ Appendix~\ref{app:updates}.  The precision/recall and \ac{ROC} curves on data
 generated after the software update using the old model are shown in
 Figure~\ref{fig:memLeakPostUpdateSameBoostedModel}.  The confusion matrix at
 the optimal threshold for F-measure is shown in
-Table~\ref{tab:memLeakPreUpdateBoostingConfusionMatrix}
+Table~\ref{tab:memLeakPreUpdateBoostingConfusionMatrix}.
 
 \figMemLeakPostUpdateSameBoostedModel
 \tabMemLeakPostUpdateBoostingSameModelConfusionMatrix
@@ -280,12 +281,12 @@ received~\cite{russinovich2009}.  To test this fault load, the \ac{AFP}
 execution phase was run as normal.  After the workload generator reached a
 steady state, a single user in the database on disk was corrupted followed
 immediately by the same user being corrupted in process memory.  If the disk
-was not corrupted along with memory, the process would treated the corruption
-as a cache miss, and re-cached the user from disk.  When both were corrupted
-simultaneously, the process crashed and forced system reboot the very next time
-that user requested authentication.  Unfortunately, exactly as with fault
-injection, there were no preceding indicators of failure and thus training a
-prediction model was unsuccessful.
+was not corrupted along with memory, the process would have treated the
+corruption as a cache miss and re-cached the user from disk.  When both were
+corrupted simultaneously, the process crashed and forced system reboot the very
+next time that user requested authentication.  Unfortunately, exactly as with
+fault injection, there were no preceding indicators of failure and thus
+training a prediction model was unsuccessful.
 
 \subsection{Web Server}
 To validate the approach and implementation of the \ac{AFP} framework in this
@@ -311,10 +312,10 @@ server continued to run.
 As with the \ac{DC}, this was the only fault load that could be used to predict
 failure given only reported errors.  However, machine learning was not
 necessary given the low number of log messages produced.  Since Apache stores
-access requests in a separate file, they were essentially pre-filtered.  Apache
-also by default, stores error messages in an external log.  There were no
-messages reported in this file in any of the failure runs conducted.  The only
-indicators produced, were reported by Windows and recorded by the rsyslog
+access requests in a separate file, they were essentially pre-filtered.
+Apache, also by default, stores error messages in an external log.  There were
+no messages reported in this file in any of the failure runs conducted.  The
+only indicators produced were reported by Windows and recorded by the rsyslog
 server.  An average number of $15$ messages were reported during each round of
 the execution phase and the indicators of failure were easy to see.  In this
 case, simple rules could be used to predict failure in this process so a
