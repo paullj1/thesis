@@ -264,3 +264,55 @@
   \end{tabular}
 \end{table}
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                             %
+%                                   ANNs                                      %
+%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\tabMemLeakPreUpdateANNConfusionMatrix}{
+  \begin{table} \centering
+    \caption{Pre-update failure data confusion matrix on threshold with
+    highest F-Measure (0.8676) using model trained on failure data generated
+    before software update.}
+    \label{tab:memLeakPreUpdateANNConfusionMatrix}
+    \begin{tabular}{llll}
+                                                               &                                       & \multicolumn{2}{c}{\textbf{Actual}}                                        \\ \cline{3-4} 
+                                                               & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{\textbf{Fail}} & \multicolumn{1}{l|}{\textbf{No-Fail}} \\ \cline{2-4} 
+      \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Predicted}}} & \multicolumn{1}{l|}{\textbf{Fail}}    & \multicolumn{1}{l|}{59}            & \multicolumn{1}{l|}{16}               \\ \cline{2-4} 
+      \multicolumn{1}{c|}{}                                    & \multicolumn{1}{l|}{\textbf{No-Fail}} & \multicolumn{1}{l|}{2}             & \multicolumn{1}{l|}{597}              \\ \cline{2-4} 
+    \end{tabular}
+  \end{table}
+}
+
+\newcommand{\tabMemLeakPostUpdateANNConfusionMatrix}{
+  \begin{table} \centering
+    \caption{Post-update failure data confusion matrix on threshold with
+    highest F-Measure (0.3536) using model trained on failure data generated
+    before software update.}
+    \label{tab:memLeakPostUpdateANNConfusionMatrix}
+    \begin{tabular}{llll}
+                                                               &                                       & \multicolumn{2}{c}{\textbf{Actual}}                                        \\ \cline{3-4} 
+                                                               & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{\textbf{Fail}} & \multicolumn{1}{l|}{\textbf{No-Fail}} \\ \cline{2-4} 
+      \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Predicted}}} & \multicolumn{1}{l|}{\textbf{Fail}}    & \multicolumn{1}{l|}{61}            & \multicolumn{1}{l|}{223}              \\ \cline{2-4} 
+      \multicolumn{1}{c|}{}                                    & \multicolumn{1}{l|}{\textbf{No-Fail}} & \multicolumn{1}{l|}{0}             & \multicolumn{1}{l|}{0}                \\ \cline{2-4} 
+    \end{tabular}
+  \end{table}
+}
+
+\newcommand{\tabMemLeakPostUpdateNewModelANNConfusionMatrix}{
+  \begin{table} \centering
+    \caption{Post-update failure data confusion matrix on threshold with
+    highest F-Measure (0.9752) using model trained on failure data generated
+    after software update.}
+    \label{tab:memLeakPostUpdateNewModelANNConfusionMatrix}
+    \begin{tabular}{llll}
+                                                               &                                       & \multicolumn{2}{c}{\textbf{Actual}}                                        \\ \cline{3-4} 
+                                                               & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{\textbf{Fail}} & \multicolumn{1}{l|}{\textbf{No-Fail}} \\ \cline{2-4} 
+      \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Predicted}}} & \multicolumn{1}{l|}{\textbf{Fail}}    & \multicolumn{1}{l|}{59}            & \multicolumn{1}{l|}{1}                \\ \cline{2-4} 
+      \multicolumn{1}{c|}{}                                    & \multicolumn{1}{l|}{\textbf{No-Fail}} & \multicolumn{1}{l|}{2}             & \multicolumn{1}{l|}{371}              \\ \cline{2-4} 
+    \end{tabular}
+  \end{table}
+}
+

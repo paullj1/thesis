@@ -434,15 +434,14 @@
 
 \newcommand{\figMemLeakCombinedANNPerf}{\begin{figure*}[h!t]
   \centering
-  \subfigure[Precision/Recall Curve.]{
+  \subfigure[Precision/Recall Curves.]{
     \includegraphics[width=0.45\textwidth]{ANN/annCombinedPRC}
   }
-  \subfigure[\ac{ROC} Curve (Pre-update \ac{AUC} = 0.9139).]{
+  \subfigure[\ac{ROC} Curves.]{
     \includegraphics[width=0.45\textwidth]{ANN/annCombinedROC}
   }
-  \caption[Pre-Update, Memory Leak Performance]{Performance of the \ac{ANN}
-  prediction method trained on failure data created after the software update
-  obtained by consuming all available memory until target application fails.}
-  \label{fig:memLeakCombinedANNPerf}
+  \caption{Performance of the \ac{ANN} prediction method trained on failure
+  data created by consuming all available memory until target application
+  fails.} \label{fig:memLeakCombinedANNPerf}
 \end{figure*}
 }
