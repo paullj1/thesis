@@ -11,9 +11,9 @@ Methodologies, Technologies, and Applications (SIMULTECH 2016), pp. 195–202,
 July 2016.
 
 ## See also
-[Windows Software Fault Injection Tool
+* [Windows Software Fault Injection Tool
 (W-SWFIT)](https://github.com/paullj1/W-SWFIT)
-[Distributed PowerShell Load Generator
+* [Distributed PowerShell Load Generator
 (D-PLG)](https://github.com/paullj1/D-PLG)
 
 ## Contact
