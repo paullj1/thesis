@@ -1,0 +1,63 @@
+\documentclass[a4paper,twoside]{article}
+
+\usepackage{graphicx}
+\graphicspath{ {Figures/} }
+
+\usepackage{epsfig}
+\usepackage{calc}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{multicol}
+\usepackage{pslatex}
+\usepackage{apalike}
+\usepackage{hyperref}
+\usepackage{SCITEPRESS}
+
+\begin{document}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\input{title}
+
+\author{\authorname{Paul Jordan\sup{1}, Chip Van Patten\sup{1}, Gilbert
+Peterson\sup{1}, and Andrew Sellers\sup{2}}
+\affiliation{\sup{1}Air Force Institute of Technology, Dayton, Ohio, U.S.A.}
+\affiliation{\sup{2}United States Air Force Academy, Colorado Springs, Colorado, U.S.A.}
+\email{\{paul.jordan, donald.vanpatten, gilbert.peterson\}@afit.edu,
+andrew.sellers@usafa.edu}
+}
+
+\keywords{Network Traffic Generator, Load Generator, Machine Learning, Online
+Failure Prediction}
+
+\abstract{ \input{abstract} }
+
+\onecolumn \maketitle \normalsize \vfill
+
+\footnotetext{The views expressed herein are solely those of the authors and do
+not reflect the official policy or position of the U.S. Air Force, the
+Department of Defense, or the U.S.  Government.}
+
+\input{intro} 
+
+\input{content}
+
+\section*{\uppercase{Acknowledgments}}
+
+\noindent This research was sponsored by the U.S. National Security Agency,
+National Information Assurance Education and Training Program (Alice Shafer and
+Glenn Ellisonn, Program Managers).
+
+\bibliographystyle{apalike}
+{\small \bibliography{D-PLG}}
+
+%\section*{\uppercase{Appendix}}
+
+%\noindent If any, the appendix should appear directly after the
+%references without numbering, and not on a new page. To do so please use the following command:
+%\textit{$\backslash$section*\{APPENDIX\}}
+
+%\vfill
+\end{document}
+
