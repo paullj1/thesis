@@ -48,8 +48,15 @@ The controller responsibilities in this experiment were split between two
 systems on a single hypervisor shown in Table~\ref{tab:hyp2}.  One system was
 the \ac{MS} Windows Server responsible for workload management and fault load
 management.  The other system was an Ubuntu 14.04 server that performed the
-failure prediction management and event management.  Each of these functions is
+failure prediction management and event management.  \hl{In general, the
+workflow can be broken down into two major phases: Execution (visualized in
+Figure~\ref{fig:ExecutionPhaseHoriz}), and Training (visualized in
+Figure~\ref{fig:TrainingPhase}).  In this work, retraining was initiated
+manually after a software update.}  Each of these functions is
 detailed in the following sections.
+
+\figExecutionPhaseHoriz{0.8\textwidth}
+\figTrainingPhase{0.5\textwidth}
 
 \paragraph{Failure Prediction} \label{sec:failurePrediction} % 3.X.1.1
 The failure prediction module predicts failure using machine learning
@@ -141,7 +148,9 @@ x86 architectures \citep{gswfit,martins2002jaca,natella2010,sanches2011jswfit}.
 For this reason, this work introduces a modernized fault injection tool capable
 of injecting into x86-64 elevated system process (such as the `lsass.exe'
 process).  This tool is called the
-\ac{W-SWFIT}\footnote{\url{https://github.com/paullj1/w-swfit/}} 
+\ac{W-SWFIT}\footnote{\url{https://github.com/paullj1/w-swfit/}}, \hl{and it 
+implements two of the primary faults implemented by \ac{G-SWFIT}.  These faults
+simulate a missing function call as well as a missing variable assignment.}
 
 Since many of the critical functions performed by the \ac{AD} services
 processes are performed in the
@@ -187,11 +196,11 @@ after cloning.
 \setcounter{secnumdepth}{3}
 
 \subsection{Fault Load Generators} \label{sec:extensions}
-This section outlines the extensions to the \ac{AFP} framework explored.  Given
-that fault injection isn't always considered representative
-\citep{kikuchi2014}, the next three sub-sections outline three additional fault
-inducing loads explored.  Finally, an outline of the changes in how data was
-collected from the target is presented.
+This section outlines the extensions to the \ac{AFP} framework explored.
+\hl{Given that fault injection can produce many faults that might otherwise
+never have happened~\citep{kikuchi2014}, the next three sub-sections outline
+the more targeted fault inducing loads explored in this work.}  Finally, an
+outline of the changes in how data was collected from the target is presented.
 
 \subsubsection{Under-Resourced \ac{CPU}} \label{sec:extUnderResourcedCPU}
 A \ac{CPU} may become under-resourced in a few ways.  The organization

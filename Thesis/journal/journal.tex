@@ -27,19 +27,29 @@
 \usepackage[nogroupskip,automake,nonumberlist,nopostdot,shortcuts,section]{glossaries}
 
 \mathchardef\mhyphen="2D % Define a "math hyphen"
-\graphicspath{{../../Figures/}}
+\graphicspath{{../Figures/}}
 \input{../Preamble/myJournalFigures}
 \input{../Preamble/myJournalTables}
 \input{../Back/glossary}
+
+% for highlighting
+\usepackage{soul}
+\soulregister\citet7
+\soulregister\citep7
+\soulregister\ref7
+\soulregister\ac7
+
+% uncomment below to disable highlighting
+% \renewcommand{\hl}[1]{#1}
 
 \begin{document}
 
 %\jvol{00} \jnum{00} \jyear{2016} \jmonth{September}
 
-\title{Data Driven Device Failure Prediction\footnote{The views expressed
-herein are solely those of the authors and do not reflect the official policy
-or position of the U.S. Air Force, the Department of Defense, or the U.S.
-Government.}}
+\title{Narrowing the Scope of Failure Prediction Using Targeted Fault Load
+Injection\footnote{The views expressed herein are solely those of the authors
+and do not reflect the official policy or position of the U.S. Air Force, the
+Department of Defense, or the U.S.  Government.}}
 
 
 \author{P.L. Jordan$^{\rm a}$ \
@@ -59,6 +69,8 @@ Government.}}
 online failure prediction; machine learning; fault injection; enterprise
 architecture
 \end{keywords}
+
+\clearpage
 
 \end{abstract}
 

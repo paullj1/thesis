@@ -29,16 +29,17 @@ Training a prediction model requires training data, which is limited due to the
 rarity of failure events and the complex and manual training process.  To
 address this problem, \citet{irrera2015} presented the \ac{AFP} framework that
 automates the process of dynamically generating failure data and using it to
-train a predictor after an underlying system change.  Unfortunately, the types
-of failures simulated within the framework were not completely representative
-of failures which might actually occur~\citep{kikuchi2014}.
+train a predictor after an underlying system change.  \hl{Unfortunately, with
+fault injection as used by the framework, the majority of injected faults lead
+to immediate failure and may never occur in production~\citep{kikuchi2014}.}
 
-This research presents an \ac{AFP} framework with a more representative fault
-load including focused software fault injection, third party memory leaks,
-third party \ac{CPU} over-utilization, and heap-space corruption.  The
-implementation is then validated on a \ac{MS} Windows Server \ac{DC}, and on an
-Apache web server.  Results showed that targeted fault inducing loads could
-create realistic failure conditions on Windows Server 2008 and software fault
-injection alone did not.  Furthermore, these failures were identifiable by
-\ac{SVM} and boosted decision tree statistical learning models with an average
-area under the \ac{ROC} curve of $0.98$.
+\hl{This research presents analysis of a practical implementation of the
+\ac{AFP} framework with a more targeted fault load including focused software
+fault injection, third party memory leaks, third party \ac{CPU}
+over-utilization, and heap-space corruption.} The implementation is then
+validated on a \ac{MS} Windows Server \ac{DC}, and on an Apache web server.
+Results showed that targeted fault inducing loads could create realistic
+failure conditions on Windows Server 2008 and software fault injection alone
+did not.  Furthermore, these failures were identifiable by \ac{SVM} and boosted
+decision tree statistical learning models with an average area under the
+\ac{ROC} curve of $0.98$.

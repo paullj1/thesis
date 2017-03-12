@@ -53,11 +53,22 @@ final encoding is shown in Table~\ref{tab:window}.
 
 Feature reduction was performed for both learning algorithms on a sliding time
 window \citep{fulp2008,irrera2013a,vaarandi2002}.  This transformed data was
-then used to train \ac{SVM} and boosted decision tree models using cross
-validation on $5$ recorded failure runs for each fault load for both systems
-before and after the software updates.  Upon completion of the data generation
-and model training, several performance measures were calculated on held out
-test data.
+then used to train \hl{weighted} \ac{SVM} and boosted decision tree models
+using cross validation on $5$ recorded failure runs for each fault load for
+both systems before and after the software updates.  \hl{These models were used
+because of how well they tend to perform on unbalanced data.} Upon completion
+of the data generation and model training, several performance measures were
+calculated on held out test data.
+
+\hl{It is important to note that the above described method of prediction only
+provides a binary classification at a given time and only indicates that
+failure will occur within the fixed time window.  Other methods of prediction
+may offer more insight into when the failure may occur but they were not
+explored in this work.  Furthermore, given the distinct differences in the
+training and execution phases, careful consideration was made for real time
+prediction.  During the Execution phase, this same process occurs by
+maintaining a sliding time window by checking for new log messages every
+second.}
 
 \subsection{\acrfull{MS} \acrfull{DC} Results}
 The \ac{MS} \ac{DC} was configured in the virtual environment to host a
@@ -268,3 +279,8 @@ that may activate in a realistic way without crashing the target service
 immediately is not trivial.  Clearly more work must be done to validate using
 fault injection alone in the \ac{AFP} framework.
 
+\hl{Ultimately, this work has shown that one minute of lead time is possible
+under certain circumstances.  This amount of time is enough to perform a few
+actions to mitigate failure.  First, the system could attempt to perform
+software rejuvenation~\cite{candea2004microreboot}.  Failing that, it could
+attempt to divert traffic to a redundant spare.}
