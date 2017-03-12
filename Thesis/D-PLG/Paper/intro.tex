@@ -1,0 +1,24 @@
+\section{Introduction}
+Many ways of generating realistic traffic or capturing live traffic for replay
+exist.  Unfortunately, most of these methods involve naively replaying
+previously recorded traffic which cannot successfully simulate encrypted
+authentication sessions.  Being able to simulate this type of encrypted traffic
+is necessary to create realistic workload for modern identity management
+services.  This research is the result of an ongoing attempt to generalize the
+Adaptive Failure Prediction (AFP) framework developed by Irrera et al.
+in~\cite{irrera2015} to predict failure in a Microsoft domain controller.
+
+AFP automates the process of retraining a failure prediction algorithm after an
+underlying system change by placing a target system under load before injecting
+software faults to accelerate failure.  Consequently, in order to produce
+realistic workload for an authentication service, full-stack encrypted sessions
+are necessary. 
+
+This work introduces the Distributed PowerShell Load Generator (D-PLG),
+developed for generating several kinds for network traffic in modern Microsoft
+Windows systems.  This work also demonstrates the validity and generalizability
+of D-PLG by presenting results of several tests in a simulated production
+environment.  Finally, this work demonstrates how the AFP framework leverages
+D-PLG in order to generate network transactions of arbitrary arity between
+unbounded network components with dynamic volume, variety, veracity, and
+velocity.

@@ -1,0 +1,32 @@
+\section{\uppercase{Introduction}}
+\noindent There are many approaches to generating realistic traffic or
+capturing live traffic for replay.  Unfortunately, none of these approaches are
+capable of independently generating full-stack network traffic without naively
+replaying previously recorded traffic, which is of limited utility in
+simulating a production environment where realistic data transmission is not
+necessarily confined to what's already been observed.  This research is the
+result of an ongoing attempt to generalize the Adaptive Failure Prediction
+(AFP) framework developed by Irrera et al. in~\cite{irrera2015}.
+
+AFP automates the process of retraining a failure prediction algorithm after an
+underlying system change by placing a target system under load before
+injecting software faults to accelerate failure.  Our target system is a
+Microsoft Windows active directory domain services server and, as a result, we
+need to generate a full-stack authenticated session in order to sufficiently
+load the service.  
+
+In support of that research, we have developed a tool for generating several
+kinds for network traffic and introduce it in this paper.  Further, we
+demonstrate the validity of our tool and that our technique is generalizable
+and can leverage the AFP framework in order to capture network transactions of
+arbitrary arity between unbounded network components with dynamic volume,
+variety, veracity, and velocity.
+
+The rest of this paper is organized as follows.  In
+Section~\ref{sec:relatedWork}, we discuss other traffic generation tools and
+how ours is different.  In Section~\ref{sec:contrib}, we outline our tool and
+provide specific implementation details.  In Section~\ref{sec:methodology}, we
+describe the methodology used to demonstrate the efficacy of our tool.  In
+Section~\ref{sec:results} we present our results after running our tool in a
+virtual environment, we then conclude by outlining future work in
+Section~\ref{sec:futureWork}.

@@ -1,0 +1,68 @@
+\documentclass[runningheads,a4paper]{llncs}
+
+\usepackage{graphicx}
+\graphicspath{ {../../Figures/} }
+
+\setcounter{tocdepth}{3}
+\usepackage{calc}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{url}
+
+\urldef{\mailsa}\path|{paul.joran,donald.vanpatten,gilbert.peterson}@afit.edu|
+\urldef{\mailsb}\path|andrew.sellers@usafa.edu|
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip\noindent\keywordname\enspace\ignorespaces#1}
+
+\begin{document}
+
+\mainmatter
+
+\title{Distributed PowerShell Load Generator (D-PLG): A New Tool for %
+Dynamically Generating Network Traffic%
+\thanks{The views expressed herein are solely those of the authors and do not
+reflect the official policy or position of the U.S. Air Force, the Department
+of Defense, or the U.S.  Government.}}
+
+\titlerunning{D-PLG: A New Tool for Dynamically Generating Network Traffic}
+
+\author{Paul Jordan\inst{1} \and Donald Van Patten\inst{1}\and Gilbert
+Peterson\inst{1}\and Andrew Sellers\inst{2}}
+%
+\authorrunning{P. Jordan, D. Van Patten, G. Peterson, and A. Sellers}
+
+\institute{
+  Air Force Institute of Technology\\
+  \mailsa\\
+  \url{http://www.afit.edu}
+  %
+  \and United States Air Force Academy\\
+  \mailsb\\
+  \url{http://www.usafa.edu}
+}
+
+\toctitle{D-PLG: A New Tool for Dynamically Generating Network Traffic}
+\tocauthor{P. Jordan, D. Van Patten, G. Peterson, and A. Sellers}
+
+\maketitle
+
+\begin{abstract}
+\input{../abstract}
+\keywords{Network Traffic Generator, Load Generator, Machine Learning, Online
+Failure Prediction}
+\end{abstract}
+
+\input{../intro} 
+
+\input{../content}
+
+\section*{Acknowledgements}
+This work was supported by the the U.S. National Security Agency, National
+Information Assurance Education and Training Program (Alice Shafer and Glenn
+Ellisonn, Program Managers).
+
+\vfill
+\bibliographystyle{splncs03}
+\bibliography{../../LoadGenerator}
+
+\end{document}
+

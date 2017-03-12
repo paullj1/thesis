@@ -1,0 +1,423 @@
+
+@article{salfnerSurvey,
+ author = {Salfner, F. and Lenk, M. and Malek, M.},
+ title = {A Survey of Online Failure Prediction Methods},
+ journal = {ACM Comput. Surv.},
+ issue_date = {March 2010},
+ volume = {42},
+ number = {3},
+ month = mar,
+ year = {2010},
+ issn = {0360-0300},
+ pages = {10:1--10:42},
+ articleno = {10},
+ numpages = {42},
+ url = {http://doi.acm.org/10.1145/1670679.1670680},
+ doi = {10.1145/1670679.1670680},
+ acmid = {1670680},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ annotate = {
+   There isn't really a problem statement since this is a survey, but in
+   general, machines tend to fail for many reasons.  The methods described in
+   this survey are for predicting failure in real-time (as opposed to
+   before-hand statistical analysis).  Again, many approaches and solutions are
+   presented in this survey.  Our focus is on the machine learning approaches
+   that focus on error messages (or log messages).  The key takeaway for our
+   work is that this helps set the stage for our problem.
+ }
+} 
+
+@article{irrera2015,
+ author = {Irrera, I. and Vieira, M. and Duraes, J.},
+ doi = {10.1109/HASE.2015.29},
+ isbn = {978-1-4799-8111-3},
+ journal = {2015 IEEE 16th International Symposium on High Assurance Systems Engineering},
+ pages = {142--149},
+ title = {{Adaptive Failure Prediction for Computer Systems: A Framework and a Case Study}},
+ url = {http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=7027425},
+ year = {2015},
+ annotate = {
+   The problem this paper attempts to solve is that many failure prediction
+   techniques have been developed and shown to be effective but they have not
+   been implemented on production machines.  The authors present a framework
+   and then demonstrate its efficacy by doing a case study.  The key takeaway
+   for our work is that our work enables the extension of this framework for a
+   distributed environment.  
+ }
+}
+
+@article{irrera2014,
+ author = {Irrera, I. and Vieira, M.},
+ doi = {10.1109/PRDC.2014.19},
+ isbn = {978-1-4799-6474-1},
+ journal = {2014 IEEE 20th Pacific Rim International Symposium on Dependable Computing},
+ pages = {86--95},
+ title = {{A Practical Approach for Generating Failure Data for Assessing and Comparing Failure Prediction Algorithms}},
+ url = {http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=6974775},
+ year = {2014},
+ annotate = {
+   This paper suggests that machine learning based failure prediction methods
+   must be trained using known failure data, but those data are hard to find.
+   This paper suggests a method for generating those data using software fault
+   injection and simulated load.  The key takeaway for our work is that this
+   helps establish the need for a load generator.
+ }
+}
+
+@article{irrera2010,
+ author = {Irrera, I. and Duraes, J. and Vieira, M. and Madeira, H.},
+ doi = {10.1109/PRDC.2010.51},
+ isbn = {978-1-4244-8975-6},
+ journal = {2010 IEEE 16th Pacific Rim International Symposium on Dependable Computing},
+ pages = {3--10},
+ title = {{Towards Identifying the Best Variables for Failure Prediction Using Injection of Realistic Software Faults}},
+ url = {http://dl.acm.org/citation.cfm?id=1935935.1935974},
+ year = {2010},
+ annotate = {
+   The problem presented in this paper is that identifying the proper variables
+   to conduct failure prediction is difficult.  The paper presents a
+   methodology for identifying the variables that should be used to predict
+   failure by injecting software faults.  The authors then conduct two
+   experiments to test their approach.  The key takeaway for our work is that
+   this paper helps establish the need for a load generator in failure
+   prediction.
+ }
+}
+
+@article{irrera2013,
+ author = {Irrera, I. and Duraes, J. and Madeira, H. and Vieira, M.},
+ doi = {10.1109/LADC.2013.24},
+ isbn = {9780769549620},
+ journal = {Proceedings - 6th Latin-American Symposium on Dependable Computing, LADC 2013},
+ pages = {92--97},
+ title = {{Assessing the impact of virtualization on the generation of failure prediction data}},
+ year = {2013},
+ annotate = {
+   The problem this paper suggests is that in order to conduct online failure
+   prediction using machine learning in real-time, one must train a machine
+   learning algorithm with real failure data.  Unfortunately, production
+   systems do not fail very often and injecting failures into production
+   systems is unacceptable.  The paper suggests that virtualization is a cheap
+   alternative for injecting faults and collecting failure data to train
+   prediction models.  The authors compare failure data collected from live
+   systems with failure data collected from virtualized systems.  This paper
+   helps us establish that it's okay to virtualize our experiment.
+ }
+}
+
+@article{gswfit, 
+ author={Duraes, J. and Madeira, H.}, 
+ journal={Software Engineering, IEEE Transactions on}, 
+ title={Emulation of Software Faults: A Field Data Study and a Practical Approach}, 
+ year={2006}, 
+ volume={32}, 
+ number={11}, 
+ pages={849-867}, 
+ doi={10.1109/TSE.2006.113}, 
+ ISSN={0098-5589}, 
+ month={Nov},
+ annotate = {
+   This paper suggests that fault injection is used, but is not well
+   understood.  The paper goes on to thoroughly analyze and formalize a
+   technique for software fault injection.  The paper then conducts a field
+   study to demonstrate how well the method works on real software.  The key
+   takeaway here is that it reinforces why we are developing a load generator.
+ }
+}
+
+@article{watanabe2012,
+ author = {Watanabe, Y. and Otsuka, H. and Sonoda, M. and Kikuchi, S. and Matsumoto, Y.},
+ doi = {10.1109/CloudCom.2012.6427566},
+ isbn = {9781467345095},
+ journal = {CloudCom 2012 - Proceedings: 2012 4th IEEE International Conference on Cloud Computing Technology and Science},
+ pages = {504--511},
+ title = {{Online failure prediction in cloud datacenters by real-time message pattern learning}},
+ url = {http://www.scopus.com/inward/record.url?eid=2-s2.0-84874230901{\&}partnerID=40{\&}md5=da33be4c2acd9f17e2646ced46fa4120},
+ year = {2012},
+ annotate = {
+   In this paper, it is suggested that nodes fail in cloud data centers and
+   conventional machine learning techniques do not work well due to the fact
+   that there is no guarantee as to the order in which reported error messages
+   are received.  The paper then presents results from a case study conducted
+   using the method presented.  The key takeaway here will be to compare and
+   contrast our method with this one.
+ }
+}
+
+@article{watanabe2014,
+ author = {Watanabe, Y.},
+ number = {1},
+ pages = {66--71},
+ title = {{Online Failure Prediction in Cloud Datacenters}},
+ volume = {50},
+ year = {2014},
+ annotate = {
+   This paper suggests that failure prediction in cloud data-centers is a
+   difficult task.  It presents a new way of doing failure prediction in cloud
+   data-centers and then reports results and performance metrics from an
+   experiment conducted using the new method.  Our work will compare and
+   contrast this method with ours.
+ }
+}
+
+@article{sonoda2012,
+ author = {Sonoda, M. and Watanabe, Y. and Matsumoto, Y.},
+ doi = {10.1109/NOMS.2012.6211960},
+ isbn = {1542-1201 VO  -},
+ journal = {Network Operations and Management Symposium (NOMS), 2012 IEEE},
+ number = {4},
+ pages = {578--581},
+ title = {{Prediction of failure occurrence time based on system log message pattern learning}},
+ year = {2012},
+ annotate = {
+   This paper suggests that failure prediction in cloud data-centers is
+   difficult because there is no guarantee on the order in which reported
+   errors are received.  The paper reports results from an experiment conducted
+   using the method presented.  This paper offers a comparison for our method.
+ }
+}
+
+@article{irrera2013_2,
+ author = {Irrera, I. and Pereira, C. and Vieira, M.},
+ doi = {10.1109/LADC.2013.25},
+ isbn = {978-1-4673-5746-3},
+ journal = {2013 Sixth Latin-American Symposium on Dependable Computing},
+ pages = {86--91},
+ title = {{The Time Dimension in Predicting Failures: A Case Study}},
+ url = {http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=6542609},
+ year = {2013},
+ annotate = {
+   This paper suggests that the time-dimension makes predicting failures using
+   a Support Vector Machine difficult and provides a technique for accounting
+   for this difficulty.  The authors then conduct a case study to test their
+   method and report findings.  The key takeaway for our work is that it
+   reinforces our reason for developing a load generator.
+ }
+}
+
+@INPROCEEDINGS{avallone2004, 
+ author={Avallone, S. and Guadagno, S. and Emma, D. and Pescape, A. and Ventre, G.}, 
+ booktitle={Quantitative Evaluation of Systems, 2004. QEST 2004. Proceedings.  First International Conference on the}, 
+ title={{D-ITG distributed Internet traffic generator}}, 
+ year={2004}, 
+ pages={316-317}, 
+ doi={10.1109/QEST.2004.1348045}, 
+ month={Sept},
+ annotate={
+    This paper provides a new solution to traffic generation. The authors 
+    implemented a traffic generator that emulates various network protocols 
+    and the Inter Departure Time and Packet Size random variables for the 
+    traffic. The authors compare the performance of their software with other 
+    traffic generators and provide a brief analysis of the performances. This 
+    paper offers another comparison for our method.
+ }
+}
+
+@INPROCEEDINGS{antichi2008, 
+ author={Antichi, G. and Di Pietro, A. and Ficara, D. and Giordano, S. and Procissi, G. and Vitucci, F.}, 
+ booktitle={Digital System Design Architectures, Methods and Tools, 2008. DSD '08. 11th EUROMICRO Conference on}, 
+ title={Design of a High Performance Traffic Generator on Network Processor}, 
+ year={2008}, 
+ pages={438-441}, 
+ doi={10.1109/DSD.2008.36}, 
+ month={Sept},
+ annotate={
+    It is suggested in this paper that the currently available, PC-based network 
+    traffic generators are not able to adequately replicate realistic traffic on 
+    high-speed networks. The authors present their solution of implementing the 
+    BRUTE traffic generator on an Intel Network Processor. They only present the 
+    proposed design and architecture of their traffic generator solution, leaving 
+    actual implementation and performance tests to future work. This paper offers 
+    inspiration for possible future iterations and eventual improvements of our 
+    method.
+ }
+}
+
+@INPROCEEDINGS{vasic2012, 
+ author={Vasic, V. and Suznjevic, M. and Mikuc, M. and Matijasevic, M.}, 
+ booktitle={Software, Telecommunications and Computer Networks (SoftCOM), 2012 20th International Conference on}, 
+ title={Improving distributed traffic generation performance by using IMUNES network emulator}, 
+ year={2012}, 
+ pages={1-5}, 
+ month={Sept},
+ annotate={
+   There is no specific problem stated in this paper except to improve on the 
+   authors' previously implemented network traffic generator. The authors do 
+   so by implementing the Integrated Multiprotocol Network Emulator/Simulator 
+   as the network emulator used. The authors then report on the results of 
+   experiments run using the methodology detailed. This paper will serve as 
+   a comparison for our method.
+ }
+}
+
+@INPROCEEDINGS{molnar2013, 
+ author={Molnar, S. and Megyesi, P. and Szabo, G.}, 
+ booktitle={Communications Workshops (ICC), 2013 IEEE International Conference on}, 
+ title={How to validate traffic generators?}, 
+ year={2013}, 
+ pages={1340-1344}, 
+ doi={10.1109/ICCW.2013.6649445}, 
+ month={June},
+ annotate={
+   This paper is more of a survey of network traffic generators and does not 
+   provide a solution to a specific problem, but rather advocates that the 
+   community adopt a standardized validation method for traffic generating tools. 
+   This paper provides insight into a number of methods to validate our tool 
+   and gives insight into the numerous validation processes.
+ }
+}
+
+@article{vishwanath2009,
+  author = {Vishwanath, K. and Vahdat, A.},
+  doi = {10.1109/TNET.2009.2020830},
+  isbn = {1595933085},
+  issn = {10636692},
+  journal = {IEEE/ACM Transactions on Networking},
+  keywords = {Burstiness,Modeling,Structural model,Traffic generator,Wavelet scaling},
+  number = {3},
+  pages = {712--725},
+  title = {{Swing: Realistic and responsive network traffic generation}},
+  volume = {17},
+  year = {2009},
+  annotate = {
+    The problem this paper suggests is that traffic generators should accurately 
+    reflect real-world variances, distributions, bandwidth, and burstiness. The 
+    authors present their tool, Swing, which generates traffic based on characteristics 
+    observed from a given network's behavior. They present the results of their 
+    tool and discuss whether their tool fully achieves the goal introduced by 
+    the paper. This paper provides us with a method to compare and contrast our 
+    tool and more ways to analyze our results.  
+  }
+}
+
+@inproceedings{albrecht2009,
+  author = {Albrecht, C. and Osterloh, C. and Pionteck, T. and Koch, R.},
+  booktitle = {22nd European Conference on Modelling and Simulation.},
+  isbn = {9780955301858},
+  keywords = {packet flow models,synthetic workload generation,traffic generator},
+  title = {{An Application-Oriented Synthetic Network Traffic Generator}},
+  year = {2009},
+  annotate = {
+    This paper proposes that current traffic generators do not do a good job of 
+    testing network hardware in a realistic manner. The authors introduce their 
+    tool that generates multiple types of network traffic and varies the ammount 
+    and timing of the traffic based on models. They provide results from 
+    experiments conducted with their tool along with analysis and comparisons to 
+    other traffic generators available. This paper provides a comparison for our 
+    method.
+  }
+}
+
+@article{zach2013,
+  author = {Zach, P. and Pokorny, M. and Motycka, A.},
+  isbn = {978-960-474-341-4},
+  issn = {1790-5117},
+  journal = {Recent Advances in Circuits, Systems, Telecommunications and Control},
+  pages = {244--251},
+  title = {{Design of Software Network Traffic Generator}},
+  year = {2013},
+  annotate = {
+    The authors of this paper propose that network traffic generators fall into 
+    specific categories, each with a specific purpose. They attempt to create 
+    a hybrid solution which spans multiple categories. The authors conduct a 
+    case study using their tool and provide results and comparisons with other 
+    popular traffic generation tools. This paper will provide another method to 
+    compare and contrast with ours.
+  }
+}
+
+@article{botta2012,
+	author = {Botta, A. and Dainotti, A. and Pescap{\'{e}}, A.},
+	issn = {13891286},
+	journal = {Computer Networks},
+	mendeley-groups = {Distributed Systems Project},
+	number = {15},
+	pages = {3531--3547},
+	publisher = {Elsevier B.V.},
+	title = {{A tool for the generation of realistic network workload for emerging networking scenarios}},
+	volume = {56},
+	year = {2012}
+}
+
+@Online{brasser15,
+  title = {Script Connect-Mstsc - Open RDP Session with credentials},
+  author = {Brasser, J.},
+  organization = {},
+  url = {https://gallery.technet.microsoft.com/scriptcenter/Connect-Mstsc-Open-RDP-2064b10b},
+  urldate = {2016-02-27},
+  year = {2015}
+}
+
+@Online{szeto12,
+  title = {{Debug Assertion Failed: sockcore.cpp, line 623}},
+  author = {Szeto, A.},
+  organization = {Microsoft},
+  url = {https://social.technet.microsoft.com/Forums/windowsserver/en-US/2f8fa5cf-3714-4eb3-a895-c30e2b26862d/debug-assertion-failed-sockcorecpp-line-623},
+  urldate = {2016-02-27},
+  year = {2012}
+}
+
+@Online{jordan16,
+  title = {AFP-DC - GitHub},
+  author = {Jordan, P. and Van Patten, D.},
+  note = {https://github.com/paullj1/afp-dc/tree/master/Load},
+  urldate = {2016-02-27},
+  year = {2016}
+}
+
+@Online{mak12,
+  title = {Capacity Planning for Active Directory Domain Services},
+  author = {Makbuloğlu, S and Geelen, G},
+  publisher = {TechNet},
+  organization = {Microsoft},
+  urldate = {2016-03-01},
+  year = {2012}
+}
+
+@book{bijaoui2011,
+	author = {Bijaoui, P},
+	isbn = {9780080491851},
+	pages = {473--474},
+	publisher = {Elsevier Science},
+	series = {HP Technologies},
+	title = {{Microsoft Exchange Server 2003 Scalability with SP1 and SP2}},
+	year = {2011}
+}
+
+@Online{suyanto2010,
+	author = {Suyanto, H. and Tiwari, M.},
+	title = {{Windows 2008 AD LDS Load Testing using ADTEST - Part 1 - TechNet Articles}},
+	organization = {Microsoft},
+	url = {http://social.technet.microsoft.com/wiki/contents/articles/1890.windows-2008-ad-lds-load-testing-using-adtest-part-1.aspx},
+	urldate = {2016-03-03},
+	year = {2010}
+}
+
+@Online{suyanto2010_2,
+	author = {Suyanto, H. and Tiwari, M.},
+	title = {{Windows 2008 AD LDS Load Testing using ADTEST - Part 2 - TechNet Articles}},
+	organization = {Microsoft},
+	url = {http://social.technet.microsoft.com/wiki/contents/articles/1891.windows-2008-ad-lds-load-testing-using-adtest-part-2.aspx},
+	urldate = {2016-03-03},
+	year = {2010}
+}
+
+@misc{morowczynski2014,
+	author = {Morowczynski, Mark},
+	title = {{How To Use the Active Directory Performance Testing Tool on Windows Server 2012 | Ask Premier Field Engineering (PFE) Platforms}},
+	organization = {Microsoft},
+	url = {https://blogs.technet.microsoft.com/askpfeplat/2014/02/09/how-to-use-the-active-directory-performance-testing-tool-on-windows-server-2012/},
+	urldate = {2016-03-03},
+	year = {2014}
+}
+
+@article{weigle2006,
+author = {Weigle, M. and Adurthi, P. and Hernández-Campos, F. and Jeffay, K. and Smith, F.},
+journal = {ACM SIGCOMM Computer Communication Review},
+number = {3},
+pages = {67--76},
+title = {{Tmix: A Tool for Generating Realistic TCP Application Workloads in ns-2}},
+volume = {36},
+year = {2006}
+}
