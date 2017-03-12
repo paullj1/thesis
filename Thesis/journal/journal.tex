@@ -1,0 +1,80 @@
+% tEISguide.tex
+% v4.0 released January 2014
+
+\documentclass[]{tEIS2e}
+
+\usepackage{float}
+\usepackage{subfigure}
+\usepackage{amssymb,amsmath,amsfonts}
+\usepackage{color}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{tabulary}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage[percent]{overpic}
+
+\usepackage{listings} 
+\lstset{
+    breaklines=true,
+    basicstyle=\ttfamily\scriptsize,
+    columns=flexible,
+}
+
+\usepackage[pdftex,pdfpagelabels,bookmarks,hyperindex,hyperfigures]{hyperref}
+\usepackage[nogroupskip,automake,nonumberlist,nopostdot,shortcuts,section]{glossaries}
+
+\mathchardef\mhyphen="2D % Define a "math hyphen"
+\graphicspath{{../../Figures/}}
+\input{../Preamble/myJournalFigures}
+\input{../Preamble/myJournalTables}
+\input{../Back/glossary}
+
+\begin{document}
+
+%\jvol{00} \jnum{00} \jyear{2016} \jmonth{September}
+
+\title{Data Driven Device Failure Prediction\footnote{The views expressed
+herein are solely those of the authors and do not reflect the official policy
+or position of the U.S. Air Force, the Department of Defense, or the U.S.
+Government.}}
+
+
+\author{P.L. Jordan$^{\rm a}$ \
+        G.L. Peterson$^{\rm a}$ \
+        A.C. Lin$^{\rm a}$ \
+        M.J. Mendenhall$^{\rm a}$ \
+        A.J. Sellers$^{\rm b}$ \\\vspace{6pt} \
+        $^{a}${\em{Air Force Institute of Technology, Dayton, OH, USA}}; \\
+        $^{b}${\em{United States Air Force Academy, Colorado Springs, CO, USA}}}
+  
+\maketitle
+
+\begin{abstract}
+\input{../Front/abstract.content}
+
+\begin{keywords}
+online failure prediction; machine learning; fault injection; enterprise
+architecture
+\end{keywords}
+
+\end{abstract}
+
+\input{01.intro}        % 1 Page
+\input{02.related.work} % 2-2.5 Pages
+\input{03.methodology}  % 7 Pages
+\input{04.results}      % 7 Pages
+\input{05.conclusion}   % 2 paragraphs
+
+\section*{Acknowledgements}
+This work was supported by the the U.S. National Security Agency, National
+Information Assurance Education and Training Program (Alice Shafer and Glenn
+Ellisonn, Program Managers).
+
+\bibliographystyle{tEIS}
+\bibliography{../Back/references} 
+
+\label{lastpage}
+\end{document}

@@ -1,0 +1,370 @@
+%% myFigures.tex
+% A common file to store all figure definitions
+%
+% In preparing your thesis, one of the first things you should do is
+% organize your figures.  Then, one of the last things you'll do is
+% reorder your figures so they display where you want them to in the
+% text.  Organizing figure definitions in a common files helps:
+%
+%   1. Write new figures using earlier examples.
+%
+%   2.  Isolate code and minimize the risk of introducing bugs in the
+%   final editing process.  Trust me, moving around just one line of
+%   code is easier.
+%
+%   3.  Reuse figures in other papers.  <=== the best reason!
+%
+% Note command names can not include numbers and special characters.
+%
+% To make the file more searchable, use naming conventions that map
+% the graphics filename labSetup.jpg to the command name \figlabSetup to the
+% figure label fig:labSetup.
+% 
+
+\newcommand{\figproactiveFaultManagement}[1]{\begin{figure}
+ \begin{center}
+    \includegraphics[width=#1]{proactiveFaultManagement}
+     \caption[Proactive Fault Management~\citep{salfnerSurvey}]{The stages of
+     proactive fault management~\citep{salfnerSurvey}.}
+     \label{fig:proactiveFaultManagement}
+ \end{center}
+\end{figure}
+}
+
+\newcommand{\figonlinePrediction}[1]{\begin{figure}
+ \begin{center}
+    \includegraphics[width=#1]{onlinePrediction}
+     \caption[\ac{OFP}~\citep{salfnerSurvey}]{The timeline for
+     \ac{OFP}~\citep{salfnerSurvey}.}
+     \label{fig:onlinePrediction}
+ \end{center}
+\end{figure}
+}
+
+\newcommand{\figfailureFlowDiagram}[1]{\begin{figure}
+ \begin{center}
+    \includegraphics[width=#1]{failureFlowDiagram}
+     \caption[Failure Flow Diagram~\citep{salfnerSurvey}]{How faults and errors
+     evolve into failure with the associated methods for detection represented
+     by enclosing gray boxes~\citep{salfnerSurvey}.}
+     \label{fig:failureFlowDiagram}
+ \end{center}
+ %\vspace{-0.2 in}
+\end{figure}
+}
+
+\newcommand{\figROC}[1]{\begin{figure}
+ \begin{center}
+    \includegraphics[width=#1]{ROC}
+     \caption[Sample \ac{ROC} Plots~\citep{salfnerSurvey}]{\ac{ROC} plots of
+     perfect, average, and random predictors~\citep{salfnerSurvey}.}
+     \label{fig:ROC}
+ \end{center}
+\end{figure}
+}
+
+\newcommand{\figprecisionRecallCurve}[1]{\begin{figure}
+ \begin{center}
+    \includegraphics[width=#1]{precisionRecallCurve}
+     \caption[Sample Precision/Recall Curves~\citep{salfnerSurvey}]{Sample
+     precision/recall curves~\citep{salfnerSurvey}.  Curve $A$ represents a
+     poorly performing predictor, curve $B$ an average predictor, and curve $C$
+     an exceptional predictor.}
+     \label{fig:precisionRecallCurve}
+ \end{center}
+\end{figure}
+}
+
+\newcommand{\figpatternRecognition}[1]{\begin{figure}
+ \begin{center}
+    \includegraphics[width=#1]{patternRecognition}
+     \caption[Pattern recognition in reported errors~\citep{salfnerSurvey}]{How
+     pattern recognition is accomplished in reported
+     errors~\citep{salfnerSurvey}.}
+     \label{fig:patternRecognition}
+ \end{center}
+\end{figure}
+}
+
+\newcommand{\figAFP}[1]{\begin{figure}
+ \begin{center}
+    \includegraphics[width=#1]{AFP}
+     \caption[\ac{AFP} Framework Implementation~\citep{irrera2015}]{How the
+     \ac{AFP} framework is implemented~\citep{irrera2015}.}
+     \label{fig:AFP}
+ \end{center}
+\end{figure}
+}
+
+\newcommand{\figHighlightedAFP}[1]{\begin{figure}
+ \begin{center}
+    \includegraphics[width=#1]{highlightedAFP}
+     \caption{The \ac{AFP} framework implementation~\citep{irrera2015}.}
+     \label{fig:highlightedAFP}
+ \end{center}
+\end{figure}
+}
+
+\newcommand{\figannotatedAFP}{\begin{figure}
+ \begin{center}
+     \begin{overpic}[width=4in]{annotatedAFP}
+       \put(8.5,0){
+         \begin{tikzpicture}
+           [node font=\footnotesize, label/.style={rectangle, draw,
+           fill=white, text width=1.5cm, text badly centered, minimum
+           height=0.4cm, rounded corners}]
+
+           \node[label] (FPMgr)
+             {\textcolor{black}{\ref{sec:failurePrediction}}};
+           \node[label, below=1.0cm of FPMgr] (FIMgr) 
+             {\textcolor{black}{\ref{sec:faultInjectionMgr}}};
+           \node[label, below=1.0cm of FIMgr] (WMgr) 
+             {\textcolor{black}{\ref{sec:workloadMgr}}};
+           \node[label, below=1.0cm of WMgr] (EMMgr) 
+             {\textcolor{black}{\ref{sec:eventsManagerMgr}}};
+           \node[label, below=1.0cm of EMMgr] (SMgr) 
+             {\textcolor{black}{\ref{sec:sandboxMgr}}};
+           \node[label, below=3.75cm of SMgr] (Controller) 
+             {\textcolor{black}{\ref{sec:controller}}};
+         \end{tikzpicture}
+       }
+
+       \put(39.5,60.5){
+         \begin{tikzpicture}
+           [node font=\footnotesize, label/.style={rectangle, draw,
+           fill=white, text width=1.5cm, text badly centered, minimum
+           height=0.4cm, rounded corners}]
+
+           \node[label] (Sandbox)
+             {\textcolor{black}{\ref{sec:sandbox}}};
+           \node[label, below=0.85cm of Sandbox] (SBFITool)
+             {\textcolor{black}{\ref{sec:faultInjectionTool}}};
+           \node[label, below=0.75cm of SBFITool] (SBMTool) 
+             {\textcolor{black}{\ref{sec:sandboxMonitoringTool}}};
+           \node[label, below=0.75cm of SBMTool] (SBWorkload) 
+             {\textcolor{black}{\ref{sec:sandboxWorkload}}};
+         \end{tikzpicture}
+       }
+
+       \put(66,0){
+         \begin{tikzpicture}
+           [node font=\footnotesize, label/.style={rectangle, draw,
+           fill=white, text width=1.5cm, text badly centered, minimum
+           height=0.4cm, rounded corners}]
+
+           \node[label] (MonTool)
+             {\textcolor{black}{\ref{sec:targetMonitoringTool}}};
+           \node[label, below=6.25cm of MonTool] (Target)
+             {\textcolor{black}{\ref{sec:target}}};
+         \end{tikzpicture}
+       }
+     \end{overpic}
+     \caption[Annotated \ac{AFP} Framework~\citep{irrera2015}]{The \ac{AFP}
+     framework implementation~\citep{irrera2015} with modified components
+     highlighted.}
+     \label{fig:annotatedAFP}
+ \end{center}
+\end{figure}
+}
+
+\newcommand{\figTrainingPhase}[1]{\begin{figure}
+ \begin{center}
+  \includegraphics[width=#1]{TrainingPhase}
+  \caption[\ac{AFP} Training Phase~\citep{irrera2015}]{The flow of the major
+  steps involved in the \ac{AFP} framework training phase~\citep{irrera2015}.}
+  \label{fig:TrainingPhase}
+ \end{center}
+\end{figure}
+}
+
+\newcommand{\figExecutionPhase}[1]{\begin{figure}
+  \begin{center}
+    \includegraphics[width=#1]{ExecutionPhase}
+    \caption[\ac{AFP} Execution Phase~\citep{irrera2015}]{The flow of the major
+    steps involved in the \ac{AFP} framework execution
+    phase~\citep{irrera2015}.}
+    \label{fig:ExecutionPhase}
+  \end{center}
+\end{figure}
+}
+
+
+\newcommand{\figExecutionPhaseHoriz}[1]{\begin{figure}
+  \begin{center}
+    \includegraphics[width=#1]{ExecutionPhaseHoriz}
+    \caption[\ac{AFP} Execution Phase~\citep{irrera2015}]{The flow of the major
+    steps involved in the \ac{AFP} framework execution
+    phase~\citep{irrera2015}.}
+    \label{fig:ExecutionPhaseHoriz}
+  \end{center}
+\end{figure}
+}
+
+\newcommand{\figAuthDCPPS}[1]{\begin{figure}
+ \begin{center}
+  \includegraphics[width=#1]{DPLG/authDCPPS}
+  \caption[Domain Controller Packets per Second]{How many packets per second
+  were sent or received by the domain controller across all five rounds of the
+  first test.  In each test, we captured approximately 1.8 million packets.}
+  \label{fig:authDCPPS}
+ \end{center}
+\end{figure}
+}
+
+\newcommand{\figAuthClientPPS}[1]{\begin{figure}
+ \begin{center}
+  \includegraphics[width=#1]{DPLG/authClientPPS}
+  \caption[Client Packets per Second]{How many packets per second were sent or
+  received by one of the clients across all five rounds of the first test.}
+  \label{fig:authClientPPS}
+ \end{center}
+\end{figure}
+}
+
+\newcommand{\figAuthDCMetrics}[1]{\begin{figure}
+ \begin{center}
+  \includegraphics[width=#1]{DPLG/authDCMetrics}
+  \caption[Test 1:  Domain Controller Performance]{Domain controller CPU and
+  memory utilization during the first test.}
+  \label{fig:authDCMetrics}
+ \end{center}
+\end{figure}
+}
+
+\newcommand{\figOFPTaxonomy}[1]{\begin{figure}
+ \begin{center}
+  \includegraphics[width=#1]{OFPTaxonomy}
+  \caption[Taxonomy of \ac{OFP} Approaches]{Taxonomy of approaches to online
+  failure prediction~\citep{salfnerSurvey}.  The two categories into which this
+  research falls are highlighted.}
+  \label{fig:OFPTaxonomy}
+ \end{center}
+\end{figure}
+}
+
+\newcommand{\figMemLeakROC}[1]{\begin{figure}
+ \begin{center}
+  \includegraphics[width=#1]{MemLeakROC}
+  \caption[\ac{SVM} Memory Leak \ac{ROC} Curve]{\ac{SVM} memory leak test data
+  \ac{ROC} curve.}
+  \label{fig:memLeakROC}
+ \end{center}
+\end{figure}
+}
+
+\newcommand{\figMemLeakCompare}[1]{\begin{figure}
+ \begin{center}
+  \includegraphics[width=#1]{MemLeakCompare}
+  \caption[\ac{SVM} Memory Leak Performance Comparison]{Number of observations
+  in a given thirty second time window where `1' represents a window during
+  which failure occurred and `0' represents a window during which no failure
+  occurred.}
+  \label{fig:memLeakCompare}
+ \end{center}
+\end{figure}
+}
+
+%%%%   SMV   %%%%
+% Pre-Update
+\newcommand{\figMemLeakPreUpdateSVMPerf}{\begin{figure*}
+  \centering
+  \subfigure[Precision/Recall Curve.]{
+    \includegraphics[width=0.45\textwidth]{results/pre-update/memleak/svm-prc}
+  }
+  \subfigure[\ac{ROC} Curve (\ac{AUC} = 0.8664).]{
+    \includegraphics[width=0.45\textwidth]{results/pre-update/memleak/svm-roc}
+  }
+  \caption[Pre-Update, Memory Leak \ac{SVM} Performance]{Test data performance
+  of the \ac{SVM} prediction method on failure data obtained by consuming all
+  available memory until target application fails.}
+  \label{fig:memLeakPreUpdateSVMPerf}
+\end{figure*}
+}
+
+% Post-Update (old model)
+
+% Post-Update New Model
+
+%%%%   BOOSTING   %%%%
+% Pre-Update
+\newcommand{\figMemLeakPreUpdateBoostingPerf}{\begin{figure*}
+  \centering
+  \subfigure[Precision/Recall Curve.]{
+    \includegraphics[width=0.45\textwidth]{results/pre-update/memleak/boosting-prc}
+  }
+  \subfigure[\ac{ROC} Curve (\ac{AUC} = 0.9984).]{
+    \includegraphics[width=0.45\textwidth]{results/pre-update/memleak/boosting-roc}
+  }
+  \caption[Pre-Update, Memory Leak Boosting Performance]{Test data performance
+  of the boosting prediction method on failure data obtained by consuming all
+  available memory until target application fails.}
+  \label{fig:memLeakPreUpdateBoostingPerf}
+\end{figure*}
+}
+
+% Post-Update (old model)
+\newcommand{\figMemLeakPostUpdateSameBoostedModel}{\begin{figure*}
+  \centering
+  \subfigure[Precision/Recall Curve.]{
+    \includegraphics[width=0.45\textwidth]{results/post-update/memleak/boost-samemodel-prc}
+  }
+  \subfigure[\ac{ROC} Curve (\ac{AUC} = 0.4854).]{
+    \includegraphics[width=0.45\textwidth]{results/post-update/memleak/boost-samemodel-roc}
+  }
+  \caption[Post-Update, Memory Leak Using Old Model Performance]{Performance of
+  the boosting prediction method trained on failure data created before the
+  software update obtained by consuming all available memory until target
+  application fails.}
+  \label{fig:memLeakPostUpdateSameBoostedModel}
+\end{figure*}
+}
+
+% Post-Update New Model
+\newcommand{\figMemLeakPostUpdateBoostingPerf}{\begin{figure*}
+  \centering
+  \subfigure[Precision/Recall Curve.]{
+    \includegraphics[width=0.45\textwidth]{results/post-update/memleak/boost-prc}
+  }
+  \subfigure[\ac{ROC} Curve (\ac{AUC} = 0.9801).]{
+    \includegraphics[width=0.45\textwidth]{results/post-update/memleak/boost-roc}
+  }
+  \caption[Post-Update, Memory Leak Using New Model Performance]{Performance of
+  the boosting prediction method trained on failure data created after the
+  software update obtained by consuming all available memory until target
+  application fails.}
+  \label{fig:memLeakPostUpdateBoostingPerf}
+\end{figure*}
+}
+
+% Combined
+\newcommand{\figMemLeakCombinedBoostPerf}{\begin{figure*}
+  \centering
+  \subfigure[Precision/Recall Curves.]{
+    \includegraphics[width=0.47\textwidth]{results/memleakBoostCombinedPRC}
+  }
+  \subfigure[\ac{ROC} Curves.]{
+    \includegraphics[width=0.47\textwidth]{results/memleakBoostCombinedROC}
+  }
+  \caption[Memory Leak Boosted Decision Tree Performance]{Performance of the
+  boosting prediction method on data generated by consuming all available
+  memory until target application fails.}
+  \label{fig:memLeakCombinedBoostPerf}
+\end{figure*}
+}
+
+\newcommand{\figDPLGConceptDiagram}[1]{\begin{figure}
+  \centering 
+  \includegraphics[width=#1]{DPLG/dplgConceptDiagram}
+  \caption[Concept Diagram]{How each type of traffic that is generated is
+  routed.  Log events are offloaded to logging service for further analysis.}
+  \label{fig:conceptDiagram} 
+  \end{figure}
+}
+
+\newcommand{\figDPLGAllModsClientMetrics}[1]{\begin{figure}
+  \centering
+  \includegraphics[width=#1]{DPLG/allModsClientMetrics}
+  \caption[Test 2:  Client Metrics]{Client CPU and memory utilization during
+  the second test.} \label{fig:allModsClientMetrics}
+  \end{figure}
+}

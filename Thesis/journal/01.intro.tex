@@ -1,0 +1,44 @@
+\section{Introduction} \label{chapter1}
+Computer systems are all around us.  Some of these systems play insignificant
+roles in our lives while others are responsible for sustaining our lives.
+Unfortunately, the software that controls these systems is written by humans
+and consequently subject to human error.  As a result, these systems are prone
+to failure with potentially catastrophic consequences.  
+
+Being able to predict pending failure in those systems can offer tremendous,
+and potentially life-saving benefits.  While being able to accurately predict
+failure has unfortunately not been proven possible, there has been work over
+the past several decades attempting to make predictions about the failure of
+machines through the use of machine learning algorithms~\citep{salfnerSurvey}.
+Unfortunately, much of this work has gone unused~\citep{irrera2015}.  
+
+In this case, failure is defined as the result of a software fault or
+error~\citep{salfnerSurvey}.  There are a number of ways to reduce the number
+of errors produced by a piece of software, but the software development
+life-cycle is shrinking and less time and effort are being devoted to reducing
+errors before deployment~\citep{schmidt2016}.  This leaves real-time error
+prevention or handling.  In recent years, the trending solution to this problem
+is configuring massively redundant systems that can withstand
+failure~\citep{bauer2012}.  While effective, redundant systems incur a high
+cost and enterprise design may limit their implementation.  Consequently, this
+research focuses on an area of reliable computing called \ac{OFP}.  \ac{OFP} is
+the act of attempting to predict when failures are likely so that they can be
+avoided~\citep{salfnerSurvey}.  
+
+Training a prediction model requires training data, which is limited due to the
+rarity of failure events and the complex and manual training process.  To
+address this problem, \citet{irrera2015} presented the \ac{AFP} framework that
+automates the process of dynamically generating failure data and using it to
+train a predictor after an underlying system change.  Unfortunately, the types
+of failures simulated within the framework were not completely representative
+of failures which might actually occur~\citep{kikuchi2014}.
+
+This research presents an \ac{AFP} framework with a more representative fault
+load including focused software fault injection, third party memory leaks,
+third party \ac{CPU} over-utilization, and heap-space corruption.  The
+implementation is then validated on a \ac{MS} Windows Server \ac{DC}, and on an
+Apache web server.  Results showed that targeted fault inducing loads could
+create realistic failure conditions on Windows Server 2008 and software fault
+injection alone did not.  Furthermore, these failures were identifiable by
+\ac{SVM} and boosted decision tree statistical learning models with an average
+area under the \ac{ROC} curve of $0.98$.

@@ -1,0 +1,227 @@
+\documentclass[aspectratio=169]{beamer}
+ 
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{subfigure}
+\usepackage{multicol}
+
+% Beamer doesn't define this
+\newenvironment{figure*}%
+{\begin{figure}}
+{\end{figure}}
+
+\input{../Preamble/myFigures}
+\input{../Preamble/myTables}
+
+\graphicspath{ {../../Figures/} }
+ 
+\title{Data-Driven Device Failure Prediction}
+\author{Paul Jordan}
+\institute{Air Force Institute of Technology \\
+Center for Cyberspace Research}
+\date{22 June 2016}
+ 
+\begin{document}
+ 
+\frame{\titlepage}
+ 
+
+\begin{frame}
+  \frametitle{Introduction}
+  \begin{itemize}
+  \item{Problem}
+  \item{Solution}
+  \item{Progress}
+  \item{Results}
+  \item{Future Work}
+  \end{itemize}
+\end{frame}
+ 
+
+\begin{frame}
+  \frametitle{Problem}
+  \begin{itemize}
+  \item{Predict failure given indicators in existing log messages}
+    \begin{itemize}
+    \item{Survey paper on machine learning techniques for doing
+    this~\cite{salfnerSurvey}}
+    \end{itemize}
+  \item{Need labelled training data}
+    \begin{itemize}
+    \item{Adaptive Failure Prediction (AFP) framework~\cite{irrera2015}}
+    \item{AFP wasn't capable of running on modern operating system}
+    \item{AFP didn't exhaustively emulate all possible/realistic
+    faults~\cite{kikuchi2014}}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Solution}
+  \begin{itemize}
+  \item{Implement and modernize AFP with more representative fault load}
+    \begin{itemize}
+    \item{Need realistic workload generator}
+    \item{Need to modernize and adapt fault injection tool}
+    \item{Need to design ways of emulating more realistic fault-load}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Adaptive Failure Prediction Framework}
+  \figAFP{0.5\textwidth}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Progress}
+  \begin{itemize}
+  \item{\textcolor{green}{\checkmark} Virtual environment implemented}
+  \item{\textcolor{green}{\checkmark} Load generator implemented}
+  \item{\textcolor{green}{\checkmark} Fault-injection tool implemented}
+  \item{\textcolor{green}{\checkmark} Experiments complete}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Results}
+  \begin{itemize}
+  \item{Three additional faults tested}
+    \begin{itemize}
+    \item{Under-resourced CPU}
+    \item{Third-party application memory leak}
+    \item{Third-party memory corruption}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Results}
+  \begin{itemize}
+  \item{Fault-Injection}
+    \begin{itemize}
+    \item{Target process crashes immediately}
+    \item{No indicators to use to train machine learning algorithm}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Results}
+  \begin{itemize}
+  \item{Under-Resourced CPU}
+    \begin{itemize}
+    \item{Response times were drastically increased}
+    \item{Target process would not fail}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Results}
+  \begin{itemize}
+  \item{Memory Corruption}
+    \begin{itemize}
+    \item{Different from fault-injection in that it corrupts heap-space instead
+    of program memory}
+    \item{Same as fault-injection: either wouldn't fail, or would crash
+    immediately with no warning signs}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Results}
+  \begin{itemize}
+  \item{Memory Leak}
+    \begin{itemize}
+    \item{Only fault load that caused failure with indicators present in log
+    messages prior to failure}
+    \item{Trained two statistical models (Support Vector Machine, and Boosted
+    Decision Tree)}
+    \item{As expected, both predictors performed adequately before software
+    update, then poorly after}
+    \item{After re-training with newly generated data performance once again
+    was adequate}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Results}
+  \begin{itemize}
+  \item{What is adequate?}
+    \begin{itemize}
+    \item{Na{\"i}ve predictor predicts non-failure prone at all times}
+    \item{Currently no form of prediction is taking place in operational
+    environment}
+    \item{Machine learning classification algorithms evaluated using ROC and
+    Precision/Recall Curves~\cite{salfnerSurvey,islr}}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Results}
+  Sample ROC and Precision Recall Curves:
+  \begin{multicols}{2}
+  \figprecisionRecallCurve{0.4\textwidth}
+  \figROC{0.4\textwidth}
+  \end{multicols}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Results}
+  \begin{itemize}
+  \item{Boosted Decision Tree Performance}
+  \end{itemize}
+  \figMemLeakPostUpdateBoostingPerf
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Future Work}
+  \begin{itemize}
+  \item{Further validation and automation}
+  \item{Implement and make operational}
+  \item{Further explore fault injection}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Summary}
+  \begin{itemize}
+  \item{Domain Controller (\emph{lsass.exe}) is relatively robust process}
+  \item{Unmodified, AFP incompatible with modern domain controller}
+  \item{Extended AFP capable of automatically training an effective failure
+  prediction model}
+  \item{Extended AFP is able to adapt to underlying system changes to minimize
+  impact on manpower}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \centering
+  \Huge Questions?
+\end{frame}
+
+
+\frame[allowframebreaks]{
+  \bibliography{../Back/references}
+  \bibliographystyle{plain}
+} 
+ 
+\end{document}

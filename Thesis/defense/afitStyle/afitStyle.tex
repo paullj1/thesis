@@ -1,0 +1,62 @@
+%% Implements AFIT Presentation Style
+% Original Author: Paul Jordan <paul.jordan.7@us.af.mil | paullj1@gmail.com>
+% Created:         16 August 2016
+% Last Updated:    16 August 2016
+
+\RequirePackage{tikz,textpos}
+
+%% Customize Non-Title Slides
+% Sets background image for non-title slides
+\usebackgroundtemplate{
+  \includegraphics[width=\paperwidth,height=\paperheight]{./afitStyle/Slide}
+}
+
+% Sets frame title to not overlap logo
+\setbeamertemplate{frametitle}{
+  \raisebox{-3mm}{
+    \hspace*{8mm}\parbox{85mm}{
+      \usebeamerfont{frametitle}\insertframetitle
+    }
+  }
+  \hfill \break \hfill \break
+}
+
+% Customizes Navigation Symbols
+\beamertemplatenavigationsymbolsempty
+\addtobeamertemplate{navigation symbols}{}{
+  \usebeamerfont{footline}
+  \usebeamercolor[fg]{footline}
+  \insertslidenavigationsymbol
+  \insertframenavigationsymbol
+  \insertdocnavigationsymbol
+  \insertbackfindforwardnavigationsymbol
+  \hspace{1em} \raisebox{2 pt}{\insertframenumber} \hspace{1em} % Slide Number
+}
+
+%% Customize Title Slide
+\defbeamertemplate*{title page}{afitStyle}[1][]{
+  \vspace{3em}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \usebeamerfont{title}\inserttitle\par
+      \usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par
+      \bigskip
+      \usebeamerfont{author}\insertauthor\par
+      \smallskip
+      \usebeamerfont{institute}\insertinstitute\par
+      \smallskip
+      \usebeamerfont{date}\insertdate\par
+    \end{column}
+  \end{columns}
+}
+
+% Sets background image for title slide
+\addtobeamertemplate{title page}{
+  \begin{textblock*}{\paperwidth}(-10mm,-9.7mm)
+  \includegraphics[width=\paperwidth,height=\paperheight]{./afitStyle/TitleSlide}
+  \end{textblock*}
+}{}
+

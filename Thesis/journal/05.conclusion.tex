@@ -1,0 +1,18 @@
+\section{Conclusion and Future Work} \label{chapter5}
+The presented \ac{AFP} framework extends the current \ac{AFP} framework with
+additional fault loads which can be used to effectively predict failures that
+might occur in a production environment, and is capable of adapting to
+underlying system changes using only reported errors.  As was demonstrated with
+the \ac{SVM} predictor, the underlying system changes can introduce or
+eliminate an applications vulnerability to certain types of faults.  For this
+reason, if the extended \ac{AFP} framework is implemented on \ac{MS} Windows
+2008, all fault loads should be used in the execution and training phases.
+
+An additional area of exploration should be to better identify how fault
+injection actually affects the underlying system.  This research has shown that
+in some cases, it can be extremely difficult to identify areas that will create
+realistic failure conditions with any preceding indicators.  Even when
+constrained, a single library can have hundreds of injection points.
+Furthermore, in some cases, even when all injection points are tested, none may
+lead to a realistic failure.  For this reason, the additional fault loads play
+an integral role.

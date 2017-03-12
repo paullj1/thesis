@@ -1,0 +1,331 @@
+\documentclass[]{beamer}
+%\documentclass[handout]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage[automake,shortcuts]{glossaries}
+
+%% Use for printing
+%\usepackage{handoutWithNotes}
+%\pgfpagesuselayout{3 on 1 with notes}[letterpaper,border shrink=2cm]
+
+% Beamer doesn't define this
+\newenvironment{figure*}{\begin{figure}}{\end{figure}}
+
+% Adds label to bibliography entries
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
+\input{../Preamble/myFigures}
+\input{../Preamble/myTables}
+\input{../Back/glossary}
+\input{./afitStyle/afitStyle}
+
+\graphicspath{ {../../Figures/} }
+ 
+\title{Data-Driven Device Failure Prediction}
+\subtitle{Thesis Defense}
+\author{Paul L. Jordan \\
+\hfill \break
+\textbf{\footnotesize{Thesis Advisor}} \\
+\footnotesize{G.L. Peterson} \\
+\hfill \break
+\textbf{\footnotesize{Committee Members}} \\
+\footnotesize{M.J.~Mendenhall, A.C.~Lin, and A.J.~Sellers}}
+\date{18 August 2016}
+ 
+\begin{document}
+
+\frame{\titlepage}
+
+\section{Introduction} 
+\frame{ \frametitle{Overview}
+  \tableofcontents
+}
+ 
+\frame{ \frametitle{Problem}
+  \begin{itemize}
+  \item Computer systems fail, not often, but could have devastating
+  consequences
+  \item Redundancy can help, but it is expensive, complex, and only masks the
+  root cause
+  \item Survey paper of techniques for predicting failure using machine
+  learning~\cite{salfnerSurvey}
+  \item Difficulty is in finding or obtaining training data
+  \end{itemize}
+}
+
+\frame{ \frametitle{Solution?}
+  \begin{itemize}
+  \item{\ac{AFP} framework~\cite{irrera2015}}
+  \item{\ac{AFP} wasn't capable of running on modern operating system}
+  \item{\ac{AFP} didn't exhaustively emulate all possible/realistic
+  faults~\cite{kikuchi2014}}
+  \end{itemize}
+}
+
+\frame{ \frametitle{Solution}
+  \begin{itemize}
+  \item{This work presents an extended \ac{AFP}}
+  \item{New realistic fault loads:}
+    \begin{itemize}
+    \item{Memory Corruption}
+    \item{\ac{CPU} Limitation}
+    \item{Memory Limitation (due to leak)}
+    \end{itemize}
+  \item{Modernized fault injection tool: \ac{W-SWFIT}}
+  \item{Workload Generator: \ac{D-PLG}~\cite{jordan2016}}
+  \end{itemize}
+}
+
+\section{Related Work} 
+\frame{
+  \centering
+  \vspace{1cm} \Huge Related Work
+}
+
+\frame{ \frametitle{\ac{PFM}}
+  \figproactiveFaultManagement{0.6\textwidth}
+  \begin{itemize}
+  \item \textbf{\ac{OFP}}
+  \item Diagnosis
+  \item Action Scheduling
+  \item Action Execution
+  \end{itemize}
+}
+
+\frame{ \frametitle{\acrfull{OFP}}
+  \begin{itemize}
+  \item Act of evaluating a running system in real time to make a prediction
+  about whether a failure in a future state is imminent~\cite{salfnerSurvey}
+  \end{itemize}
+}
+
+\frame[shrink]{ \frametitle{\acrfull{OFP}}
+  \figonlinePrediction{0.6\textwidth}
+  \vspace*{-0.5cm}
+  \begin{itemize}
+    \item{Present Time: $t$}
+    \item{Data Window: $\Delta t_{d}$, represents the time window of data used
+    for a predictor to make its assessment.}
+    \item{Lead Time: $\Delta t_{l}$, represents the time between when failure is
+    predicted and when that failure will occur.}
+    \item{Minimal Warning Time: $\Delta t_{w}$, is the amount of time required
+    to avoid a failure if one is predicted.}
+    \item{Prediction Period: $\Delta t_{p}$, is the time for which a prediction
+    is valid.}
+  \end{itemize}
+}
+
+\frame{ \frametitle{Faults, Errors, and Failures}
+  \begin{itemize}
+  \item Failure:  Delivered service deviates from correct service
+  \item Error:  The point when things go wrong (Detected vs. Undetected)
+  \item Fault:  Hypothesized root cause of an error
+  \end{itemize}
+}
+
+\frame{ \frametitle{Faults, Errors, and Failures}
+  \figfailureFlowDiagram{0.8\textwidth}
+}
+
+\frame{ \frametitle{Base \acrfull{AFP}}
+  \begin{itemize}
+  \item Virtually clones target system
+  \item Generates realistic workload for target to accomplish
+  \item Synthesizes realistic faults that lead to failure
+  \item Capture data from system to train failure prediction model
+  \end{itemize}
+}
+
+\frame{ \frametitle{Base \acrfull{AFP}}
+  \figAFP{0.5\textwidth}
+}
+
+\section{Methodology} 
+\frame{
+  \centering
+  \vspace{1cm} \Huge Methodology
+}
+
+\frame{ \frametitle{\acrfull{AFP} Implementation}
+  \vspace*{-0.5cm}
+  \tabHypervisorOne
+  \tabHypervisorTwo
+}
+
+\frame{ \frametitle{\acrfull{AFP} Implementation}
+  \begin{itemize}
+  \item Workload Generator: \ac{D-PLG} with five client machines
+  \item Fault-Load Generator:
+    \begin{itemize}
+    \item \ac{W-SWFIT}
+    \item Memory Corruption
+    \item \ac{CPU} Limitation
+    \item Memory Limitation (due to leak)
+    \end{itemize}
+  \item Events Manager: rsyslog server with SolarWinds syslog forwarder
+  \item Prediction Model: \ac{SVM} and boosted decision trees in \emph{R}
+  \end{itemize}
+}
+
+\section{Experimental Results} 
+\frame{
+  \centering
+  \vspace{1cm} \Huge Experimental Results
+}
+
+\frame{ \frametitle{Results}
+  \begin{itemize}
+  \item{Four fault loads tested on a Windows \ac{DC} and an Apache web server:}
+    \begin{itemize}
+    \item \ac{W-SWFIT}
+    \item Memory Corruption
+    \item \ac{CPU} Limitation
+    \item Memory Limitation (due to leak)
+    \end{itemize}
+  \end{itemize}
+}
+
+\subsection{Fault Injection}
+\frame{ \frametitle{Fault Injection}
+  \begin{itemize}
+  \item{Target process crashes immediately}
+  \item{\ac{DC}: restarts the computer}
+  \item{Apache: starts a new child server process or parent process halts}
+  \item{No indicators to use to train machine learning algorithm}
+  \end{itemize}
+}
+
+\subsection{Under-Resourced \ac{CPU}}
+\frame{ \frametitle{Under-Resource \ac{CPU}}
+  \begin{itemize}
+  \item{Third party application consumed all \ac{CPU} time}
+  \item{\ac{VM} resources were reduced}
+  \item{Results}
+    \begin{itemize}
+    \item{Both cases resulted in same behavior}
+    \item{Slower response times for both the \ac{DC} and Apache web server}
+    \item{Target process would not fail}
+    \end{itemize}
+  \end{itemize}
+}
+
+\subsection{Memory Corruption}
+\frame{ \frametitle{Memory Corruption}
+  \begin{itemize}
+  \item{Different from fault-injection in that it corrupts heap-space instead
+  of program memory}
+  \item{\ac{DC}: corrupted the user database}
+  \item{Apache: corrupted web content}
+  \item{Results}
+    \begin{itemize}
+    \item{Same as fault injection: either would not fail, or would crash
+    immediately with no warning signs}
+    \end{itemize}
+  \end{itemize}
+}
+
+\subsection{Memory Leak}
+\frame{ \frametitle{Memory Leak}
+  \begin{itemize}
+  \item{Third party application consumed all available memory}
+  \item{Only fault load that caused failure with indicators present in log
+  messages prior to failure}
+  \item{Trained two statistical models (\ac{SVM}, and Boosted Decision Trees)}
+  \item{As expected, both predictors performed adequately before software
+  update, then poorly after}
+  \item{After re-training with newly generated data performance once again
+  was adequate}
+  \end{itemize}
+}
+
+\frame{ \frametitle{Memory Leak}
+  \begin{itemize}
+  \item{What is adequate?}
+    \begin{itemize}
+    \item{Na{\"i}ve predictor predicts non-failure prone at all times}
+    \item{Currently no form of prediction is taking place in operational
+    environment}
+    \item{Machine learning classification algorithms evaluated using confusion
+    matrix at best F-Measure, \ac{ROC}, \ac{AUC}, and Precision/Recall
+    Curves~\cite{salfnerSurvey,islr}}
+    \end{itemize}
+  \end{itemize}
+}
+
+\frame[shrink]{ \frametitle{\acrfull{SVM} Performance}
+  \vspace*{-0.5cm}
+  \figMemLeakPreUpdateSVMPerf
+  \vspace*{-0.5cm}
+  \begin{itemize}
+  \item Before software update, \ac{AUC}: $0.8664$
+  \item After re-training, \ac{AUC}: N/A (highest F-Measure: $0.4380$)
+  \end{itemize}
+}
+
+\frame{ \frametitle{\acrfull{SVM} Performance}
+  \tabMemLeakPreUpdateSVMConfusionMatrix
+}
+
+\frame[shrink]{ \frametitle{Boosted Decision Tree Performance}
+  \figMemLeakCombinedBoostPerf
+  \vspace*{-0.5cm}
+  \begin{itemize}
+  \item Before software update, \ac{AUC}: $0.9984$
+  \item After software update, \ac{AUC}: $0.4854$
+  \item After re-training, \ac{AUC}: $0.9801$
+  \end{itemize}
+}
+
+\frame[allowframebreaks]{ \frametitle{Boosted Decision Tree Performance}
+  \tabMemLeakPreUpdateBoostingConfusionMatrix
+  \framebreak
+  \tabMemLeakPostUpdateBoostingSameModelConfusionMatrix
+  \framebreak
+  \tabMemLeakPostUpdateBoostingConfusionMatrix
+}
+
+\section{Conclusions \& Future Work} 
+\frame{
+  \centering
+  \vspace{1cm} \Huge Conclusions \& Future Work
+}
+
+\frame{ \frametitle{Conclusions}
+  \begin{itemize}
+  \item Extended \ac{AFP} presented can predict realistic failure in production
+  systems
+  \item Capable of adapting to underlying system changes
+  \item Vulnerability to certain types of failure can come and go,
+  consequently, all fault loads should be used
+  \end{itemize}
+}
+
+\frame{ \frametitle{Future Work}
+  \begin{itemize}
+  \item{Further explore how best to implement fault injection and its true
+  impact}
+  \item{Integrate real failure data}
+  \item{Further validation and automation}
+  \item{Implement and make operational}
+  \end{itemize}
+}
+
+\frame{ \frametitle{Summary}
+  \tableofcontents
+}
+
+\frame{
+  \centering
+  \vspace{1cm} \Huge Questions?
+}
+
+\frame[allowframebreaks]{ \frametitle{References}
+  \bibliography{../Back/references}
+  \bibliographystyle{ieeetr}
+} 
+ 
+\end{document}

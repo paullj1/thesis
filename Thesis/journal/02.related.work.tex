@@ -1,0 +1,91 @@
+\section{Overview of \acrfull{OFP}} \label{chapter2}
+\ac{OFP} is the act of evaluating a running system in real time to make a
+prediction about whether a failure in a future state is
+imminent~\citep{salfnerSurvey}.  Traditionally, failure is predicted using
+statistical information about past failures offline before a system is fielded.
+Unfortunately, the complexity of modern computer systems and the infinite
+number of ways in which they can be configured, limits the usefulness of
+offline analysis.
+
+\citet{salfnerSurvey} published a survey paper that provides a comprehensive
+summary of the state of the art on the topic of \ac{OFP}.  In addition to the
+review of the literature up to the point of publication, they provide a summary
+of definitions and measures of performance commonly used in the community for
+couching the \ac{OFP} discussion.  The remainder of this section reviews those
+definitions to build a foundation for the rest of this work.
+
+\subsection{\acrfull{PFM}} \label{pfm}
+\citet{salfnerSurvey} define \ac{PFM} as the process by which faults are
+handled in a proactive way, analogous with \emph{fault tolerance} and
+consisting of four steps: \ac{OFP}, diagnosis, action scheduling, and action
+execution.  The final three stages of \ac{PFM} define how much lead time is
+required to avoid a failure when predicted during \ac{OFP}.  \emph{Lead time}
+is defined as the time between when failure is predicted and when that failure
+will occur.  Lead time is one of the most critical elements of a failure
+prediction approach.
+
+\figonlinePrediction{0.8\textwidth}
+
+Figure~\ref{fig:onlinePrediction} demonstrates the timeline associated with
+\ac{OFP}.  The parameters used by the community to define a predictor are as
+follows:
+\begin{itemize}
+	\item{Present Time: $\mathrm{t}$}
+  \item{Data Window: $\mathrm{\Delta t_{d}}$, represents the time window of
+  data used for a predictor to make its assessment.}
+  \item{Lead Time: $\mathrm{\Delta t_{l}}$, represents the time between when
+  failure is predicted and when that failure will occur.}
+  \item{Minimal Warning Time: $\mathrm{\Delta t_{w}}$, is the amount of time
+  required to avoid a failure if one is predicted.}
+  \item{Prediction Period: $\mathrm{\Delta t_{p}}$, is the time for which a
+  prediction is valid.  As $\mathrm{\Delta t_{p} \rightarrow \infty}$, the
+  accuracy of the predictor approaches 100\% because every system will
+  eventually fail.  As this happens, the usefulness of a predictor is
+  diminished.}
+\end{itemize}
+
+\subsection{Faults, Errors, Symptoms, and Failures}
+This research uses the definitions defined by \citet{avivzienis2004basic} as
+interpreted and extended by \citet{salfnerSurvey} for the following terms:
+failure; error (detected versus undetected); fault; and symptom.
+
+\emph{Failure} is an event that occurs when the delivered service deviates from
+correct service.  In other words, things can go wrong internally; as long as
+the output of a system is what is expected, failure has not occurred.  An
+\emph{error} is the part of the total state of the system that may lead to its
+subsequent service failure.  \emph{Errors} are characterized as the point when
+things go wrong.  Fault tolerant systems can handle errors without necessarily
+evolving into failure.  There are two kinds of errors.  First, a \emph{detected
+error} is an error that is reported to a logging service.  Second,
+\emph{undetected errors} are errors that have not been identified by an error
+detector.  Undetected errors are things like memory leaks.  Finally, a
+\emph{fault} is the hypothesized root cause of an error.  Faults can remain
+dormant for some time before manifesting themselves and causing an incorrect
+system state.  In the memory leak example, the missing \emph{free} statement in
+the source code would be the fault.  
+
+\subsection{\acrfull{AFP} Framework} \label{afp}
+Since systems are frequently updated and failures are rare events, real failure
+data is often not available.  Moreover, the literature shows that even if there
+is a certain type of failure in training data and a predictor can detect and
+predict that type of error accurately, it will still miss failures not present
+in the training data.  The \ac{AFP} framework by \citet{irrera2015} presents an
+approach to maintain the efficacy of failure predictors given underlying system
+changes by repeatedly injecting faults.
+
+The framework generates failure data by injecting software faults using a tool
+based on \ac{G-SWFIT}~\citep{gswfit} in a virtual environment for comparing and
+automatically re-training predictors.  After implementing the \ac{AFP}
+framework using a web server and an \ac{SVM} predictor, they report that their
+findings demonstrate the framework is able to adapt to changes to an underlying
+system that would normally render a predictor unusable.
+
+In general, the use of simulated data is not well received by the community.
+However, \citet{irrera2010,irrera2014} report evidence supporting the claim
+that simulated failure data is representative of real failure data.  By
+injecting faults, there is an increased likelihood potential failure types are
+represented in the training data.
+
+\citet{irrera2015} reported good results and concluded that the \ac{AFP}
+framework is an effective tool.  Unfortunately, the fault load used does not
+completely represent all possible failures~\citep{kikuchi2014}.

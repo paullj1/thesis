@@ -1,0 +1,46 @@
+\documentclass[12pt,letterpaper,oneside]{book}
+\usepackage{../afitStyleFiles/afitThesis}
+\usepackage{../afitStyleFiles/sf298}
+\usepackage[pdftex,pdfpagelabels,bookmarks,hyperindex,hyperfigures]{hyperref}
+\usepackage[nogroupskip,automake,nonumberlist,nopostdot,shortcuts,section]{glossaries}
+
+\mathchardef\mhyphen="2D % Define a "math hyphen"
+\graphicspath{{../Figures/}}
+\input{Back/glossary}
+
+\input{Preamble/titlepage}
+\input{Preamble/myFigures}
+\input{Preamble/myTables}
+\input{Preamble/commonSymbols}
+
+\begin{document}
+
+\frontmatter
+  \flyleaf                        
+  \disclaimerpage                 
+  \titlepageAFIT                      
+  \committeepage  
+  \input{Front/abstract}
+  \input{Front/acknowledgements}
+  \tableofcontents
+  \listoffigures
+  \listoftables
+
+\mainmatter
+  \input{chapter01}
+  \input{chapter02}
+  \input{chapter03}
+  \input{chapter04}
+  \input{chapter05}
+
+\appendix
+  \input{appendices}
+
+\backmatter
+  \singlespace
+  \bibliographystyle{ieeetr}
+  \bibliography{Back/references} 
+  \input{Back/SF298}
+  \clearpage
+
+\end{document}
