@@ -4,7 +4,7 @@ realistic failure data for the purpose of training statistical failure
 prediction models.  To do this requires representative fault loads, a workload
 generator, and a modern fault injection tool.  Figure~\ref{fig:highlightedAFP}
 shows the original \ac{AFP} architecture with the modules updated in this work
-highlighted.
+outlined.
 
 This section outlines the implementation and extensions to the original
 \ac{AFP} framework \citep{irrera2015}.  The \ac{AFP} framework was originally
@@ -199,8 +199,11 @@ after cloning.
 This section outlines the extensions to the \ac{AFP} framework explored.
 \hl{Given that fault injection can produce many faults that might otherwise
 never have happened~\citep{kikuchi2014}, the next three sub-sections outline
-the more targeted fault inducing loads explored in this work.}  Finally, an
-outline of the changes in how data was collected from the target is presented.
+the primary extension of the \ac{AFP} framework: targeted fault inducing
+loads.  This extension has the ability to drastically reduce the number of
+faults that must be generated in order to produce the most realistic failures.}
+Finally, an outline of the changes in how data was collected from the target is
+presented.
 
 \subsubsection{Under-Resourced \ac{CPU}} \label{sec:extUnderResourcedCPU}
 A \ac{CPU} may become under-resourced in a few ways.  The organization
