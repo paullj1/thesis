@@ -150,7 +150,10 @@ of injecting into x86-64 elevated system process (such as the `lsass.exe'
 process).  This tool is called the
 \ac{W-SWFIT}\footnote{\url{https://github.com/paullj1/w-swfit/}}, \hl{and it 
 implements two of the primary faults implemented by \ac{G-SWFIT}.  These faults
-simulate a missing function call as well as a missing variable assignment.}
+simulate a missing function call as well as a missing variable assignment shown
+in Table~\ref{tab:wswfitfaults}.}
+
+\tabWSWFITFaults
 
 Since many of the critical functions performed by the \ac{AD} services
 processes are performed in the
@@ -158,9 +161,9 @@ processes are performed in the
 library loaded by the `lsass.exe' process, it was the focus of fault injection.
 
 Because of the concerns with fault
-injection~\citep{cotroneo2012,kikuchi2014,natella2010}, this research generated
-failure data using fault injection in conjunction with three new fault inducing
-loads, covered in Section~\ref{sec:extensions}.
+injection~\citep{cotroneo2012,kikuchi2014,natella2010,natella2016assessing},
+this research generated failure data using fault injection in conjunction with
+three new fault inducing loads, covered in Section~\ref{sec:extensions}.
 
 \paragraph{Monitoring} \label{sec:sandboxMonitoringTool} 
 The purpose of this module is to capture indicators of pending failure at the
@@ -198,12 +201,12 @@ after cloning.
 \subsection{Fault Load Generators} \label{sec:extensions}
 This section outlines the extensions to the \ac{AFP} framework explored.
 \hl{Given that fault injection can produce many faults that might otherwise
-never have happened~\citep{kikuchi2014}, the next three sub-sections outline
-the primary extension of the \ac{AFP} framework: targeted fault inducing
-loads.  This extension has the ability to drastically reduce the number of
-faults that must be generated in order to produce the most realistic failures.}
-Finally, an outline of the changes in how data was collected from the target is
-presented.
+never have happened~\citep{kikuchi2014,natella2016assessing}, the next three
+sub-sections outline the primary extension of the \ac{AFP} framework: targeted
+fault inducing loads.  This extension has the ability to drastically reduce the
+number of faults that must be generated in order to produce the most realistic
+failures.} Finally, an outline of the changes in how data was collected from
+the target is presented.
 
 \subsubsection{Under-Resourced \ac{CPU}} \label{sec:extUnderResourcedCPU}
 A \ac{CPU} may become under-resourced in a few ways.  The organization
