@@ -1,48 +1,54 @@
 \section{Introduction} \label{chapter1}
-Computer systems are all around us.  Some of these systems play insignificant
-roles in our lives while others are responsible for sustaining our lives.
-Unfortunately, the software that controls these systems is written by humans
-and consequently subject to human error.  As a result, these systems are prone
-to failure with potentially catastrophic consequences.  
+\hl{Enterprise} computer systems are all around us.  Some of these systems play
+insignificant roles in our lives while others are responsible for sustaining
+\hl{them~\citep{mandal2016,niemi2017}}.  Unfortunately, the software that
+controls these \hl{enterprise} systems is written by humans and consequently
+subject to human error.  As a result, these systems are prone to failure with
+potentially catastrophic consequences.  
 
-Being able to predict pending failure in those systems can offer tremendous,
-and potentially life-saving benefits.  While being able to \hl{perfectly}
-predict failure has unfortunately not been proven possible, there has been work
-over the past several decades attempting to make predictions about the failure
-of machines through the use of machine learning
-algorithms~\citep{salfnerSurvey}.  Unfortunately, much of this work has gone
-unused~\citep{irrera2015}.  
+Being able to predict pending failure in these systems can offer tremendous and
+potentially life-saving benefits.  \hl{While being able to perfectly predict
+failure has not been proven possible}, there \hl{have been efforts} over the
+past several decades to make predictions about the failure of machines through
+the use of machine learning algorithms~\citep{salfnerSurvey}.  Unfortunately,
+much of this work has gone unused~\citep{irrera2015}.  
 
 In this case, failure is defined as the result of a software fault or
 error~\citep{salfnerSurvey}.  There are a number of ways to reduce the number
 of errors produced by a piece of software, but the software development
-life-cycle is shrinking and less time and effort are being devoted to reducing
-errors before deployment~\citep{schmidt2016}.  \hl{Consequently, more errors
-are being shipped in production code which results in the need for more}
-real-time error prevention and handling.  In recent years, the trending
-solution to this problem is configuring massively redundant systems that can
-withstand failure~\citep{bauer2012}.  While effective, redundant systems incur
-a high cost and enterprise design may limit their implementation.
-Consequently, this research focuses on an area of reliable computing called
-\ac{OFP}.  \ac{OFP} is the act of attempting to predict when failures are
-likely so that they can be avoided~\citep{salfnerSurvey}.  
+life-cycle is shrinking, with less time and effort being devoted to reducing
+errors before deployment~\citep{schmidt2016}.  Consequently, more errors are
+being shipped in production code which results in the need for more real-time
+error prevention and handling.  In recent years, the trending solution to this
+problem has been to configure massively redundant systems that can withstand
+failure~\citep{bauer2012}.  While effective, redundant systems incur a high
+cost and enterprise design may limit their implementation.  Consequently, this
+research focuses on an area of reliable computing called \ac{OFP}.  \ac{OFP} is
+the act of attempting to predict when failures are likely so that they can be
+avoided~\citep{salfnerSurvey}.  
 
-Training a prediction model requires training data, which is limited due to the
-rarity of failure events and the complex and manual training process.  To
-address this problem, \citet{irrera2015} presented the \ac{AFP} framework that
-automates the process of dynamically generating failure data and using it to
-train a predictor after an underlying system change.  \hl{Unfortunately, with
-fault injection as used by the framework, the majority of injected faults lead
-to immediate failure and may never occur in
-production~\citep{kikuchi2014,natella2016assessing}.}
+Training a prediction model requires training data, \hl{but the data
+availability} is limited due to the rarity of failure events and the complex
+and manual training process.  To address this problem, \citet{irrera2015}
+presented the \ac{AFP} framework, which automates the process of dynamically
+generating failure data and using it to train a predictor after an underlying
+system change.  Fault injection does identify useful faults, but the
+\hl{existing approaches injected faults that led to immediate failure of the
+target system~\citep{kikuchi2014,natella2016assessing}.  However, failure
+prediction is not aimed at predicting such failure scenarios: instead,
+prediction targets failure behaviors that manifest gradually over a long
+period of time, thus allowing the system to proactively avoid the failure
+during this period, such as by rebooting at a convenient time. Thus, it is
+important to introduce these kinds of failure behaviors in order to train an
+effective failure predictor.}
 
-\hl{This research presents analysis of a practical implementation of the
+This research presents an analysis of a practical implementation of the
 \ac{AFP} framework with a more targeted fault load including focused software
 fault injection, third party memory leaks, third party \ac{CPU}
-over-utilization, and heap-space corruption.} The implementation is then
-validated on a \ac{MS} Windows Server \ac{DC}, and on an Apache web server.
-Results showed that targeted fault inducing loads could create realistic
-failure conditions on Windows Server 2008 and software fault injection alone
-did not.  Furthermore, these failures were identifiable by \ac{SVM} and boosted
-decision tree statistical learning models with an average area under the
+over-utilization, and heap-space corruption. The implementation is validated on
+a \ac{MS} Windows Server 2008 \ac{DC} and on an Apache web server.  The results
+showed that targeted fault-inducing loads could create realistic failure
+conditions on Windows Server 2008, whereas software fault injection alone could
+not.  Furthermore, these failures were identifiable by \ac{SVM} and boosted
+decision-tree statistical learning models, with an average area under the
 \ac{ROC} curve of $0.98$.

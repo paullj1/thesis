@@ -1,19 +1,20 @@
 \section{Conclusion and Future Work} \label{chapter5}
-The presented \hl{targeted fault inducing loads for the} \ac{AFP} framework
-extend the current \ac{AFP} framework to more effectively predict failures that
-might actually occur in a production environment.  As was demonstrated with the
-\ac{SVM} predictor, the underlying system changes can introduce or eliminate an
-applications vulnerability to certain types of faults.  For this reason, if
-\hl{these new fault loads are} implemented on \ac{MS} Windows 2008, all \hl{of
-them} should be used in the execution and training phases.
+The three presented targeted fault-inducing loads, the new fault injection tool
+\ac{W-SWFIT}, and the validation on a modern operating system extend the
+\ac{AFP} framework to more effectively predict failures that might actually
+occur in a production environment.  As was demonstrated with the \ac{SVM}
+predictor, the underlying system changes can introduce or eliminate an
+application’s vulnerability to certain types of faults.  For this reason, if
+these new fault loads are implemented on \ac{MS} Windows 2008, all of them
+should be used in the execution and training phases.
 
 An additional area of exploration should be to better identify how fault
-injection actually affects the underlying system.  This research has shown that
-in some cases, it can be extremely difficult to identify areas that will create
+injection affects the underlying system.  This research has shown that in some
+cases, it can be extremely difficult to identify areas that will create
 realistic failure conditions with any preceding indicators.  Even when
 constrained, a single library can have hundreds of injection points.
 Furthermore, in some cases, even when all injection points are tested, none may
 lead to a realistic failure.  For this reason, the additional fault loads play
-an integral role.  \hl{Finally, existing prediction techniques could be applied
-to this same data set in order to gain more insight into when a failure may
-occur and possibly increase lead time.}
+an integral role.  Finally, existing prediction techniques could be applied to
+this same data set to gain further insight into when a failure may occur and
+possibly increase the lead time.

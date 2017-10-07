@@ -1,29 +1,26 @@
-\section{Extended \acrfull{AFP}} \label{chapter3}
-The extended \ac{AFP} framework is an automated framework for generating
-realistic failure data for the purpose of training statistical failure
-prediction models.  To do this requires representative fault loads, a workload
-generator, and a modern fault injection tool.  Figure~\ref{fig:highlightedAFP}
-shows the original \ac{AFP} architecture with the modules updated in this work
-outlined.
+\section{Extended \acrfull{AFP}} \label{chapter3} 
+The \ac{AFP} framework is a framework for generating realistic failure data for
+the purpose of training statistical failure prediction models.  The \ac{AFP}
+framework requires representative fault loads, a workload generator, and a
+modern fault injection tool.  Figure~\ref{fig:highlightedAFP} shows the
+original \ac{AFP} architecture.
 
-This section outlines the implementation and extensions to the original
-\ac{AFP} framework \citep{irrera2015}.  The \ac{AFP} framework was originally
-tested on a single system running Windows XP, which has been deprecated.
-Consequently, the extended \ac{AFP} framework presented has been updated to run
-on the Windows Server 2008 operating system and tested against the \ac{DC}
-services and an Apache web server.
+This work modifies all of the modules from the existing \ac{AFP} framework to
+explore three additional fault loads: 1) third-party memory leaks, 2)
+third-party \ac{CPU} over-utilization, and 3) heap-space corruption.  In
+addition to using the \ac{SVM} model, boosted decision trees were evaluated.
+Finally, in addition to the Apache web server, the primary target was the
+\ac{MS} Windows Server running \ac{AD} Domain Services.
 
-\subsection{The Base \acrfull{AFP}} \label{sec:implementation}
-This research builds on the experiment by \citet{irrera2015} with the following
-modifications.  Since the focus of this research is on reported errors, log
-messages were used to train the predictor as is done in many other recent
-approaches \citep{domeniconi2002,fulp2008,salfner2007,watanabe2014}.  Instead
-of only using fault injection to induce failure, this research explored three
-additional fault loads: 1) third party memory leaks, 2) third party \ac{CPU}
-over-utilization, and 3) heap-space corruption.  In addition to using the
-\ac{SVM} model, boosted decision trees were evaluated.  Finally, in addition to
-the Apache web-server, the primary target was the \ac{MS} Windows Server
-running \ac{AD} Domain Services.
+This section briefly describes the implementation and extensions of the
+original \ac{AFP} framework \citep{irrera2015}.  The \ac{AFP} framework was
+originally tested on a single system running Windows XP, which has been
+deprecated.  Consequently, the presented extended \ac{AFP} framework has been
+updated to run on the Windows Server 2008 operating system and tested against
+the \ac{DC} services and an Apache web server.
+
+\subsection{\acrfull{AFP}} \label{sec:implementation} This research builds on
+the experiment by \citet{irrera2015} with modifications made to each module.
 
 \subsubsection{\acrfull{AFP} Modules}
 This research uses the module arrangement in the \ac{AFP}~\citep{irrera2015}
@@ -32,11 +29,10 @@ virtual environment in which this architecture was constructed.
 
 \figHighlightedAFP{0.8\textwidth}
 
-For reference, this virtual environment was
-hosted on two VMWare ESXi 5.5 hypervisors each with two 2.6 \ac{GHz} AMD
-Opteron 4180 (6 cores each) \ac{CPU}s and 64 \ac{GB} memory.  The
-specifications of the individual \ac{VM}s are shown in Tables~\ref{tab:hyp1},
-and \ref{tab:hyp2}.
+For reference, this virtual environment was hosted on two VMWare ESXi 5.5
+hypervisors, each with two 2.6 \ac{GHz} AMD Opteron 4180 (6 cores each)
+\ac{CPU}s and 64 \ac{GB} memory.  The specifications of the individual \ac{VM}s
+are shown in Tables~\ref{tab:hyp1} and \ref{tab:hyp2}.
 
 \tabHypervisorOne
 \tabHypervisorTwo
@@ -45,34 +41,34 @@ and \ref{tab:hyp2}.
 
 \subsubsection{Controller Hypervisor} \label{sec:controller} % 3.X.1
 The controller responsibilities in this experiment were split between two
-systems on a single hypervisor shown in Table~\ref{tab:hyp2}.  One system was
-the \ac{MS} Windows Server responsible for workload management and fault load
-management.  The other system was an Ubuntu 14.04 server that performed the
-failure prediction management and event management.  \hl{In general, the
-workflow can be broken down into two major phases: Execution (visualized in
-Figure~\ref{fig:ExecutionPhaseHoriz}), and Training (visualized in
+systems on the single hypervisor shown in Table~\ref{tab:hyp2}.  One system was
+the \ac{MS} Windows Server, which was responsible for workload management and
+fault load management.  The other system was an Ubuntu 14.04 server, which
+performed the failure prediction management and event management.  In general,
+the workflow can be broken down into two major phases: execution (visualized in
+Figure~\ref{fig:ExecutionPhaseHoriz}) and training (visualized in
 Figure~\ref{fig:TrainingPhase}).  In this work, retraining was initiated
-manually after a software update.}  Each of these functions is
-detailed in the following sections.
+manually after a software update.  Each of these functions is detailed in the
+following sections.
 
 \figExecutionPhaseHoriz{0.8\textwidth}
 \figTrainingPhase{0.5\textwidth}
 
 \paragraph{Failure Prediction} \label{sec:failurePrediction} % 3.X.1.1
 The failure prediction module predicts failure using machine learning
-algorithms trained using the labelled training data generated by the rest of
-this framework.  This module is either training a new predictor
-because a software update occurred, or predicting failure based on log messages
-and possibly other features produced by the production system.  In this
-experiment, the statistical models were trained using the statistical
-learning software suite \emph{R}.
+algorithms that are trained using the labelled training data generated by the
+rest of this framework.  This module either trains a new predictor because a
+software update occurred or predicts failure based on log messages and possibly
+other features produced by the production system.  In this experiment, the
+statistical models were trained using the statistical learning software suite
+\emph{R}.
 
 \paragraph{Fault Injection Management} \label{sec:faultInjectionMgr}
 This module is responsible for remotely managing the fault load used to create
 realistic failure data.  It was implemented using PowerShell remote execution
 on the Windows Server \ac{VM} to minimize interaction and potential biases in
 the training data.  Details of the fault injection method are outlined
-in~\ref{sec:faultInjectionTool}
+in~\ref{sec:faultInjectionTool}.
 
 \paragraph{Workload Management} \label{sec:workloadMgr} 
 The workload management module controls the generation of computational load by
@@ -80,95 +76,94 @@ directing the sandbox workload module to create realistic work for the
 virtually cloned target to accomplish.  The purpose of this module is to
 accelerate the evolution of a fault into a failure.  Consider a missing
 \emph{free} statement and the consequent memory leak.  A production target
-server may have a large amount of available memory and the leak could be
-relatively small.  To accelerate the possibility of failure occurring,
+server may have a large amount of available memory, and the leak could be
+relatively small.  To accelerate the possibility of failure occurring, a
 realistic work load must be generated against the sandbox clone of the
 production target.
 
 In this experiment, the management and actual load generator roles have been
 divided and a new tool has been developed: \ac{D-PLG} \citep{jordan2016}.  The
 \ac{D-PLG} provides a realistic and sufficient workload for implementing the
-\ac{AFP} framework for a \ac{MS} \ac{DC} and web server.  The client portion of
-\ac{D-PLG} was used installed on five client machines and used as the sandbox
-workload generator as discussed in Section~\ref{sec:sandboxWorkload}.
+\ac{AFP} framework for an \ac{MS} \ac{DC} and a web server.  The client portion
+of \ac{D-PLG} was installed on five client machines and used as the sandbox
+workload generator, as discussed in Section~\ref{sec:sandboxWorkload}.
 
-\paragraph{Events Manager} \label{sec:eventsManagerMgr}
+\paragraph{Event Manager} \label{sec:eventsManagerMgr}
 This module is responsible for receiving and managing log messages and other
 events that may be used to train the failure prediction algorithm.
 \citet{irrera2015} use the \ac{MS} Logman tool from the remote controller for
 event management in their original case study.  Logman was configured to poll
 $170$ system variables on the target machine once per second.  
 
-Since the focus of this research is on reported errors, and the experimental
-environment in this work was modelled after modern enterprise environments
-where this sort of polling could produce too much data, this experiment
-implemented an rsyslog server daemon and the target was configured to forward
-logs to it.  Moreover, because syslog is a standard protocol, it is already in
-use in many enterprise networks today.  The messages forwarded to the events
-manager were then processed and added to a \ac{SQL} database for training and
-prediction.  
+Since this research focuses on reported errors and the experimental environment
+in this work was modelled after modern enterprise environments where this sort
+of polling could produce too much data, this experiment implemented an rsyslog
+server daemon, and the target was configured to forward logs to it.  Moreover,
+because syslog is a standard protocol, it is already used in many enterprise
+networks today.  The messages forwarded to the events manager were then
+processed and added to a \ac{SQL} database for training and prediction.  
 
 \paragraph{Sandbox Management} \label{sec:sandboxMgr} 
 The purpose of the sandbox management module is to supervise the virtual
-cloning of the production system that is made when a new predictor is to be
-trained.  As \citet{irrera2013,irrera2015} point out, it is typically
-inappropriate to inject faults and cause failures in production systems, so a
-virtual clone must be created for that purpose.  Furthermore, the
-virtualization of the target process has little affect on generated data
-\citep{irrera2013}.
+cloning of the production system when a new predictor is to be trained.  As
+\citet{irrera2013,irrera2015} note, it is typically inappropriate to inject
+faults and cause failures in production systems, so a virtual clone must be
+created for that purpose.  Furthermore, the virtualization of the target
+process has little effect on generated data \citep{irrera2013}.
 
 For this experiment, the sandbox was managed manually using \ac{VM} snapshots.
 After an initial stable state was configured, snapshots of every component of
-the architecture were taken so that they could be reset after iterations of the
-experiment.  It is important to note here that because VMWare has documented
-\ac{API}s, in future work, this function could be automated.
+the architecture were taken so that the components could be reset after
+iterations of the experiment.  It is important to note here that because VMWare
+has documented \ac{API}s, this function could be automated in future work.
 
 \subsubsection{Sandbox Hypervisor} \label{sec:sandbox}
 The sandbox hypervisor hosts the virtual clone of the production environment
-where faults are injected and from which failure data is collected.  Cloning
+where faults are injected and from which failure data are collected.  Cloning
 the production environment ensures that the production system is not affected
-and services are maintained during the training phase.  For the purposes of
-this experiment, the sandbox was constructed on a single hypervisor implemented
-as shown in Table~\ref{tab:hyp1}.  The following sections outline each module
-within this module.
+and services are maintained during the training phase.  For the purpose of this
+experiment, the sandbox was constructed on a single hypervisor, which was
+implemented as shown in Table~\ref{tab:hyp1}.  The following sections outline
+each module within this module.
 
 \paragraph{Fault Injection} \label{sec:faultInjectionTool} 
 This module is responsible for causing the target application to fail so that
 labelled failure data can be generated in a short period of time.
-\citet{irrera2015} use a single tool implementing the \ac{G-SWFIT} for this
+\citet{irrera2015} used a single tool to implement the \ac{G-SWFIT} for this
 module and pointed out that this module is the most critical piece of the
 \ac{AFP} implementation.  \ac{G-SWFIT} was developed by \citet{gswfit} to
 emulate software failures for the purposes of software testing.  The method is
-widely implemented for use in software fault injection both commercially and
+widely implemented for use in software fault injection, both commercially and
 academically \citep{cotroneo2012,irrera2014,natella2010,umadevi2015}. 
 
 Unfortunately, previous \ac{G-SWFIT} tools were incapable of injecting faults
 into elevated x86-64 Windows processes.  Older tools were written for Java or
 x86 architectures \citep{gswfit,martins2002jaca,natella2010,sanches2011jswfit}.
 For this reason, this work introduces a modernized fault injection tool capable
-of injecting into x86-64 elevated system process (such as the `lsass.exe'
+of injecting into x86-64 elevated system processes (such as the `lsass.exe'
 process).  This tool is called the
-\ac{W-SWFIT}\footnote{\url{https://github.com/paullj1/w-swfit/}}, \hl{and it 
-implements two of the primary faults implemented by \ac{G-SWFIT}.  These faults
-simulate a missing function call as well as a missing variable assignment shown
-in Table~\ref{tab:wswfitfaults}.}
+\ac{W-SWFIT} \footnote{\url{https://github.com/paullj1/w-swfit/}}
+, and it implements two of the primary faults implemented by \ac{G-SWFIT}.
+These faults simulate a missing function call as well as a missing variable
+assignment, as shown in Table~\ref{tab:wswfitfaults}.
 
 \tabWSWFITFaults
 
-Since many of the critical functions performed by the \ac{AD} services
-processes are performed in the
+Since many of the critical functions performed by the \ac{AD} service processes
+are performed in the
 `ntdsa.dll'\footnote{\url{https://technet.microsoft.com/en-us/library/cc780455(v=ws.10).aspx}}
 library loaded by the `lsass.exe' process, it was the focus of fault injection.
 
 Because of the concerns with fault
 injection~\citep{cotroneo2012,kikuchi2014,natella2010,natella2016assessing},
 this research generated failure data using fault injection in conjunction with
-three new fault inducing loads, covered in Section~\ref{sec:extensions}.
+three new fault-inducing loads, which are covered in
+Section~\ref{sec:extensions}.
 
 \paragraph{Monitoring} \label{sec:sandboxMonitoringTool} 
 The purpose of this module is to capture indicators of pending failure at the
-target host level so that it may be used to train a statistical prediction
-model.  In this experiment, syslog was used and while it is a recognized
+target-host level so that they may be used to train a statistical prediction
+model.  In this experiment, syslog was used, and although it is a recognized
 standard, syslog messages are not produced natively in Windows.  Fortunately,
 several forwarding agents are available to translate and forward native Windows
 log messages to a syslog server.  For this experiment, the \emph{Solar Winds}
@@ -182,8 +177,8 @@ that simply forwards Windows events to a syslog server.
 This module creates realistic work for the target application to do before
 faults are injected.  In this experiment, \ac{D-PLG} was used as the work load
 generator for both the \ac{DC} and web requests.  This module was implemented
-using the client portion of \ac{D-PLG} installed on five workstations and
-managed by the central workload manager as discussed in
+using the client portion of \ac{D-PLG}, which was installed on five
+workstations and managed by the central workload manager, as discussed in
 Section~\ref{sec:workloadMgr}.
 
 \subsubsection{Target Hypervisor} \label{sec:target}
@@ -192,69 +187,70 @@ shown in Table~\ref{tab:hyp1}.
 
 The target monitoring module was implemented exactly as the sandbox monitoring
 module was, using the \emph{Solar Winds} syslog forwarding tool.  The only
-modification worth noting here is that to ensure the messages were uniquely
-identifiable by the controller, the hostname of the target machine was changed
-after cloning.
+modification worth noting here is that to ensure that the messages were
+uniquely identifiable by the controller, the hostname of the target machine was
+changed after cloning.
 
 \setcounter{secnumdepth}{3}
 
 \subsection{Fault Load Generators} \label{sec:extensions}
-This section outlines the extensions to the \ac{AFP} framework explored.
-\hl{Given that fault injection can produce many faults that might otherwise
-never have happened~\citep{kikuchi2014,natella2016assessing}, the next three
-sub-sections outline the primary extension of the \ac{AFP} framework: targeted
-fault inducing loads.  This extension has the ability to drastically reduce the
-number of faults that must be generated in order to produce the most realistic
-failures.} Finally, an outline of the changes in how data was collected from
-the target is presented.
+This section outlines the explored extensions to the \ac{AFP} framework.  Given
+that fault injection can produce many faults that might otherwise never
+occur~\citep{kikuchi2014,natella2016assessing}, the next three sub-sections
+outline the primary extension of the \ac{AFP} framework: targeted
+fault-inducing loads.  This extension has the ability to drastically reduce the
+number of faults that must be generated to produce the most realistic failures.
+Finally, an outline of the changes in how data were collected from the target
+is presented.
 
 \subsubsection{Under-Resourced \ac{CPU}} \label{sec:extUnderResourcedCPU}
 A \ac{CPU} may become under-resourced in a few ways.  The organization
 implementing the target service may not accurately anticipate the amount of
 load the service may experience.  Alternatively, a third-party application
 installed on the same physical machine may inadvertently consume all \ac{CPU}
-time.  The result in both of these situations is the target process gets
+time.  The result in both of these situations is that the target process gets
 starved of \ac{CPU} time.
 
-This condition was simulated in two ways to accurately capture both scenarios
-outlined above:  1) by downsizing the number of virtual \ac{CPU}s available
-to the target \ac{VM}, and 2) by introducing a third-party application that
-ran at $100\%$ \ac{CPU}.
+This condition was simulated in two ways to accurately capture both of the
+scenarios outlined above:  1) by downsizing the number of virtual \ac{CPU}s
+available to the target \ac{VM} and 2) by introducing a third-party application
+that ran at $100\%$ \ac{CPU}.
 
 \subsubsection{Under-Resourced Memory} \label{sec:extUnderResourcedMem}
 Available memory can be limited in a few ways.  As with the under-resourced
-\ac{CPU}, the implementing organization may under estimate the amount of memory
+\ac{CPU}, the implementing organization may underestimate the amount of memory
 that will be needed by a server to handle the required demand.  Additionally, a
 third-party application could contain a memory leak.  In both cases, the target
 application may not have enough memory to accomplish the assigned work.
 
-To test this load, this experiment created both conditions outlined above by
-reducing the amount of memory available to the target \ac{VM}, and by running a
-third-party application with an intentional memory leak on the target system
-that slowly consumes all of the available system memory.
+To test this load, this experiment created both of the conditions outlined
+above by reducing the amount of memory available to the target \ac{VM} and by
+running a third-party application with an intentional memory leak on the target
+system that slowly consumes all of the available system memory.
 
-\subsubsection{Heap Space Corruption} \label{sec:extHeapSpaceCorrupt}
-Heap-space corruption can happen in a production environment in a few ways.
-First, in the Windows operating system, device drivers share critical kernel
-mode libraries and have elevated permissions \citep{russinovich2009}.  If a
-hardware device driver developer inadvertently writes to an area of memory not
-allocated for the software, it may corrupt the memory of another process.
+\subsubsection{Heap-Space Corruption} \label{sec:extHeapSpaceCorrupt}
+Heap-space corruption can occur in a production environment in a few ways.
+First, in the Windows operating system, device drivers share critical
+kernel-mode libraries and have elevated permissions \citep{russinovich2009}.
+If a hardware device driver developer inadvertently writes to an area of memory
+that is not allocated for the software, it may corrupt the memory of another
+process.
 
 In this experiment, the focus of this load was on the user database.  First,
 users that had been cached by the \ac{DC} process were corrupted.  Next, to
-simulate a disk failure, the same user was corrupted on disk.  To do this, the
-\ac{W-SWFIT} code was modified to be able to search and write anywhere in a
-processes memory.  For the Apache web server, the same technique was applied to
-the web pages to be served.
+simulate a disk failure, the same users were corrupted on disk.  To do this,
+the \ac{W-SWFIT} code was modified to enable searching and writing anywhere in
+a process’s memory.  For the Apache web server, the same technique was applied
+to the web pages to be served.
 
 \subsubsection{Reported Errors} \label{sec:extReportedErrors}
 This research focuses on detecting failures from reported errors instead of
 system information.  These are the messages the system logs.  As pointed out by
-\citet{salfnerSurvey}, a predictor only given system information is not
-typically able to determine the difference between a system that is going to
-fail and one that is perhaps under higher than average load.  It may be able to
-pick up on \emph{undetected errors}, but there is little to distinguish those
-from every day use.  Consider the \ac{DC} and a memory leak situation.
+\citet{salfnerSurvey}, a predictor that is only given system information is
+typically unable to determine the difference between a system that is going to
+fail and one that is under higher than average load.  It may be able to
+identify \emph{undetected errors}, but there is little to distinguish those
+from everyday use.  Consider the \ac{DC} and a memory leak situation.
 According to \citet{russinovich2009}, the \ac{MS} \ac{DC} will use as much
 memory as is available to cache user credentials.  This consumption of all
 available memory may appear very similar to a memory leak if system information
